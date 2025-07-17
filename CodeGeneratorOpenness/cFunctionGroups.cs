@@ -1,4 +1,4 @@
-﻿///
+///
 /// Sample applicatin for automated code generation for Siemens TIA Portal with Openness Interface
 /// 
 /// by Mark König @ 02/2020
@@ -6,6 +6,7 @@
 /// cFunctionGroup contains some functions for blocks (recursive)
 ///
 
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
@@ -25,33 +26,79 @@ namespace CodeGeneratorOpenness
 
         public void LoadTreeView(TreeView Tree, PlcSoftware Software)
         {
-            // start update treeview
-            Tree.BeginUpdate();
+            if (Software == null)
+            {
+                Logger.LogWarning("软件对象为空，无法加载TreeView", "LoadTreeView");
+                return;
+            }
 
-            // add root node
-            TreeNode root = new TreeNode(Software.Name);
-            Tree.Nodes.Add(root);
+            Logger.LogInfo($"开始加载软件 {Software.Name} 到TreeView", "LoadTreeView");
 
-            // Add Program Blocks
-            TreeNode programBlocks = new TreeNode("Program Blocks");
-            programBlocks.Tag = Software.BlockGroup;
-            root.Nodes.Add(programBlocks);
+            try
+            {
+                // start update treeview
+                Tree.BeginUpdate();
 
-            AddPlcBlocks(Software.BlockGroup, programBlocks);
-            programBlocks.Expand();
+                // add root node
+                TreeNode root = new TreeNode(Software.Name);
+                Tree.Nodes.Add(root);
 
-            // add data types
-            TreeNode dataTypes = new TreeNode("PLC Data types");
-            dataTypes.Tag = Software.TypeGroup;
-            root.Nodes.Add(dataTypes);
+                try
+                {
+                    Logger.LogInfo("开始加载程序块", "LoadTreeView");
+                    // Add Program Blocks
+                    TreeNode programBlocks = new TreeNode("Program Blocks");
+                    programBlocks.Tag = Software.BlockGroup;
+                    root.Nodes.Add(programBlocks);
 
-            AddPlcTypes(Software.TypeGroup, dataTypes);
-            dataTypes.Expand();
+                    AddPlcBlocks(Software.BlockGroup, programBlocks);
+                    programBlocks.Expand();
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogException(ex, "加载程序块");
+                    MessageBox.Show(String.Format("加载程序块时发生错误:\n{0}", ex.Message), 
+                                  "程序块加载错误", 
+                                  MessageBoxButtons.OK, 
+                                  MessageBoxIcon.Warning);
+                }
 
-            // end update
-            Tree.EndUpdate();
+                try
+                {
+                    Logger.LogInfo("开始加载数据类型", "LoadTreeView");
+                    // add data types
+                    TreeNode dataTypes = new TreeNode("PLC Data types");
+                    dataTypes.Tag = Software.TypeGroup;
+                    root.Nodes.Add(dataTypes);
 
-            root.Expand();
+                    AddPlcTypes(Software.TypeGroup, dataTypes);
+                    dataTypes.Expand();
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogException(ex, "加载数据类型");
+                    MessageBox.Show(String.Format("加载数据类型时发生错误:\n{0}", ex.Message), 
+                                  "数据类型加载错误", 
+                                  MessageBoxButtons.OK, 
+                                  MessageBoxIcon.Warning);
+                }
+
+                root.Expand();
+                Logger.LogInfo("TreeView加载完成", "LoadTreeView");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "加载树视图");
+                MessageBox.Show(String.Format("加载树视图时发生错误:\n{0}", ex.Message), 
+                              "树视图加载错误", 
+                              MessageBoxButtons.OK, 
+                              MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // end update
+                Tree.EndUpdate();
+            }
         }
         public void AddPlcBlocks(PlcBlockGroup plcGroup, TreeNode node)
         {

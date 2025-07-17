@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,6 +30,11 @@ namespace CodeGeneratorOpenness
                 var names = key.GetSubKeyNames().OrderBy(x => x).ToList();
                 foreach (string n in names)
                 {
+                    if (n.Contains("TIA Portal V19"))
+                    {
+                        Version = "19.0";
+                        Api = @"C:\Program Files\Siemens\Automation\Portal V19\PublicAPI\V19";
+                    }
                     if (n.Contains("TIA Portal V18"))
                     {
                         Version = "18.0";

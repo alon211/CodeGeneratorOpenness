@@ -1,0 +1,29 @@
+[2025-07-17 16:28:18.308] [INFO] [frmMainForm_Load]: 程序启动
+[2025-07-17 16:28:18.308] [INFO] [frmMainForm_Load]: 默认文件夹创建完成
+[2025-07-17 16:28:18.343] [INFO] [frmMainForm_Load]: 界面初始化完成
+[2025-07-17 16:30:06.998] [EXCEPTION] [打开项目]: 异常类型: MissingProductsException
+异常消息: Error when calling method 'Open' of type 'Siemens.Engineering.ProjectComposition'.
+
+Unable to open the project under path 'D:\Program NL\exchangeTray_AF_1\exchangeTray_AF_1.ap19'.
+
+The following add-on packages are missing: TIA Portal Test Suite Advanced V19
+堆栈跟踪:    at Siemens.Engineering.Private.Session.Siemens.Engineering.Private.IInstanceSession.InvokeFunc[T,TC](LifetimeContractHandle`1 lifetimeContractHandle, String name, IEnumerable`1 parameters, String fullName)
+   at Siemens.Engineering.Private.InternalInstanceAccess`2.InvokeFunc[T](String name, IEnumerable`1 parameters)
+   at Siemens.Engineering.ProjectComposition.Open(FileInfo path)
+   at CodeGeneratorOpenness.frmMainForm.openToolStripMenuItem_Click(Object sender, EventArgs e) in C:\Users\SUP\Documents\CodeGeneratorOpenness\CodeGeneratorOpenness\frmMainForm.cs:line 738
+[2025-07-17 16:41:33.535] [INFO] [frmMainForm_Closing]: 程序正在关闭
+[2025-07-17 16:41:33.535] [INFO] [frmMainForm_Closing]: 正在释放TIA Portal连接
+[2025-07-17 16:41:33.634] [INFO] [frmMainForm_Closing]: 程序关闭完成
+[2025-07-17 16:52:14.031] [INFO] [frmMainForm_Load]: 程序启动
+[2025-07-17 16:52:14.031] [INFO] [frmMainForm_Load]: 默认文件夹创建完成
+[2025-07-17 16:52:14.109] [INFO] [frmMainForm_Load]: 界面初始化完成
+[2025-07-17 16:52:33.123] [INFO] [IterateThroughDevices]: 开始遍历项目 exchangeTray_AF_1 的设备
+[2025-07-17 16:52:33.185] [INFO] [IterateThroughDevices]: 项目包含 11 个设备
+[2025-07-17 16:52:34.506] [INFO] [IterateThroughDevices]: 发现S7-1500设备: S71500/ET200MP station_1
+[2025-07-17 16:52:37.071] [INFO] [IterateThroughDevices]: 发现CPU: TEM1_AF
+[2025-07-17 16:52:37.134] [INFO] [IterateThroughDevices]: 成功获取设备 TEM1_AF 的软件容器
+[2025-07-17 16:52:37.134] [INFO] [LoadTreeView]: 开始加载软件 TEM1_AF 到TreeView
+[2025-07-17 16:52:37.134] [INFO] [LoadTreeView]: 开始加载程序块
+[2025-07-17 16:52:38.014] [INFO] [LoadTreeView]: 开始加载数据类型
+[2025-07-17 16:52:38.046] [INFO] [LoadTreeView]: TreeView加载完成
+[2025-07-17 16:52:49.244] [INFO] [IterateThroughDevices]: 设备遍历操作完成

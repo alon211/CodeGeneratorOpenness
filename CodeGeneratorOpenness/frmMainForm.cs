@@ -1,4 +1,4 @@
-﻿///
+///
 /// Sample applicatin for automated code generation for Siemens TIA Portal with Openness Interface
 /// 
 /// by Mark König @ 02/2020
@@ -52,12 +52,22 @@ namespace CodeGeneratorOpenness
 
         private void frmMainForm_Load(object sender, EventArgs e)
         {
+            // 记录程序启动
+            Logger.LogInfo("程序启动", "frmMainForm_Load");
+            
+            // 清理旧日志文件
+            Logger.CleanOldLogs();
+            
             // generate default folder
             Directory.CreateDirectory(Application.StartupPath + "\\Export");
             Directory.CreateDirectory(Application.StartupPath + "\\Import");
             Directory.CreateDirectory(Application.StartupPath + "\\Temp");
+            
+            Logger.LogInfo("默认文件夹创建完成", "frmMainForm_Load");
 
             frmTranslate();
+            
+            Logger.LogInfo("界面初始化完成", "frmMainForm_Load");
         }
 
         private void frmTranslate()
@@ -77,12 +87,19 @@ namespace CodeGeneratorOpenness
 
         private void frmMainForm_Closing(object sender, FormClosingEventArgs e)
         {
+            Logger.LogInfo("程序正在关闭", "frmMainForm_Closing");
+            
             // dispose objects
             software = null;
             project = null;
 
             if (tiaPortal != null)
+            {
+                Logger.LogInfo("正在释放TIA Portal连接", "frmMainForm_Closing");
                 tiaPortal.Dispose();
+            }
+            
+            Logger.LogInfo("程序关闭完成", "frmMainForm_Closing");
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -94,60 +111,94 @@ namespace CodeGeneratorOpenness
         {
             // no project is open
             if (project == null)
+            {
+                Logger.LogWarning("尝试遍历设备但项目为空", "IterateThroughDevices");
                 return;
+            }
+
+            Logger.LogInfo($"开始遍历项目 {project.Name} 的设备", "IterateThroughDevices");
 
             // shop a form to indicate work
             frmReadStructure read = new frmReadStructure();
             read.Show();
             read.BringToFront();
 
-            //Console.WriteLine(String.Format("Iterate through {0} device(s)", project.Devices.Count));
-            listBox1.Items.Clear();
-            listBox2.Items.Clear();
-
-            Application.DoEvents();
-
-            groups.ClearTreeView(treeView1);
-
-            // search through devices
-            foreach (Device device in project.Devices)
+            try
             {
-                if (device.TypeIdentifier != null)
+                Logger.LogInfo($"项目包含 {project.Devices.Count} 个设备", "IterateThroughDevices");
+                listBox1.Items.Clear();
+                listBox2.Items.Clear();
+
+                Application.DoEvents();
+
+                groups.ClearTreeView(treeView1);
+
+                // search through devices
+                foreach (Device device in project.Devices)
                 {
-                    // we search only for PLCs
-                    if (device.TypeIdentifier == "System:Device.S71500")
+                    if (device.TypeIdentifier != null)
                     {
-                        //Console.WriteLine(String.Format("Found {0}", device.Name));
-                        listBox1.Items.Add(device.Name);
-
-                        // let's get the CPU
-                        foreach (DeviceItem item in device.DeviceItems)
+                        // we search only for PLCs
+                        if (device.TypeIdentifier == "System:Device.S71500")
                         {
-                            if (item.Classification.ToString() == "CPU")
-                            {
-                                //Console.WriteLine(String.Format("Found {0}", item.Name));
-                                listBox2.Items.Add(item.Name);
+                            Logger.LogInfo($"发现S7-1500设备: {device.Name}", "IterateThroughDevices");
+                            listBox1.Items.Add(device.Name);
 
-                                // get the software container
-                                SoftwareContainer softwareContainer = ((IEngineeringServiceProvider)item).GetService<SoftwareContainer>();
-                                if (softwareContainer != null)
+                            // let's get the CPU
+                            foreach (DeviceItem item in device.DeviceItems)
+                            {
+                                if (item.Classification.ToString() == "CPU")
                                 {
-                                    software = softwareContainer.Software as PlcSoftware;
-                                    groups.LoadTreeView(treeView1, software);
+                                    Logger.LogInfo($"发现CPU: {item.Name}", "IterateThroughDevices");
+                                    listBox2.Items.Add(item.Name);
+
+                                    try
+                                    {
+                                        // get the software container
+                                        SoftwareContainer softwareContainer = ((IEngineeringServiceProvider)item).GetService<SoftwareContainer>();
+                                        if (softwareContainer != null)
+                                        {
+                                            software = softwareContainer.Software as PlcSoftware;
+                                            Logger.LogInfo($"成功获取设备 {item.Name} 的软件容器", "IterateThroughDevices");
+                                            groups.LoadTreeView(treeView1, software);
+                                        }
+                                        else
+                                        {
+                                            Logger.LogWarning($"设备 {item.Name} 的软件容器为空", "IterateThroughDevices");
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Logger.LogException(ex, $"访问设备 {item.Name} 的软件容器");
+                                        MessageBox.Show(String.Format("访问设备 {0} 的软件容器时发生错误:\n{1}", item.Name, ex.Message), 
+                                                      "设备访问错误", 
+                                                      MessageBoxButtons.OK, 
+                                                      MessageBoxIcon.Warning);
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "遍历项目设备");
+                MessageBox.Show(String.Format("遍历项目设备时发生错误:\n{0}", ex.Message), 
+                              "项目访问错误", 
+                              MessageBoxButtons.OK, 
+                              MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Logger.LogInfo("设备遍历操作完成", "IterateThroughDevices");
+                // close form
+                read.Close();
+                read.Dispose();
 
-            // close form
-            read.Close();
-            read.Dispose();
-
-            this.BringToFront();
-            Application.DoEvents();
-
+                this.BringToFront();
+                Application.DoEvents();
+            }
         }
 
         private void btnLanguage_Click(object sender, EventArgs e)
@@ -235,9 +286,34 @@ namespace CodeGeneratorOpenness
             {
                 if (project.IsModified)
                 {
+                    Logger.LogInfo($"项目 {project.Name} 已修改，询问是否保存", "SaveProject");
                     if (MessageYesNo("Do you want to save the changes?", "Save changes") == DialogResult.Yes)
-                        project.Save();
+                    {
+                        try
+                        {
+                            Logger.LogInfo($"开始保存项目 {project.Name}", "SaveProject");
+                            project.Save();
+                            Logger.LogInfo($"项目 {project.Name} 保存成功", "SaveProject");
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.LogException(ex, "保存项目");
+                            MessageError(ex.Message, "保存错误");
+                        }
+                    }
+                    else
+                    {
+                        Logger.LogInfo("用户选择不保存项目", "SaveProject");
+                    }
                 }
+                else
+                {
+                    Logger.LogInfo("项目未修改，无需保存", "SaveProject");
+                }
+            }
+            else
+            {
+                Logger.LogWarning("尝试保存项目但项目对象为空", "SaveProject");
             }
         }
 
@@ -245,19 +321,35 @@ namespace CodeGeneratorOpenness
         {
             if (software != null)
             {
-                ICompilable compileService = software.GetService<ICompilable>();
-                CompilerResult result = compileService.Compile();
+                Logger.LogInfo($"开始编译项目 {software.Name}", "CompileProject");
+                
+                try
+                {
+                    ICompilable compileService = software.GetService<ICompilable>();
+                    CompilerResult result = compileService.Compile();
 
-                this.BringToFront();
-                Application.DoEvents();
+                    this.BringToFront();
+                    Application.DoEvents();
 
-                // result messages is array
-                MessageOK("Result : " + result.State.ToString() + "\n" +
-                                "Errors: " + result.ErrorCount.ToString() + "\n" +
-                                "Warnings: " + result.WarningCount.ToString() + "\n",
-                                "Compiler");
+                    Logger.LogInfo($"编译完成 - 状态: {result.State}, 错误: {result.ErrorCount}, 警告: {result.WarningCount}", "CompileProject");
 
-                IterateThroughDevices(project);
+                    // result messages is array
+                    MessageOK("Result : " + result.State.ToString() + "\n" +
+                                    "Errors: " + result.ErrorCount.ToString() + "\n" +
+                                    "Warnings: " + result.WarningCount.ToString() + "\n",
+                                    "Compiler");
+
+                    IterateThroughDevices(project);
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogException(ex, "编译项目");
+                    MessageError(ex.Message, "编译错误");
+                }
+            }
+            else
+            {
+                Logger.LogWarning("尝试编译项目但软件对象为空", "CompileProject");
             }
         }
 
@@ -622,7 +714,9 @@ namespace CodeGeneratorOpenness
 
                     using (OpenFileDialog openFileDialog = new OpenFileDialog())
                     {
-                        string filter = "V17 project files (*.ap17)|*.ap17|All files (*.*)|*.*";
+                        string filter = "V19 project files (*.ap19)|*.ap19|All files (*.*)|*.*";
+                        if (Program.Version == "18.0") filter = "V18 project files (*.ap18)|*.ap18|All files (*.*)|*.*";
+                        if (Program.Version == "17.0") filter = "V17 project files (*.ap17)|*.ap17|All files (*.*)|*.*";
                         if (Program.Version == "16.0") filter = "V16 project files (*.ap16)|*.ap16|All files (*.*)|*.*";
                         if (Program.Version == "15.1") filter = "V15.1 project files (*.ap15_1)|*.ap15_1|All files (*.*)|*.*";
                         if (Program.Version == "15.0") filter = "V15 project files (*.ap15)|*.ap15|All files (*.*)|*.*";
@@ -643,10 +737,14 @@ namespace CodeGeneratorOpenness
                             {
                                 project = projects.Open(projectPath);
                             }
-                            catch (Exception)
+                            catch (Exception ex)
                             {
-                                Console.WriteLine(String.Format("Could not open project {0}", projectPath.FullName));
-                                Application.Exit();
+                                Logger.LogException(ex, "打开项目");
+                                MessageBox.Show(String.Format("无法打开项目 {0}\n错误信息: {1}", projectPath.FullName, ex.Message), 
+                                              "打开项目失败", 
+                                              MessageBoxButtons.OK, 
+                                              MessageBoxIcon.Error);
+                                return; // 返回而不是退出整个应用程序
                             }
                         }
                         else

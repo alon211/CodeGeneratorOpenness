@@ -17,4 +17,42 @@ https://cache.industry.siemens.com/dl/files/886/109826886/att_1163875/v1/TIAPort
 
 This version is based on TIA V19.
 
+## 安装依赖
+- 安装 .NET Framework 4.8 Developer Pack
+- 安装 Visual Studio Build Tools https://visualstudio.microsoft.com/visual-cpp-build-tools/
+- 安装 Siemens TIA Portal V19
+## 编译命令
+```
+& 
+"C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe" CodeGeneratorOpenness\CodeGeneratorOpenness.csproj /p:Configuration=Debug /p:Platform=AnyCPU0:0] $ 
+```
+## 不同版本编译需要修改的地方
+CodeGeneratorOpenness\CodeGeneratorOpenness.csproj：
+```
+ <Reference Include="Siemens.Engineering, Version=19.0.0.0, Culture=neutral, PublicKeyToken=d29ec89bac048f84, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Siemens\Automation\Portal V19\PublicAPI\V19\Siemens.Engineering.dll</HintPath>
+    </Reference>
+```
+Program.cs:
+ 位置: foreach (string n in names)
+                {
+```
+if (n.Contains("TIA Portal V19"))
+                    {
+                        Version = "19.0";
+                        Api = @"C:\Program Files\Siemens\Automation\Portal V19\PublicAPI\V19";
+                    }
+```
+frmMainForm.cs:
+位置：
+using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                    {
+```
+ string filter = "V19 project files (*.ap19)|*.ap19|All files (*.*)|*.*";
+                        if (Program.Version == "18.0") filter = "V18 project files (*.ap18)|*.ap18|All files (*.*)|*.*";
+                        if (Program.Version == "17.0") filter = "V17 project files (*.ap17)|*.ap17|All files (*.*)|*.*";
+
+```
+
 
