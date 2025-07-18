@@ -72,6 +72,9 @@ namespace CodeGeneratorOpenness
 
             AppDomain.CurrentDomain.AssemblyResolve += MyResolver;
 
+            // 初始化必要的目录结构
+            InitializeDirectories();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmMainForm());
@@ -79,6 +82,35 @@ namespace CodeGeneratorOpenness
 
         public static string Version = string.Empty;
         public static string Api = string.Empty;
+
+        /// <summary>
+        /// 初始化程序运行所需的目录结构
+        /// </summary>
+        private static void InitializeDirectories()
+        {
+            try
+            {
+                // 创建基本的目录结构
+                DirectoryUtils.EnsureDirectoriesExist(
+                    "project",           // 项目目录
+                    "project\\config",    // 项目配置目录
+                    "template",          // 模板目录
+                    "Output",            // 输出目录
+                    "Output\\Log",       // 日志目录
+                    "Output\\Result",    // 结果目录
+                    "Output\\Reports",   // 报告目录
+                    "Data",              // 数据目录
+                    "UserLibrary"        // 用户库目录
+                );
+                
+                Logger.LogInfo("目录结构初始化完成", "Program.InitializeDirectories");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "Program.InitializeDirectories");
+                // 目录创建失败不应该阻止程序启动，只记录错误
+            }
+        }
 
         private static Assembly MyResolver(object sender, ResolveEventArgs args)
         {
