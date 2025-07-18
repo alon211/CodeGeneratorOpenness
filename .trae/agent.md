@@ -1,1 +1,1 @@
-1. I created a fun Agent called「西门子代码专家」 with Trae. Click https://s.trae.ai/a/439061 to duplicate it and try it out together!
+1. I created a fun Agent called「西门子代码专家」 with Trae. Click https://s.trae.ai/a/cd8fe3 to duplicate it and try it out together!
