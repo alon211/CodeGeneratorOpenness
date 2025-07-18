@@ -22,12 +22,15 @@ This version is based on TIA V19.
 - 安装 Visual Studio Build Tools https://visualstudio.microsoft.com/visual-cpp-build-tools/
 - 安装 Siemens TIA Portal V19
 ## 编译命令
-```
-dotnet build CodeGeneratorOpenness.sln
-```
+先执行该命令编译
 ```
 & "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe" CodeGeneratorOpenness\CodeGeneratorOpenness.csproj /p:Configuration=Debug /p:Platform=AnyCPU 
 ```
+后续可以用下面命令编译
+```
+dotnet build CodeGeneratorOpenness.sln
+```
+
 ## 不同版本编译需要修改的地方
 CodeGeneratorOpenness\CodeGeneratorOpenness.csproj：
 ```
