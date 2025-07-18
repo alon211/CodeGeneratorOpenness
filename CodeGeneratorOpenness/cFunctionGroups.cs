@@ -19,6 +19,7 @@ using Siemens.Engineering.SW.ExternalSources;
 using Siemens.Engineering.SW.Alarm.TextLists;
 using Siemens.Engineering.SW.WatchAndForceTables;
 using Siemens.Engineering.SW.TechnologicalObjects;
+using Siemens.Engineering.SW.Units;
 
 namespace CodeGeneratorOpenness
 {
@@ -98,6 +99,9 @@ namespace CodeGeneratorOpenness
 
             // 7. 加载监视和强制表组 (WatchAndForceTableGroup)
             LoadWatchAndForceTableGroup(software, root);
+
+            // 8. 加载软件单元组 (Software Units)
+            LoadSoftwareUnits(software, root);
 
             Logger.LogInfo("PlcSoftware结构组件加载完成", "LoadPlcSoftwareStructures");
         }
@@ -767,6 +771,102 @@ namespace CodeGeneratorOpenness
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// 加载软件单元组 (Software Units)
+        /// </summary>
+        /// <param name="software">PlcSoftware对象</param>
+        /// <param name="root">根节点</param>
+        private void LoadSoftwareUnits(PlcSoftware software, TreeNode root)
+        {
+            try
+            {
+                Logger.LogInfo("开始加载软件单元组", "LoadSoftwareUnits");
+
+                // 通过GetService获取PlcUnitProvider
+                PlcUnitProvider unitProvider = software.GetService<PlcUnitProvider>();
+                if (unitProvider != null)
+                {
+                    PlcUnitSystemGroup unitSystemGroup = unitProvider.UnitGroup;
+                    if (unitSystemGroup != null)
+                    {
+                        TreeNode unitsNode = new TreeNode($"Software Units ({GetUnitCount(unitSystemGroup)})");
+                        unitsNode.Tag = unitSystemGroup;
+                        unitsNode.ImageIndex = 1;
+                        unitsNode.SelectedImageIndex = 1;
+
+                        // 添加软件单元
+                        AddSoftwareUnits(unitSystemGroup, unitsNode);
+
+                        root.Nodes.Add(unitsNode);
+                        Logger.LogInfo($"软件单元组加载完成，共 {GetUnitCount(unitSystemGroup)} 个单元", "LoadSoftwareUnits");
+                    }
+                    else
+                    {
+                        Logger.LogWarning("UnitGroup为空", "LoadSoftwareUnits");
+                    }
+                }
+                else
+                {
+                    Logger.LogWarning("无法获取PlcUnitProvider服务", "LoadSoftwareUnits");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "加载软件单元组");
+            }
+        }
+
+        /// <summary>
+        /// 获取软件单元组中的单元数量
+        /// </summary>
+        private int GetUnitCount(PlcUnitSystemGroup unitSystemGroup)
+        {
+            int count = 0;
+            try
+            {
+                count += unitSystemGroup.Units.Count;
+                count += unitSystemGroup.SafetyUnits.Count;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "获取软件单元数量");
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// 添加软件单元到TreeView
+        /// </summary>
+        private void AddSoftwareUnits(PlcUnitSystemGroup unitSystemGroup, TreeNode node)
+        {
+            try
+            {
+                // 添加普通单元
+                foreach (var unit in unitSystemGroup.Units)
+                {
+                    TreeNode unitNode = new TreeNode(unit.Name);
+                    unitNode.Tag = unit;
+                    unitNode.ImageIndex = 12; // 使用新的图标索引
+                    unitNode.SelectedImageIndex = 12;
+                    node.Nodes.Add(unitNode);
+                }
+
+                // 添加安全单元
+                foreach (var safetyUnit in unitSystemGroup.SafetyUnits)
+                {
+                    TreeNode safetyUnitNode = new TreeNode($"{safetyUnit.Name} [Safety]");
+                    safetyUnitNode.Tag = safetyUnit;
+                    safetyUnitNode.ImageIndex = 13; // 使用不同的图标索引表示安全单元
+                    safetyUnitNode.SelectedImageIndex = 13;
+                    node.Nodes.Add(safetyUnitNode);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "添加软件单元");
+            }
         }
     }
 }
