@@ -23,6 +23,9 @@ This version is based on TIA V19.
 - 安装 Siemens TIA Portal V19
 ## 编译命令
 ```
+dotnet build CodeGeneratorOpenness.sln
+```
+```
 & "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe" CodeGeneratorOpenness\CodeGeneratorOpenness.csproj /p:Configuration=Debug /p:Platform=AnyCPU 
 ```
 ## 不同版本编译需要修改的地方
