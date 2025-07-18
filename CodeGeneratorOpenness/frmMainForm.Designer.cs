@@ -67,6 +67,10 @@
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.label11 = new System.Windows.Forms.Label();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.projectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,6 +106,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -193,7 +199,7 @@
             this.imageList1.Images.SetKeyName(6, "safeDB.png");
             this.imageList1.Images.SetKeyName(7, "safeOB.png");
             this.imageList1.Images.SetKeyName(8, "safeFB.png");
-            this.imageList1.Images.SetKeyName(9, "DataType.png");
+            // this.imageList1.Images.SetKeyName(9, "DataType.png"); // 注释掉，因为ImageStream中只有9个图像(索引0-8)
             // 
             // ctxBlock
             // 
@@ -435,6 +441,44 @@
             this.pictureBox8.TabIndex = 33;
             this.pictureBox8.TabStop = false;
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(841, 327);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(62, 13);
+            this.label12.TabIndex = 42;
+            this.label12.Text = "Tag Tables";
+            // 
+            // pictureBox9
+            // 
+            this.pictureBox9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox9.Location = new System.Drawing.Point(815, 323);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox9.TabIndex = 41;
+            this.pictureBox9.TabStop = false;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(841, 353);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(78, 13);
+            this.label13.TabIndex = 44;
+            this.label13.Text = "Software Units";
+            // 
+            // pictureBox10
+            // 
+            this.pictureBox10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox10.Location = new System.Drawing.Point(815, 349);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox10.TabIndex = 43;
+            this.pictureBox10.TabStop = false;
+            // 
             // timer1
             // 
             this.timer1.Enabled = true;
@@ -655,6 +699,10 @@
             this.Controls.Add(this.btnXML);
             this.Controls.Add(this.btnAddPath);
             this.Controls.Add(this.txtPath);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.pictureBox10);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.pictureBox9);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.pictureBox8);
             this.Controls.Add(this.label10);
@@ -702,6 +750,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -747,6 +797,10 @@
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.PictureBox pictureBox9;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.PictureBox pictureBox10;
         private System.Windows.Forms.ToolStripStatusLabel txtSaved;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.MenuStrip menuStrip1;

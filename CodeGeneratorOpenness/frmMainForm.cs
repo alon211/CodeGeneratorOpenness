@@ -41,13 +41,79 @@ namespace CodeGeneratorOpenness
 
         public frmMainForm()
         {
-            InitializeComponent();
+            try
+            {
+                Logger.LogInfo("开始初始化主窗体构造函数", "frmMainForm");
+                
+                InitializeComponent();
+                Logger.LogInfo("InitializeComponent完成", "frmMainForm");
+                
+                // 加载附加图标
+                LoadAdditionalIcons();
+                Logger.LogInfo("LoadAdditionalIcons完成", "frmMainForm");
+                
+                // avoid firewall
+                // HLKM\SOFTWARE\Siemens\Automation\Openness\
+                // set the rights for the key => everone to everything
+                Logger.LogInfo("开始防火墙设置", "frmMainForm");
+                cFirewall firewall = new cFirewall();
+                firewall.CalcHash();
+                Logger.LogInfo("防火墙设置完成", "frmMainForm");
+                
+                Logger.LogInfo("主窗体构造函数初始化完成", "frmMainForm");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "主窗体构造函数初始化");
+                MessageBox.Show($"主窗体初始化失败: {ex.Message}", "初始化错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-            // avoid firewall
-            // HLKM\SOFTWARE\Siemens\Automation\Openness\
-            // set the rights for the key => everone to everything
-            cFirewall firewall = new cFirewall();
-            firewall.CalcHash();
+        private void LoadAdditionalIcons()
+        {
+            try
+            {
+                Logger.LogInfo("开始加载附加图标", "LoadAdditionalIcons");
+                // 获取源代码目录下的Ressources文件夹路径
+                string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(Application.StartupPath));
+                string resourcesPath = Path.Combine(projectPath, "Ressources");
+                
+                // 加载变量表图标
+                string tagTableIconPath = Path.Combine(resourcesPath, "tag_table.png");
+                if (File.Exists(tagTableIconPath))
+                {
+                    Image tagTableIcon = Image.FromFile(tagTableIconPath);
+                    imageList1.Images.Add(tagTableIcon);
+                    // 设置到pictureBox9
+                    pictureBox9.Image = new Bitmap(tagTableIcon);
+                    Logger.LogInfo("变量表图标加载成功", "LoadAdditionalIcons");
+                }
+                else
+                {
+                    Logger.LogWarning($"变量表图标文件不存在: {tagTableIconPath}", "LoadAdditionalIcons");
+                }
+                
+                // 加载软件单元图标
+                string softwareUnitsIconPath = Path.Combine(resourcesPath, "softwareUnits.png");
+                if (File.Exists(softwareUnitsIconPath))
+                {
+                    Image softwareUnitsIcon = Image.FromFile(softwareUnitsIconPath);
+                    imageList1.Images.Add(softwareUnitsIcon);
+                    // 设置到pictureBox10
+                    pictureBox10.Image = new Bitmap(softwareUnitsIcon);
+                    Logger.LogInfo("软件单元图标加载成功", "LoadAdditionalIcons");
+                }
+                else
+                {
+                    Logger.LogWarning($"软件单元图标文件不存在: {softwareUnitsIconPath}", "LoadAdditionalIcons");
+                }
+                
+                Logger.LogInfo($"附加图标加载完成，当前图标总数: {imageList1.Images.Count}", "LoadAdditionalIcons");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"加载附加图标时发生错误: {ex.Message}", "LoadAdditionalIcons");
+            }
         }
 
         private void frmMainForm_Load(object sender, EventArgs e)

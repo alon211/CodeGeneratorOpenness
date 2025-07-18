@@ -25,6 +25,9 @@ namespace CodeGeneratorOpenness
 {
     class cFunctionGroups
     {
+        // 图标索引常量
+        private const int TAG_TABLE_ICON_INDEX = 10;  // tag_table.png
+        private const int SOFTWARE_UNITS_ICON_INDEX = 11;  // softwareUnits.png
         public void ClearTreeView(TreeView Tree)
         {
             Tree.Nodes.Clear();
@@ -159,8 +162,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode tagTableNode = new TreeNode(tagTable.Name);
                     tagTableNode.Tag = tagTable;
-                    tagTableNode.ImageIndex = 10;
-                    tagTableNode.SelectedImageIndex = 10;
+                    tagTableNode.ImageIndex = TAG_TABLE_ICON_INDEX;
+                    tagTableNode.SelectedImageIndex = TAG_TABLE_ICON_INDEX;
                     node.Nodes.Add(tagTableNode);
                 }
 
@@ -191,8 +194,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode sourceNode = new TreeNode(externalSource.Name);
                     sourceNode.Tag = externalSource;
-                    sourceNode.ImageIndex = 11;
-                    sourceNode.SelectedImageIndex = 11;
+                    sourceNode.ImageIndex = SOFTWARE_UNITS_ICON_INDEX;
+                    sourceNode.SelectedImageIndex = SOFTWARE_UNITS_ICON_INDEX;
                     node.Nodes.Add(sourceNode);
                 }
 
@@ -402,8 +405,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode tagTables = new TreeNode("Tag Tables");
                     tagTables.Tag = software.TagTableGroup;
-                    tagTables.ImageIndex = 10;
-                    tagTables.SelectedImageIndex = 10;
+                    tagTables.ImageIndex = TAG_TABLE_ICON_INDEX;
+                    tagTables.SelectedImageIndex = TAG_TABLE_ICON_INDEX;
                     root.Nodes.Add(tagTables);
 
                     AddTagTables(software.TagTableGroup, tagTables);
@@ -433,8 +436,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode externalSources = new TreeNode("External Sources");
                     externalSources.Tag = software.ExternalSourceGroup;
-                    externalSources.ImageIndex = 11;
-                    externalSources.SelectedImageIndex = 11;
+                    externalSources.ImageIndex = 1; // 使用通用组图标
+                    externalSources.SelectedImageIndex = 1;
                     root.Nodes.Add(externalSources);
 
                     AddExternalSources(software.ExternalSourceGroup, externalSources);
@@ -848,8 +851,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode unitNode = new TreeNode(unit.Name);
                     unitNode.Tag = unit;
-                    unitNode.ImageIndex = 12; // 使用新的图标索引
-                    unitNode.SelectedImageIndex = 12;
+                    unitNode.ImageIndex = SOFTWARE_UNITS_ICON_INDEX; // 使用软件单元图标索引
+                    unitNode.SelectedImageIndex = SOFTWARE_UNITS_ICON_INDEX;
                     
                     // 递归解析软件单元的子组件
                     AddSoftwareUnitComponents(unit, unitNode);
@@ -862,8 +865,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode safetyUnitNode = new TreeNode($"{safetyUnit.Name} [Safety]");
                     safetyUnitNode.Tag = safetyUnit;
-                    safetyUnitNode.ImageIndex = 13; // 使用不同的图标索引表示安全单元
-                    safetyUnitNode.SelectedImageIndex = 13;
+                    safetyUnitNode.ImageIndex = SOFTWARE_UNITS_ICON_INDEX; // 使用软件单元图标索引
+                    safetyUnitNode.SelectedImageIndex = SOFTWARE_UNITS_ICON_INDEX;
                     
                     // 递归解析安全单元的子组件
                     AddSoftwareUnitComponents(safetyUnit, safetyUnitNode);
