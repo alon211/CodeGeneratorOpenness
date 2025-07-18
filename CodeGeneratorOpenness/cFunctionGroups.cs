@@ -14,6 +14,11 @@ using System.Drawing;
 using Siemens.Engineering.SW;
 using Siemens.Engineering.SW.Blocks;
 using Siemens.Engineering.SW.Types;
+using Siemens.Engineering.SW.Tags;
+using Siemens.Engineering.SW.ExternalSources;
+using Siemens.Engineering.SW.Alarm.TextLists;
+using Siemens.Engineering.SW.WatchAndForceTables;
+using Siemens.Engineering.SW.TechnologicalObjects;
 
 namespace CodeGeneratorOpenness
 {
@@ -43,45 +48,8 @@ namespace CodeGeneratorOpenness
                 TreeNode root = new TreeNode(Software.Name);
                 Tree.Nodes.Add(root);
 
-                try
-                {
-                    Logger.LogInfo("开始加载程序块", "LoadTreeView");
-                    // Add Program Blocks
-                    TreeNode programBlocks = new TreeNode("Program Blocks");
-                    programBlocks.Tag = Software.BlockGroup;
-                    root.Nodes.Add(programBlocks);
-
-                    AddPlcBlocks(Software.BlockGroup, programBlocks);
-                    programBlocks.Expand();
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogException(ex, "加载程序块");
-                    MessageBox.Show(String.Format("加载程序块时发生错误:\n{0}", ex.Message), 
-                                  "程序块加载错误", 
-                                  MessageBoxButtons.OK, 
-                                  MessageBoxIcon.Warning);
-                }
-
-                try
-                {
-                    Logger.LogInfo("开始加载数据类型", "LoadTreeView");
-                    // add data types
-                    TreeNode dataTypes = new TreeNode("PLC Data types");
-                    dataTypes.Tag = Software.TypeGroup;
-                    root.Nodes.Add(dataTypes);
-
-                    AddPlcTypes(Software.TypeGroup, dataTypes);
-                    dataTypes.Expand();
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogException(ex, "加载数据类型");
-                    MessageBox.Show(String.Format("加载数据类型时发生错误:\n{0}", ex.Message), 
-                                  "数据类型加载错误", 
-                                  MessageBoxButtons.OK, 
-                                  MessageBoxIcon.Warning);
-                }
+                // 自动加载所有PlcSoftware的结构组件
+                LoadPlcSoftwareStructures(Software, root);
 
                 root.Expand();
                 Logger.LogInfo("TreeView加载完成", "LoadTreeView");
@@ -98,6 +66,482 @@ namespace CodeGeneratorOpenness
             {
                 // end update
                 Tree.EndUpdate();
+            }
+        }
+
+        /// <summary>
+        /// 自动加载PlcSoftware的所有结构组件
+        /// </summary>
+        /// <param name="software">PlcSoftware对象</param>
+        /// <param name="root">根节点</param>
+        private void LoadPlcSoftwareStructures(PlcSoftware software, TreeNode root)
+        {
+            Logger.LogInfo("开始自动加载PlcSoftware的所有结构组件", "LoadPlcSoftwareStructures");
+
+            // 1. 加载程序块组 (BlockGroup)
+            LoadBlockGroup(software, root);
+
+            // 2. 加载数据类型组 (TypeGroup)
+            LoadTypeGroup(software, root);
+
+            // 3. 加载标签表组 (TagTableGroup)
+            LoadTagTableGroup(software, root);
+
+            // 4. 加载外部源文件组 (ExternalSourceGroup)
+            LoadExternalSourceGroup(software, root);
+
+            // 5. 加载PLC报警文本列表组 (PlcAlarmTextlistGroup)
+            LoadPlcAlarmTextlistGroup(software, root);
+
+            // 6. 加载技术对象组 (TechnologicalObjectGroup)
+            LoadTechnologicalObjectGroup(software, root);
+
+            // 7. 加载监视和强制表组 (WatchAndForceTableGroup)
+            LoadWatchAndForceTableGroup(software, root);
+
+            Logger.LogInfo("PlcSoftware结构组件加载完成", "LoadPlcSoftwareStructures");
+        }
+
+        /// <summary>
+        /// 获取程序块组中的块数量
+        /// </summary>
+        private int GetBlockCount(PlcBlockGroup blockGroup)
+        {
+            int count = 0;
+            try
+            {
+                count += blockGroup.Blocks.Count;
+                foreach (PlcBlockGroup subGroup in blockGroup.Groups)
+                {
+                    count += GetBlockCount(subGroup);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "获取程序块数量");
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// 获取数据类型组中的类型数量
+        /// </summary>
+        private int GetTypeCount(PlcTypeGroup typeGroup)
+        {
+            int count = 0;
+            try
+            {
+                count += typeGroup.Types.Count;
+                foreach (PlcTypeGroup subGroup in typeGroup.Groups)
+                {
+                    count += GetTypeCount(subGroup);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "获取数据类型数量");
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// 添加标签表到TreeView
+        /// </summary>
+        private void AddTagTables(PlcTagTableGroup tagTableGroup, TreeNode node)
+        {
+            try
+            {
+                foreach (var tagTable in tagTableGroup.TagTables)
+                {
+                    TreeNode tagTableNode = new TreeNode(tagTable.Name);
+                    tagTableNode.Tag = tagTable;
+                    tagTableNode.ImageIndex = 10;
+                    tagTableNode.SelectedImageIndex = 10;
+                    node.Nodes.Add(tagTableNode);
+                }
+
+                foreach (PlcTagTableGroup subGroup in tagTableGroup.Groups)
+                {
+                    TreeNode groupNode = new TreeNode(subGroup.Name);
+                    groupNode.Tag = subGroup;
+                    groupNode.ImageIndex = 1;
+                    groupNode.SelectedImageIndex = 1;
+                    AddTagTables(subGroup, groupNode);
+                    node.Nodes.Add(groupNode);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "添加标签表");
+            }
+        }
+
+        /// <summary>
+        /// 添加外部源文件到TreeView
+        /// </summary>
+        private void AddExternalSources(PlcExternalSourceGroup externalSourceGroup, TreeNode node)
+        {
+            try
+            {
+                foreach (var externalSource in externalSourceGroup.ExternalSources)
+                {
+                    TreeNode sourceNode = new TreeNode(externalSource.Name);
+                    sourceNode.Tag = externalSource;
+                    sourceNode.ImageIndex = 11;
+                    sourceNode.SelectedImageIndex = 11;
+                    node.Nodes.Add(sourceNode);
+                }
+
+                foreach (PlcExternalSourceGroup subGroup in externalSourceGroup.Groups)
+                {
+                    TreeNode groupNode = new TreeNode(subGroup.Name);
+                    groupNode.Tag = subGroup;
+                    groupNode.ImageIndex = 1;
+                    groupNode.SelectedImageIndex = 1;
+                    AddExternalSources(subGroup, groupNode);
+                    node.Nodes.Add(groupNode);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "添加外部源文件");
+            }
+        }
+
+        /// <summary>
+        /// 添加PLC报警文本列表到TreeView
+        /// </summary>
+        private void AddAlarmTextlists(PlcAlarmTextlistGroup alarmTextlistGroup, TreeNode node)
+        {
+            try
+            {
+                // 添加系统报警文本列表
+                foreach (var alarmTextlist in alarmTextlistGroup.PlcAlarmSystemTextlists)
+                {
+                    TreeNode alarmNode = new TreeNode($"[System] {alarmTextlist.Name}");
+                    alarmNode.Tag = alarmTextlist;
+                    alarmNode.ImageIndex = 12;
+                    alarmNode.SelectedImageIndex = 12;
+                    node.Nodes.Add(alarmNode);
+                }
+
+                // 添加用户报警文本列表
+                foreach (var alarmTextlist in alarmTextlistGroup.PlcAlarmUserTextlists)
+                {
+                    TreeNode alarmNode = new TreeNode($"[User] {alarmTextlist.Name}");
+                    alarmNode.Tag = alarmTextlist;
+                    alarmNode.ImageIndex = 12;
+                    alarmNode.SelectedImageIndex = 12;
+                    node.Nodes.Add(alarmNode);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "添加PLC报警文本列表");
+            }
+        }
+
+        /// <summary>
+        /// 添加技术对象到TreeView
+        /// </summary>
+        private void AddTechnologicalObjects(TechnologicalInstanceDBGroup techObjectGroup, TreeNode node)
+        {
+            try
+            {
+                foreach (var techObject in techObjectGroup.TechnologicalObjects)
+                {
+                    TreeNode techNode = new TreeNode(techObject.Name);
+                    techNode.Tag = techObject;
+                    techNode.ImageIndex = 13;
+                    techNode.SelectedImageIndex = 13;
+                    node.Nodes.Add(techNode);
+                }
+
+                foreach (TechnologicalInstanceDBGroup subGroup in techObjectGroup.Groups)
+                {
+                    TreeNode groupNode = new TreeNode(subGroup.Name);
+                    groupNode.Tag = subGroup;
+                    groupNode.ImageIndex = 1;
+                    groupNode.SelectedImageIndex = 1;
+                    AddTechnologicalObjects(subGroup, groupNode);
+                    node.Nodes.Add(groupNode);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "添加技术对象");
+            }
+        }
+
+        /// <summary>
+        /// 添加监视和强制表到TreeView
+        /// </summary>
+        private void AddWatchForceTables(PlcWatchAndForceTableGroup watchForceTableGroup, TreeNode node)
+        {
+            try
+            {
+                // 添加监视表
+                foreach (var watchTable in watchForceTableGroup.WatchTables)
+                {
+                    TreeNode tableNode = new TreeNode($"[Watch] {watchTable.Name}");
+                    tableNode.Tag = watchTable;
+                    tableNode.ImageIndex = 14;
+                    tableNode.SelectedImageIndex = 14;
+                    node.Nodes.Add(tableNode);
+                }
+
+                // 添加强制表
+                foreach (var forceTable in watchForceTableGroup.ForceTables)
+                {
+                    TreeNode tableNode = new TreeNode($"[Force] {forceTable.Name}");
+                    tableNode.Tag = forceTable;
+                    tableNode.ImageIndex = 14;
+                    tableNode.SelectedImageIndex = 14;
+                    node.Nodes.Add(tableNode);
+                }
+
+                foreach (PlcWatchAndForceTableGroup subGroup in watchForceTableGroup.Groups)
+                {
+                    TreeNode groupNode = new TreeNode(subGroup.Name);
+                    groupNode.Tag = subGroup;
+                    groupNode.ImageIndex = 1;
+                    groupNode.SelectedImageIndex = 1;
+                    AddWatchForceTables(subGroup, groupNode);
+                    node.Nodes.Add(groupNode);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "添加监视和强制表");
+            }
+        }
+
+        /// <summary>
+        /// 加载程序块组
+        /// </summary>
+        private void LoadBlockGroup(PlcSoftware software, TreeNode root)
+        {
+            try
+            {
+                Logger.LogInfo("开始加载程序块组", "LoadBlockGroup");
+                if (software.BlockGroup != null)
+                {
+                    TreeNode programBlocks = new TreeNode("Program Blocks");
+                    programBlocks.Tag = software.BlockGroup;
+                    programBlocks.ImageIndex = 1;
+                    programBlocks.SelectedImageIndex = 1;
+                    root.Nodes.Add(programBlocks);
+
+                    AddPlcBlocks(software.BlockGroup, programBlocks);
+                    programBlocks.Expand();
+                    Logger.LogInfo($"程序块组加载完成，共{GetBlockCount(software.BlockGroup)}个块", "LoadBlockGroup");
+                }
+                else
+                {
+                    Logger.LogWarning("程序块组为空", "LoadBlockGroup");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "加载程序块组");
+                MessageBox.Show(String.Format("加载程序块时发生错误:\n{0}", ex.Message), 
+                              "程序块加载错误", 
+                              MessageBoxButtons.OK, 
+                              MessageBoxIcon.Warning);
+            }
+        }
+
+        /// <summary>
+        /// 加载数据类型组
+        /// </summary>
+        private void LoadTypeGroup(PlcSoftware software, TreeNode root)
+        {
+            try
+            {
+                Logger.LogInfo("开始加载数据类型组", "LoadTypeGroup");
+                if (software.TypeGroup != null)
+                {
+                    TreeNode dataTypes = new TreeNode("PLC Data Types");
+                    dataTypes.Tag = software.TypeGroup;
+                    dataTypes.ImageIndex = 9;
+                    dataTypes.SelectedImageIndex = 9;
+                    root.Nodes.Add(dataTypes);
+
+                    AddPlcTypes(software.TypeGroup, dataTypes);
+                    dataTypes.Expand();
+                    Logger.LogInfo($"数据类型组加载完成，共{GetTypeCount(software.TypeGroup)}个类型", "LoadTypeGroup");
+                }
+                else
+                {
+                    Logger.LogWarning("数据类型组为空", "LoadTypeGroup");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "加载数据类型组");
+                MessageBox.Show(String.Format("加载数据类型时发生错误:\n{0}", ex.Message), 
+                              "数据类型加载错误", 
+                              MessageBoxButtons.OK, 
+                              MessageBoxIcon.Warning);
+            }
+        }
+
+        /// <summary>
+        /// 加载标签表组
+        /// </summary>
+        private void LoadTagTableGroup(PlcSoftware software, TreeNode root)
+        {
+            try
+            {
+                Logger.LogInfo("开始加载标签表组", "LoadTagTableGroup");
+                if (software.TagTableGroup != null)
+                {
+                    TreeNode tagTables = new TreeNode("Tag Tables");
+                    tagTables.Tag = software.TagTableGroup;
+                    tagTables.ImageIndex = 10;
+                    tagTables.SelectedImageIndex = 10;
+                    root.Nodes.Add(tagTables);
+
+                    AddTagTables(software.TagTableGroup, tagTables);
+                    Logger.LogInfo($"标签表组加载完成，共{software.TagTableGroup.TagTables.Count}个标签表", "LoadTagTableGroup");
+                }
+                else
+                {
+                    Logger.LogWarning("标签表组为空", "LoadTagTableGroup");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "加载标签表组");
+                Logger.LogWarning($"标签表组加载失败: {ex.Message}", "LoadTagTableGroup");
+            }
+        }
+
+        /// <summary>
+        /// 加载外部源文件组
+        /// </summary>
+        private void LoadExternalSourceGroup(PlcSoftware software, TreeNode root)
+        {
+            try
+            {
+                Logger.LogInfo("开始加载外部源文件组", "LoadExternalSourceGroup");
+                if (software.ExternalSourceGroup != null)
+                {
+                    TreeNode externalSources = new TreeNode("External Sources");
+                    externalSources.Tag = software.ExternalSourceGroup;
+                    externalSources.ImageIndex = 11;
+                    externalSources.SelectedImageIndex = 11;
+                    root.Nodes.Add(externalSources);
+
+                    AddExternalSources(software.ExternalSourceGroup, externalSources);
+                    Logger.LogInfo($"外部源文件组加载完成，共{software.ExternalSourceGroup.ExternalSources.Count}个源文件", "LoadExternalSourceGroup");
+                }
+                else
+                {
+                    Logger.LogWarning("外部源文件组为空", "LoadExternalSourceGroup");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "加载外部源文件组");
+                Logger.LogWarning($"外部源文件组加载失败: {ex.Message}", "LoadExternalSourceGroup");
+            }
+        }
+
+        /// <summary>
+        /// 加载PLC报警文本列表组
+        /// </summary>
+        private void LoadPlcAlarmTextlistGroup(PlcSoftware software, TreeNode root)
+        {
+            try
+            {
+                Logger.LogInfo("开始加载PLC报警文本列表组", "LoadPlcAlarmTextlistGroup");
+                if (software.PlcAlarmTextlistGroup != null)
+                {
+                    TreeNode alarmTextlists = new TreeNode("Alarm Textlists");
+                    alarmTextlists.Tag = software.PlcAlarmTextlistGroup;
+                    alarmTextlists.ImageIndex = 12;
+                    alarmTextlists.SelectedImageIndex = 12;
+                    root.Nodes.Add(alarmTextlists);
+
+                    AddAlarmTextlists(software.PlcAlarmTextlistGroup, alarmTextlists);
+                    int systemCount = software.PlcAlarmTextlistGroup.PlcAlarmSystemTextlists.Count;
+                int userCount = software.PlcAlarmTextlistGroup.PlcAlarmUserTextlists.Count;
+                Logger.LogInfo($"PLC报警文本列表组加载完成，共{systemCount + userCount}个文本列表（系统:{systemCount}，用户:{userCount}）", "LoadPlcAlarmTextlistGroup");
+                }
+                else
+                {
+                    Logger.LogWarning("PLC报警文本列表组为空", "LoadPlcAlarmTextlistGroup");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "加载PLC报警文本列表组");
+                Logger.LogWarning($"PLC报警文本列表组加载失败: {ex.Message}", "LoadPlcAlarmTextlistGroup");
+            }
+        }
+
+        /// <summary>
+        /// 加载技术对象组
+        /// </summary>
+        private void LoadTechnologicalObjectGroup(PlcSoftware software, TreeNode root)
+        {
+            try
+            {
+                Logger.LogInfo("开始加载技术对象组", "LoadTechnologicalObjectGroup");
+                if (software.TechnologicalObjectGroup != null)
+                {
+                    TreeNode techObjects = new TreeNode("Technological Objects");
+                    techObjects.Tag = software.TechnologicalObjectGroup;
+                    techObjects.ImageIndex = 13;
+                    techObjects.SelectedImageIndex = 13;
+                    root.Nodes.Add(techObjects);
+
+                    AddTechnologicalObjects(software.TechnologicalObjectGroup, techObjects);
+                    Logger.LogInfo($"技术对象组加载完成，共{software.TechnologicalObjectGroup.TechnologicalObjects.Count}个技术对象", "LoadTechnologicalObjectGroup");
+                }
+                else
+                {
+                    Logger.LogWarning("技术对象组为空", "LoadTechnologicalObjectGroup");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "加载技术对象组");
+                Logger.LogWarning($"技术对象组加载失败: {ex.Message}", "LoadTechnologicalObjectGroup");
+            }
+        }
+
+        /// <summary>
+        /// 加载监视和强制表组
+        /// </summary>
+        private void LoadWatchAndForceTableGroup(PlcSoftware software, TreeNode root)
+        {
+            try
+            {
+                Logger.LogInfo("开始加载监视和强制表组", "LoadWatchAndForceTableGroup");
+                if (software.WatchAndForceTableGroup != null)
+                {
+                    TreeNode watchForceTables = new TreeNode("Watch & Force Tables");
+                    watchForceTables.Tag = software.WatchAndForceTableGroup;
+                    watchForceTables.ImageIndex = 14;
+                    watchForceTables.SelectedImageIndex = 14;
+                    root.Nodes.Add(watchForceTables);
+
+                    AddWatchForceTables(software.WatchAndForceTableGroup, watchForceTables);
+                    int watchCount = software.WatchAndForceTableGroup.WatchTables.Count;
+                int forceCount = software.WatchAndForceTableGroup.ForceTables.Count;
+                Logger.LogInfo($"监视和强制表组加载完成，共{watchCount + forceCount}个表（监视:{watchCount}，强制:{forceCount}）", "LoadWatchAndForceTableGroup");
+                }
+                else
+                {
+                    Logger.LogWarning("监视和强制表组为空", "LoadWatchAndForceTableGroup");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "加载监视和强制表组");
+                Logger.LogWarning($"监视和强制表组加载失败: {ex.Message}", "LoadWatchAndForceTableGroup");
             }
         }
         public void AddPlcBlocks(PlcBlockGroup plcGroup, TreeNode node)
