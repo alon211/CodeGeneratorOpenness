@@ -27,3 +27,6 @@ The following add-on packages are missing: TIA Portal Test Suite Advanced V19
 [2025-07-17 16:52:38.014] [INFO] [LoadTreeView]: 开始加载数据类型
 [2025-07-17 16:52:38.046] [INFO] [LoadTreeView]: TreeView加载完成
 [2025-07-17 16:52:49.244] [INFO] [IterateThroughDevices]: 设备遍历操作完成
+[2025-07-17 17:02:28.023] [INFO] [frmMainForm_Closing]: 程序正在关闭
+[2025-07-17 17:02:28.023] [INFO] [frmMainForm_Closing]: 正在释放TIA Portal连接
+[2025-07-17 17:02:28.038] [INFO] [frmMainForm_Closing]: 程序关闭完成

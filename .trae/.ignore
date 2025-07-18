@@ -13,5 +13,6 @@ CodeGeneratorOpenness/bin/Debug/Import/*.xml
 Sample/Thumbs.db
 test-playwright.js
 node_modules/
+.trae/
 package-lock.json
 package.json
