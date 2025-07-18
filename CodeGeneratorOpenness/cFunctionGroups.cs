@@ -26,6 +26,17 @@ namespace CodeGeneratorOpenness
     class cFunctionGroups
     {
         // 图标索引常量
+         // 图标索引常量
+        private const int DEFAULT_ICON_INDEX=0;
+        private const int FOLDERCLOSED_ICON_INDEX = 1;
+        private const int OB_ICON_INDEX = 2;
+        private const int FB_ICON_INDEX = 3;
+        private const int FC_ICON_INDEX = 4;
+        private const int DB_ICON_INDEX = 5;
+        private const int SAFEDB_ICON_INDEX = 6;
+        private const int SAFEOB_ICON_INDEX = 7;
+        private const int SAFEFB_ICON_INDEX = 8;
+        private const int DATATYPE_ICON_INDEX = 9;
         private const int TAG_TABLE_ICON_INDEX = 10;  // tag_table.png
         private const int SOFTWARE_UNITS_ICON_INDEX = 11;  // softwareUnits.png
         public void ClearTreeView(TreeView Tree)
@@ -104,7 +115,7 @@ namespace CodeGeneratorOpenness
             LoadWatchAndForceTableGroup(software, root);
 
             // 8. 加载软件单元组 (Software Units)
-            LoadSoftwareUnits(software, root);
+            LoadSoftwareUnitsGroup(software, root);
 
             Logger.LogInfo("PlcSoftware结构组件加载完成", "LoadPlcSoftwareStructures");
         }
@@ -171,8 +182,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode groupNode = new TreeNode(subGroup.Name);
                     groupNode.Tag = subGroup;
-                    groupNode.ImageIndex = 1;
-                    groupNode.SelectedImageIndex = 1;
+                    groupNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    groupNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     AddTagTables(subGroup, groupNode);
                     node.Nodes.Add(groupNode);
                 }
@@ -203,8 +214,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode groupNode = new TreeNode(subGroup.Name);
                     groupNode.Tag = subGroup;
-                    groupNode.ImageIndex = 1;
-                    groupNode.SelectedImageIndex = 1;
+                    groupNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    groupNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     AddExternalSources(subGroup, groupNode);
                     node.Nodes.Add(groupNode);
                 }
@@ -227,8 +238,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode alarmNode = new TreeNode($"[System] {alarmTextlist.Name}");
                     alarmNode.Tag = alarmTextlist;
-                    alarmNode.ImageIndex = 12;
-                    alarmNode.SelectedImageIndex = 12;
+                    alarmNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    alarmNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     node.Nodes.Add(alarmNode);
                 }
 
@@ -237,8 +248,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode alarmNode = new TreeNode($"[User] {alarmTextlist.Name}");
                     alarmNode.Tag = alarmTextlist;
-                    alarmNode.ImageIndex = 12;
-                    alarmNode.SelectedImageIndex = 12;
+                    alarmNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    alarmNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     node.Nodes.Add(alarmNode);
                 }
             }
@@ -259,8 +270,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode techNode = new TreeNode(techObject.Name);
                     techNode.Tag = techObject;
-                    techNode.ImageIndex = 13;
-                    techNode.SelectedImageIndex = 13;
+                    techNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    techNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     node.Nodes.Add(techNode);
                 }
 
@@ -268,8 +279,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode groupNode = new TreeNode(subGroup.Name);
                     groupNode.Tag = subGroup;
-                    groupNode.ImageIndex = 1;
-                    groupNode.SelectedImageIndex = 1;
+                    groupNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    groupNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     AddTechnologicalObjects(subGroup, groupNode);
                     node.Nodes.Add(groupNode);
                 }
@@ -292,8 +303,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode tableNode = new TreeNode($"[Watch] {watchTable.Name}");
                     tableNode.Tag = watchTable;
-                    tableNode.ImageIndex = 14;
-                    tableNode.SelectedImageIndex = 14;
+                    tableNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    tableNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     node.Nodes.Add(tableNode);
                 }
 
@@ -302,8 +313,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode tableNode = new TreeNode($"[Force] {forceTable.Name}");
                     tableNode.Tag = forceTable;
-                    tableNode.ImageIndex = 14;
-                    tableNode.SelectedImageIndex = 14;
+                    tableNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    tableNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     node.Nodes.Add(tableNode);
                 }
 
@@ -311,8 +322,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode groupNode = new TreeNode(subGroup.Name);
                     groupNode.Tag = subGroup;
-                    groupNode.ImageIndex = 1;
-                    groupNode.SelectedImageIndex = 1;
+                    groupNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    groupNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     AddWatchForceTables(subGroup, groupNode);
                     node.Nodes.Add(groupNode);
                 }
@@ -335,8 +346,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode programBlocks = new TreeNode("Program Blocks");
                     programBlocks.Tag = software.BlockGroup;
-                    programBlocks.ImageIndex = 1;
-                    programBlocks.SelectedImageIndex = 1;
+                    programBlocks.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    programBlocks.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     root.Nodes.Add(programBlocks);
 
                     AddPlcBlocks(software.BlockGroup, programBlocks);
@@ -370,8 +381,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode dataTypes = new TreeNode("PLC Data Types");
                     dataTypes.Tag = software.TypeGroup;
-                    dataTypes.ImageIndex = 9;
-                    dataTypes.SelectedImageIndex = 9;
+                    dataTypes.ImageIndex = DATATYPE_ICON_INDEX;
+                    dataTypes.SelectedImageIndex = DATATYPE_ICON_INDEX;
                     root.Nodes.Add(dataTypes);
 
                     AddPlcTypes(software.TypeGroup, dataTypes);
@@ -436,8 +447,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode externalSources = new TreeNode("External Sources");
                     externalSources.Tag = software.ExternalSourceGroup;
-                    externalSources.ImageIndex = 1; // 使用通用组图标
-                    externalSources.SelectedImageIndex = 1;
+                    externalSources.ImageIndex = FOLDERCLOSED_ICON_INDEX; // 使用通用组图标
+                    externalSources.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     root.Nodes.Add(externalSources);
 
                     AddExternalSources(software.ExternalSourceGroup, externalSources);
@@ -467,8 +478,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode alarmTextlists = new TreeNode("Alarm Textlists");
                     alarmTextlists.Tag = software.PlcAlarmTextlistGroup;
-                    alarmTextlists.ImageIndex = 12;
-                    alarmTextlists.SelectedImageIndex = 12;
+                    alarmTextlists.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    alarmTextlists.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     root.Nodes.Add(alarmTextlists);
 
                     AddAlarmTextlists(software.PlcAlarmTextlistGroup, alarmTextlists);
@@ -500,8 +511,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode techObjects = new TreeNode("Technological Objects");
                     techObjects.Tag = software.TechnologicalObjectGroup;
-                    techObjects.ImageIndex = 13;
-                    techObjects.SelectedImageIndex = 13;
+                    techObjects.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    techObjects.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     root.Nodes.Add(techObjects);
 
                     AddTechnologicalObjects(software.TechnologicalObjectGroup, techObjects);
@@ -531,8 +542,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode watchForceTables = new TreeNode("Watch & Force Tables");
                     watchForceTables.Tag = software.WatchAndForceTableGroup;
-                    watchForceTables.ImageIndex = 14;
-                    watchForceTables.SelectedImageIndex = 14;
+                    watchForceTables.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    watchForceTables.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     root.Nodes.Add(watchForceTables);
 
                     AddWatchForceTables(software.WatchAndForceTableGroup, watchForceTables);
@@ -563,75 +574,75 @@ namespace CodeGeneratorOpenness
                     n = new TreeNode(plcBlock.Name + " [OB" + plcBlock.Number.ToString() + "]");
                     n.Tag = plcBlock;
                     //n.ToolTipText = "Version " + plcBlock.HeaderVersion.ToString();
-                    n.ImageIndex = 2;
+                    n.ImageIndex = OB_ICON_INDEX;
 
                     OB ob = (OB)plcBlock;
                     if (ob.SecondaryType.Contains("Safe"))
                     {
                         n.BackColor = Color.Yellow;
-                        n.ImageIndex = 7;
+                        n.ImageIndex = SAFEOB_ICON_INDEX;
                     }
                 }
                 else if (plcBlock is FB)
                 {
                     n = new TreeNode(plcBlock.Name + " [FB" + plcBlock.Number.ToString() + "]");
                     n.Tag = plcBlock;
-                    n.ImageIndex = 3;
+                    n.ImageIndex = FB_ICON_INDEX;
 
                     FB fb = (FB)plcBlock;
                     if ((fb.ProgrammingLanguage == ProgrammingLanguage.F_LAD) ||
                         (fb.ProgrammingLanguage == ProgrammingLanguage.F_FBD))
                     {
                         n.BackColor = Color.Yellow;
-                        n.ImageIndex = 8;
+                        n.ImageIndex = SAFEFB_ICON_INDEX;
                     }
                 }
                 else if (plcBlock is FC)
                 {
                     n = new TreeNode(plcBlock.Name + " [FC" + plcBlock.Number.ToString() + "]");
                     n.Tag = plcBlock;
-                    n.ImageIndex = 4;
+                    n.ImageIndex = FC_ICON_INDEX;
                 }
                 else if (plcBlock is InstanceDB)
                 {
                     n = new TreeNode(plcBlock.Name + " [DB" + plcBlock.Number.ToString() + "]");
                     n.Tag = plcBlock;
-                    n.ImageIndex = 5;
+                    n.ImageIndex = DB_ICON_INDEX;
 
                     InstanceDB db = (InstanceDB)plcBlock;
                     n.Name = db.Name + "[DB" + db.Number.ToString() + "]";
                     if (db.ProgrammingLanguage == ProgrammingLanguage.F_DB)
                     {
                         n.BackColor = Color.Yellow;
-                        n.ImageIndex = 6;
+                        n.ImageIndex = SAFEDB_ICON_INDEX;
                     }
                 }
                 else if (plcBlock is GlobalDB)
                 { 
                     n = new TreeNode(plcBlock.Name + " [DB" + plcBlock.Number.ToString() + "]");
                     n.Tag = plcBlock;
-                    n.ImageIndex = 5;
+                    n.ImageIndex = DB_ICON_INDEX;
 
                     GlobalDB db = (GlobalDB)plcBlock;
                     n.Name = db.Name + "[FB" + db.Number.ToString() + "]";
                     if (db.ProgrammingLanguage == ProgrammingLanguage.F_DB)
                     {
                         n.BackColor = Color.Yellow;
-                        n.ImageIndex = 6;
+                        n.ImageIndex = SAFEDB_ICON_INDEX;
                     }
                 }
                 else if (plcBlock is ArrayDB)
                 {
                     n = new TreeNode(plcBlock.Name + " [DB" + plcBlock.Number.ToString() + "]");
                     n.Tag = plcBlock;
-                    n.ImageIndex = 5;
+                    n.ImageIndex = DB_ICON_INDEX;
 
                     ArrayDB db = (ArrayDB)plcBlock;
                     n.Name = db.Name + "[FB" + db.Number.ToString() + "]";
                     if (db.ProgrammingLanguage == ProgrammingLanguage.F_DB)
                     {
                         n.BackColor = Color.Yellow;
-                        n.ImageIndex = 6;
+                        n.ImageIndex = SAFEDB_ICON_INDEX;
                     }
                 }
 
@@ -651,8 +662,8 @@ namespace CodeGeneratorOpenness
             {
                 TreeNode n = new TreeNode(group.Name);
                 n.Tag = group;
-                n.ImageIndex = 1;
-                n.SelectedImageIndex = 1;
+                n.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                n.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
 
                 AddPlcBlocks(group, n);
                 node.Nodes.Add(n);
@@ -664,7 +675,7 @@ namespace CodeGeneratorOpenness
             {
                 TreeNode n = new TreeNode(ty.Name);
                 n.Tag = ty;
-                n.ImageIndex = 9;
+                n.ImageIndex = DATATYPE_ICON_INDEX;
                 n.SelectedImageIndex = n.ImageIndex;
 
                 node.Nodes.Add(n);
@@ -675,8 +686,8 @@ namespace CodeGeneratorOpenness
             {
                 TreeNode n = new TreeNode(tGroup.Name);
                 n.Tag = tGroup;
-                n.ImageIndex = 1;
-                n.SelectedImageIndex = 1;
+                n.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                n.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
 
                 node.Nodes.Add(n);
                 AddPlcTypes(tGroup, n);
@@ -781,7 +792,7 @@ namespace CodeGeneratorOpenness
         /// </summary>
         /// <param name="software">PlcSoftware对象</param>
         /// <param name="root">根节点</param>
-        private void LoadSoftwareUnits(PlcSoftware software, TreeNode root)
+        private void LoadSoftwareUnitsGroup(PlcSoftware software, TreeNode root)
         {
             try
             {
@@ -796,8 +807,8 @@ namespace CodeGeneratorOpenness
                     {
                         TreeNode unitsNode = new TreeNode($"Software Units ({GetUnitCount(unitSystemGroup)})");
                         unitsNode.Tag = unitSystemGroup;
-                        unitsNode.ImageIndex = 1;
-                        unitsNode.SelectedImageIndex = 1;
+                        unitsNode.ImageIndex = SOFTWARE_UNITS_ICON_INDEX;
+                        unitsNode.SelectedImageIndex = SOFTWARE_UNITS_ICON_INDEX;
 
                         // 添加软件单元
                         AddSoftwareUnits(unitSystemGroup, unitsNode);
@@ -901,8 +912,8 @@ namespace CodeGeneratorOpenness
                     {
                         TreeNode blockGroupNode = new TreeNode("Block Group");
                         blockGroupNode.Tag = blockGroup;
-                        blockGroupNode.ImageIndex = 1;
-                        blockGroupNode.SelectedImageIndex = 1;
+                        blockGroupNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                        blockGroupNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                         
                         // 递归添加块组内容
                         AddPlcBlocks((dynamic)blockGroup, blockGroupNode);
@@ -920,8 +931,8 @@ namespace CodeGeneratorOpenness
                     {
                         TreeNode typeGroupNode = new TreeNode("Type Group");
                         typeGroupNode.Tag = typeGroup;
-                        typeGroupNode.ImageIndex = 1;
-                        typeGroupNode.SelectedImageIndex = 1;
+                        typeGroupNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                        typeGroupNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                         
                         // 递归添加类型组内容
                         AddPlcTypes((dynamic)typeGroup, typeGroupNode);
@@ -939,8 +950,8 @@ namespace CodeGeneratorOpenness
                     {
                         TreeNode tagTableGroupNode = new TreeNode("Tag Table Group");
                         tagTableGroupNode.Tag = tagTableGroup;
-                        tagTableGroupNode.ImageIndex = 1;
-                        tagTableGroupNode.SelectedImageIndex = 1;
+                        tagTableGroupNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                        tagTableGroupNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                         
                         // 添加标签表组内容
                         AddTagTableGroup((dynamic)tagTableGroup, tagTableGroupNode);
@@ -958,8 +969,8 @@ namespace CodeGeneratorOpenness
                     {
                         TreeNode externalSourceGroupNode = new TreeNode("External Source Group");
                         externalSourceGroupNode.Tag = externalSourceGroup;
-                        externalSourceGroupNode.ImageIndex = 1;
-                        externalSourceGroupNode.SelectedImageIndex = 1;
+                        externalSourceGroupNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                        externalSourceGroupNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                         
                         // 添加外部源组内容
                         AddExternalSourceGroup((dynamic)externalSourceGroup, externalSourceGroupNode);
@@ -977,8 +988,8 @@ namespace CodeGeneratorOpenness
                     {
                         TreeNode alarmTextListGroupNode = new TreeNode("Alarm Text List Group");
                         alarmTextListGroupNode.Tag = alarmTextListGroup;
-                        alarmTextListGroupNode.ImageIndex = 1;
-                        alarmTextListGroupNode.SelectedImageIndex = 1;
+                        alarmTextListGroupNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                        alarmTextListGroupNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                         
                         unitNode.Nodes.Add(alarmTextListGroupNode);
                     }
@@ -1020,8 +1031,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode tagTableNode = new TreeNode(tagTable.Name);
                     tagTableNode.Tag = tagTable;
-                    tagTableNode.ImageIndex = 1;
-                    tagTableNode.SelectedImageIndex = 1;
+                    tagTableNode.ImageIndex = TAG_TABLE_ICON_INDEX;
+                    tagTableNode.SelectedImageIndex = TAG_TABLE_ICON_INDEX;
                     node.Nodes.Add(tagTableNode);
                 }
                 
@@ -1030,8 +1041,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode subGroupNode = new TreeNode(subGroup.Name);
                     subGroupNode.Tag = subGroup;
-                    subGroupNode.ImageIndex = 1;
-                    subGroupNode.SelectedImageIndex = 1;
+                    subGroupNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    subGroupNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     
                     AddTagTableGroup(subGroup, subGroupNode);
                     node.Nodes.Add(subGroupNode);
@@ -1055,8 +1066,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode externalSourceNode = new TreeNode(externalSource.Name);
                     externalSourceNode.Tag = externalSource;
-                    externalSourceNode.ImageIndex = 1;
-                    externalSourceNode.SelectedImageIndex = 1;
+                    externalSourceNode.ImageIndex = SOFTWARE_UNITS_ICON_INDEX;
+                    externalSourceNode.SelectedImageIndex = SOFTWARE_UNITS_ICON_INDEX;
                     node.Nodes.Add(externalSourceNode);
                 }
                 
@@ -1065,8 +1076,8 @@ namespace CodeGeneratorOpenness
                 {
                     TreeNode subGroupNode = new TreeNode(subGroup.Name);
                     subGroupNode.Tag = subGroup;
-                    subGroupNode.ImageIndex = 1;
-                    subGroupNode.SelectedImageIndex = 1;
+                    subGroupNode.ImageIndex = FOLDERCLOSED_ICON_INDEX;
+                    subGroupNode.SelectedImageIndex = FOLDERCLOSED_ICON_INDEX;
                     
                     AddExternalSourceGroup(subGroup, subGroupNode);
                     node.Nodes.Add(subGroupNode);

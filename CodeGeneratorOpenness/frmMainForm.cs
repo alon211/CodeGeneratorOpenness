@@ -47,7 +47,10 @@ namespace CodeGeneratorOpenness
                 
                 InitializeComponent();
                 Logger.LogInfo("InitializeComponent完成", "frmMainForm");
-                
+                LoadIconsToImageList();
+                Logger.LogInfo("LoadIconsToImageList完成", "frmMainForm");
+                SetImageKeyNames();
+                Logger.LogInfo("SetImageKeyNames完成", "frmMainForm");
                 // 加载附加图标
                 LoadAdditionalIcons();
                 Logger.LogInfo("LoadAdditionalIcons完成", "frmMainForm");

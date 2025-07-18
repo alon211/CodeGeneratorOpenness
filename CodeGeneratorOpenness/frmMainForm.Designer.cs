@@ -1,7 +1,22 @@
-﻿namespace CodeGeneratorOpenness
+﻿using System.Drawing;
+
+namespace CodeGeneratorOpenness
 {
     partial class frmMainForm
     {
+        // 图标索引常量
+        private const int DEFAULT_ICON_INDEX=0;
+        private const int FOLDERCLOSED_ICON_INDEX = 1;
+        private const int OB_ICON_INDEX = 2;
+        private const int FB_ICON_INDEX = 3;
+        private const int FC_ICON_INDEX = 4;
+        private const int DB_ICON_INDEX = 5;
+        private const int SAFEDB_ICON_INDEX = 6;
+        private const int SAFEOB_ICON_INDEX = 7;
+        private const int SAFEFB_ICON_INDEX = 8;
+        private const int DATATYPE_ICON_INDEX = 9;
+        private const int TAG_TABLE_ICON_INDEX = 10;  // tag_table.png
+        private const int SOFTWARE_UNITS_ICON_INDEX = 11;  // softwareUnits.png
         /// <summary>
         /// Erforderliche Designervariable.
         /// </summary>
@@ -190,16 +205,7 @@
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "Document_16x.png");
-            this.imageList1.Images.SetKeyName(1, "FolderClosed_16x.png");
-            this.imageList1.Images.SetKeyName(2, "OB.png");
-            this.imageList1.Images.SetKeyName(3, "FB.png");
-            this.imageList1.Images.SetKeyName(4, "FC.png");
-            this.imageList1.Images.SetKeyName(5, "DB.png");
-            this.imageList1.Images.SetKeyName(6, "safeDB.png");
-            this.imageList1.Images.SetKeyName(7, "safeOB.png");
-            this.imageList1.Images.SetKeyName(8, "safeFB.png");
-            // this.imageList1.Images.SetKeyName(9, "DataType.png"); // 注释掉，因为ImageStream中只有9个图像(索引0-8)
+            
             // 
             // ctxBlock
             // 
@@ -453,6 +459,7 @@
             // pictureBox9
             // 
             this.pictureBox9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
             this.pictureBox9.Location = new System.Drawing.Point(815, 323);
             this.pictureBox9.Name = "pictureBox9";
             this.pictureBox9.Size = new System.Drawing.Size(20, 20);
@@ -472,6 +479,7 @@
             // pictureBox10
             // 
             this.pictureBox10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
             this.pictureBox10.Location = new System.Drawing.Point(815, 349);
             this.pictureBox10.Name = "pictureBox10";
             this.pictureBox10.Size = new System.Drawing.Size(20, 20);
@@ -758,7 +766,42 @@
             this.PerformLayout();
 
         }
-
+// 在frmMainForm的构造函数或Load事件中
+        private void LoadIconsToImageList()
+{
+    // 清空现有图标（如果需要）
+    imageList1.Images.Clear();
+    
+    // 按照索引顺序添加图标
+    imageList1.Images.Add(Image.FromFile(@"Ressources\Document_16x.png"));     // 索引0 - DEFAULT_ICON_INDEX
+    imageList1.Images.Add(Image.FromFile(@"Ressources\FolderClosed_16x.png")); // 索引1 - FOLDERCLOSED_ICON_INDEX
+    imageList1.Images.Add(Image.FromFile(@"Ressources\OB.png"));              // 索引2 - OB_ICON_INDEX
+    imageList1.Images.Add(Image.FromFile(@"Ressources\FB.png"));              // 索引3 - FB_ICON_INDEX
+    imageList1.Images.Add(Image.FromFile(@"Ressources\FC.png"));              // 索引4 - FC_ICON_INDEX
+    imageList1.Images.Add(Image.FromFile(@"Ressources\DB.png"));              // 索引5 - DB_ICON_INDEX
+    imageList1.Images.Add(Image.FromFile(@"Ressources\safeDB.png"));          // 索引6 - SAFEDB_ICON_INDEX
+    imageList1.Images.Add(Image.FromFile(@"Ressources\safeOB.png"));          // 索引7 - SAFEOB_ICON_INDEX
+    imageList1.Images.Add(Image.FromFile(@"Ressources\safeFB.png"));          // 索引8 - SAFEFB_ICON_INDEX
+    imageList1.Images.Add(Image.FromFile(@"Ressources\DataType.png"));        // 索引9 - DATATYPE_ICON_INDEX
+    imageList1.Images.Add(Image.FromFile(@"Ressources\tag_table.png"));       // 索引10 - TAG_TABLE_ICON_INDEX
+    imageList1.Images.Add(Image.FromFile(@"Ressources\softwareUnits.png"));   // 索引11 - SOFTWARE_UNITS_ICON_INDEX
+}
+        private void SetImageKeyNames()
+{
+    // 为每个索引设置对应的键名
+    imageList1.Images.SetKeyName(DEFAULT_ICON_INDEX, "Document_16x.png");
+    imageList1.Images.SetKeyName(FOLDERCLOSED_ICON_INDEX, "FolderClosed_16x.png");
+    imageList1.Images.SetKeyName(OB_ICON_INDEX, "OB.png");
+    imageList1.Images.SetKeyName(FB_ICON_INDEX, "FB.png");
+    imageList1.Images.SetKeyName(FC_ICON_INDEX, "FC.png");
+    imageList1.Images.SetKeyName(DB_ICON_INDEX, "DB.png");
+    imageList1.Images.SetKeyName(SAFEDB_ICON_INDEX, "safeDB.png");
+    imageList1.Images.SetKeyName(SAFEOB_ICON_INDEX, "safeOB.png");
+    imageList1.Images.SetKeyName(SAFEFB_ICON_INDEX, "safeFB.png");
+    imageList1.Images.SetKeyName(DATATYPE_ICON_INDEX, "DataType.png");
+    imageList1.Images.SetKeyName(TAG_TABLE_ICON_INDEX, "tag_table.png");
+    imageList1.Images.SetKeyName(SOFTWARE_UNITS_ICON_INDEX, "softwareUnits.png");
+}
         #endregion
 
         private System.Windows.Forms.Button btnOpen;

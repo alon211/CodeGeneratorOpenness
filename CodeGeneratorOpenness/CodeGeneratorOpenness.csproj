@@ -117,14 +117,43 @@
     <EmbeddedResource Include="XML\StepPlus.xml" />
     <EmbeddedResource Include="XML\TransitionPlus.xml" />
     <EmbeddedResource Include="XML\V14SP1.xml" />
-    <EmbeddedResource Include="Ressources\DataType.png" />
-    <EmbeddedResource Include="Ressources\safeDB.png" />
-    <EmbeddedResource Include="Ressources\safeFB.png" />
-    <EmbeddedResource Include="Ressources\safeOB.png" />
-    <EmbeddedResource Include="Ressources\DB.png" />
-    <EmbeddedResource Include="Ressources\FC.png" />
-    <EmbeddedResource Include="Ressources\FB.png" />
-    <EmbeddedResource Include="Ressources\OB.png" />
+    <Content Include="Ressources\DataType.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\safeDB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\safeFB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\safeOB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\DB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\FC.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\FB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\OB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\tag_table.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\softwareUnits.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\Document_16x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\FolderClosed_16x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
