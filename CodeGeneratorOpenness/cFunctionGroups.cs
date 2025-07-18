@@ -850,6 +850,10 @@ namespace CodeGeneratorOpenness
                     unitNode.Tag = unit;
                     unitNode.ImageIndex = 12; // 使用新的图标索引
                     unitNode.SelectedImageIndex = 12;
+                    
+                    // 递归解析软件单元的子组件
+                    AddSoftwareUnitComponents(unit, unitNode);
+                    
                     node.Nodes.Add(unitNode);
                 }
 
@@ -860,12 +864,214 @@ namespace CodeGeneratorOpenness
                     safetyUnitNode.Tag = safetyUnit;
                     safetyUnitNode.ImageIndex = 13; // 使用不同的图标索引表示安全单元
                     safetyUnitNode.SelectedImageIndex = 13;
+                    
+                    // 递归解析安全单元的子组件
+                    AddSoftwareUnitComponents(safetyUnit, safetyUnitNode);
+                    
                     node.Nodes.Add(safetyUnitNode);
                 }
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex, "添加软件单元");
+            }
+        }
+
+        /// <summary>
+        /// 添加软件单元的子组件（递归解析）
+        /// </summary>
+        /// <param name="unit">软件单元（PlcUnit或PlcSafetyUnit）</param>
+        /// <param name="unitNode">单元节点</param>
+        private void AddSoftwareUnitComponents(object unit, TreeNode unitNode)
+        {
+            try
+            {
+                // 使用反射获取PlcUnitBase的属性
+                var unitType = unit.GetType();
+                
+                // 添加块组 (Block Group)
+                var blockGroupProperty = unitType.GetProperty("BlockGroup");
+                if (blockGroupProperty != null)
+                {
+                    var blockGroup = blockGroupProperty.GetValue(unit);
+                    if (blockGroup != null)
+                    {
+                        TreeNode blockGroupNode = new TreeNode("Block Group");
+                        blockGroupNode.Tag = blockGroup;
+                        blockGroupNode.ImageIndex = 1;
+                        blockGroupNode.SelectedImageIndex = 1;
+                        
+                        // 递归添加块组内容
+                        AddPlcBlocks((dynamic)blockGroup, blockGroupNode);
+                        
+                        unitNode.Nodes.Add(blockGroupNode);
+                    }
+                }
+                
+                // 添加类型组 (Type Group)
+                var typeGroupProperty = unitType.GetProperty("TypeGroup");
+                if (typeGroupProperty != null)
+                {
+                    var typeGroup = typeGroupProperty.GetValue(unit);
+                    if (typeGroup != null)
+                    {
+                        TreeNode typeGroupNode = new TreeNode("Type Group");
+                        typeGroupNode.Tag = typeGroup;
+                        typeGroupNode.ImageIndex = 1;
+                        typeGroupNode.SelectedImageIndex = 1;
+                        
+                        // 递归添加类型组内容
+                        AddPlcTypes((dynamic)typeGroup, typeGroupNode);
+                        
+                        unitNode.Nodes.Add(typeGroupNode);
+                    }
+                }
+                
+                // 添加标签表组 (Tag Table Group)
+                var tagTableGroupProperty = unitType.GetProperty("TagTableGroup");
+                if (tagTableGroupProperty != null)
+                {
+                    var tagTableGroup = tagTableGroupProperty.GetValue(unit);
+                    if (tagTableGroup != null)
+                    {
+                        TreeNode tagTableGroupNode = new TreeNode("Tag Table Group");
+                        tagTableGroupNode.Tag = tagTableGroup;
+                        tagTableGroupNode.ImageIndex = 1;
+                        tagTableGroupNode.SelectedImageIndex = 1;
+                        
+                        // 添加标签表组内容
+                        AddTagTableGroup((dynamic)tagTableGroup, tagTableGroupNode);
+                        
+                        unitNode.Nodes.Add(tagTableGroupNode);
+                    }
+                }
+                
+                // 添加外部源组 (External Source Group)
+                var externalSourceGroupProperty = unitType.GetProperty("ExternalSourceGroup");
+                if (externalSourceGroupProperty != null)
+                {
+                    var externalSourceGroup = externalSourceGroupProperty.GetValue(unit);
+                    if (externalSourceGroup != null)
+                    {
+                        TreeNode externalSourceGroupNode = new TreeNode("External Source Group");
+                        externalSourceGroupNode.Tag = externalSourceGroup;
+                        externalSourceGroupNode.ImageIndex = 1;
+                        externalSourceGroupNode.SelectedImageIndex = 1;
+                        
+                        // 添加外部源组内容
+                        AddExternalSourceGroup((dynamic)externalSourceGroup, externalSourceGroupNode);
+                        
+                        unitNode.Nodes.Add(externalSourceGroupNode);
+                    }
+                }
+                
+                // 添加报警文本列表组 (Alarm Text List Group)
+                var alarmTextListGroupProperty = unitType.GetProperty("PlcAlarmTextlistGroup");
+                if (alarmTextListGroupProperty != null)
+                {
+                    var alarmTextListGroup = alarmTextListGroupProperty.GetValue(unit);
+                    if (alarmTextListGroup != null)
+                    {
+                        TreeNode alarmTextListGroupNode = new TreeNode("Alarm Text List Group");
+                        alarmTextListGroupNode.Tag = alarmTextListGroup;
+                        alarmTextListGroupNode.ImageIndex = 1;
+                        alarmTextListGroupNode.SelectedImageIndex = 1;
+                        
+                        unitNode.Nodes.Add(alarmTextListGroupNode);
+                    }
+                }
+                
+                Logger.LogInfo($"软件单元 {GetUnitName(unit)} 的子组件加载完成", "AddSoftwareUnitComponents");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, $"添加软件单元子组件: {GetUnitName(unit)}");
+            }
+        }
+        
+        /// <summary>
+        /// 获取软件单元名称
+        /// </summary>
+        private string GetUnitName(object unit)
+        {
+            try
+            {
+                var nameProperty = unit.GetType().GetProperty("Name");
+                return nameProperty?.GetValue(unit)?.ToString() ?? "Unknown";
+            }
+            catch
+            {
+                return "Unknown";
+            }
+        }
+        
+        /// <summary>
+        /// 添加标签表组内容
+        /// </summary>
+        private void AddTagTableGroup(dynamic tagTableGroup, TreeNode node)
+        {
+            try
+            {
+                // 添加标签表
+                foreach (var tagTable in tagTableGroup.TagTables)
+                {
+                    TreeNode tagTableNode = new TreeNode(tagTable.Name);
+                    tagTableNode.Tag = tagTable;
+                    tagTableNode.ImageIndex = 1;
+                    tagTableNode.SelectedImageIndex = 1;
+                    node.Nodes.Add(tagTableNode);
+                }
+                
+                // 递归添加子组
+                foreach (var subGroup in tagTableGroup.Groups)
+                {
+                    TreeNode subGroupNode = new TreeNode(subGroup.Name);
+                    subGroupNode.Tag = subGroup;
+                    subGroupNode.ImageIndex = 1;
+                    subGroupNode.SelectedImageIndex = 1;
+                    
+                    AddTagTableGroup(subGroup, subGroupNode);
+                    node.Nodes.Add(subGroupNode);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "添加标签表组");
+            }
+        }
+        
+        /// <summary>
+        /// 添加外部源组内容
+        /// </summary>
+        private void AddExternalSourceGroup(dynamic externalSourceGroup, TreeNode node)
+        {
+            try
+            {
+                // 添加外部源
+                foreach (var externalSource in externalSourceGroup.ExternalSources)
+                {
+                    TreeNode externalSourceNode = new TreeNode(externalSource.Name);
+                    externalSourceNode.Tag = externalSource;
+                    externalSourceNode.ImageIndex = 1;
+                    externalSourceNode.SelectedImageIndex = 1;
+                    node.Nodes.Add(externalSourceNode);
+                }
+                
+                // 递归添加子组
+                foreach (var subGroup in externalSourceGroup.Groups)
+                {
+                    TreeNode subGroupNode = new TreeNode(subGroup.Name);
+                    subGroupNode.Tag = subGroup;
+                    subGroupNode.ImageIndex = 1;
+                    subGroupNode.SelectedImageIndex = 1;
+                    
+                    AddExternalSourceGroup(subGroup, subGroupNode);
+                    node.Nodes.Add(subGroupNode);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "添加外部源组");
             }
         }
     }
