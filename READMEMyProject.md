@@ -21,6 +21,9 @@ This version is based on TIA V19.
 - 安装 .NET Framework 4.8 Developer Pack
 - 安装 Visual Studio Build Tools https://visualstudio.microsoft.com/visual-cpp-build-tools/
 - 安装 Siemens TIA Portal V19
+## 添加权限到openness
+1. 将该电脑权限添加到openness用户组
+2. 重启电脑使其生效
 ## 编译命令
 先执行该命令编译
 ```
@@ -30,6 +33,7 @@ This version is based on TIA V19.
 ```
 dotnet build CodeGeneratorOpenness.sln
 ```
+
 
 ## 不同版本编译需要修改的地方
 CodeGeneratorOpenness\CodeGeneratorOpenness.csproj：
