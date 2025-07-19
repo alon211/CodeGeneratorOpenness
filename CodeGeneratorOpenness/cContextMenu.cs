@@ -4,6 +4,11 @@ using System.Windows.Forms;
 using Siemens.Engineering.SW;
 using Siemens.Engineering.SW.Blocks;
 using Siemens.Engineering.SW.Types;
+using Siemens.Engineering.SW.Units;
+using Siemens.Engineering.Library;
+using Siemens.Engineering.Library.MasterCopies;
+using Siemens.Engineering.Library.Types;
+using Siemens.Engineering;
 
 namespace CodeGeneratorOpenness
 {
@@ -297,18 +302,120 @@ namespace CodeGeneratorOpenness
                 
                 TreeNode targetNode = targetTreeView.SelectedNode;
                 
-                Logger.LogInfo($"粘贴对象: {copiedNode?.Text} 到 {targetNode.Text}", "cContextMenu.PasteMenuItem_Click");
+                Logger.LogInfo($"开始执行粘贴操作: {copiedNode?.Text} 到 {targetNode.Text}", "cContextMenu.PasteMenuItem_Click");
                 
-                // 这里暂时只记录日志，实际的粘贴逻辑需要根据具体的业务需求实现
-                // 例如：调用TIA Portal Openness API进行实际的复制粘贴操作
-                
-                MessageBox.Show($"粘贴操作: {copiedNode?.Text} -> {targetNode.Text}\n\n注意：这是演示功能，实际的粘贴逻辑需要根据业务需求实现。", 
-                    "粘贴操作", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // 检查是否为软件单元复制粘贴
+                if (copiedObject is PlcUnit && IsSoftwareUnitsNode(targetNode))
+                {
+                    bool result = ExecuteSoftwareUnitPaste(copiedObject as PlcUnit, targetNode);
+                    if (result)
+                    {
+                        Logger.LogInfo($"软件单元粘贴成功: {copiedNode?.Text}", "cContextMenu.PasteMenuItem_Click");
+                        MessageBox.Show($"软件单元复制成功: {copiedNode?.Text}", "复制成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        Logger.LogWarning($"软件单元粘贴失败: {copiedNode?.Text}", "cContextMenu.PasteMenuItem_Click");
+                        MessageBox.Show($"软件单元复制失败: {copiedNode?.Text}", "复制失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    // 其他类型的复制粘贴逻辑
+                    Logger.LogInfo($"执行通用粘贴操作: {copiedNode?.Text} -> {targetNode.Text}", "cContextMenu.PasteMenuItem_Click");
+                    MessageBox.Show($"粘贴操作: {copiedNode?.Text} -> {targetNode.Text}\n\n注意：当前仅支持软件单元复制到Software Units节点。", 
+                        "粘贴操作", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex, "粘贴操作");
                 MessageBox.Show($"粘贴失败: {ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        
+        /// <summary>
+        /// 检查目标节点是否为Software Units节点
+        /// </summary>
+        /// <param name="targetNode">目标节点</param>
+        /// <returns>是否为Software Units节点</returns>
+        private bool IsSoftwareUnitsNode(TreeNode targetNode)
+        {
+            try
+            {
+                // 检查节点文本是否包含"Software Units"
+                if (targetNode.Text.Contains("Software Units"))
+                {
+                    return true;
+                }
+                
+                // 检查节点的Tag是否为PlcUnitSystemGroup类型
+                if (targetNode.Tag is PlcUnitSystemGroup)
+                {
+                    return true;
+                }
+                
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"检查Software Units节点失败: {ex.Message}", "cContextMenu.IsSoftwareUnitsNode");
+                return false;
+            }
+        }
+        
+        /// <summary>
+        /// 执行软件单元复制粘贴操作
+        /// </summary>
+        /// <param name="sourceUnit">源软件单元</param>
+        /// <param name="targetNode">目标节点</param>
+        /// <returns>复制是否成功</returns>
+        private bool ExecuteSoftwareUnitPaste(PlcUnit sourceUnit, TreeNode targetNode)
+        {
+            try
+            {
+                Logger.LogInfo($"准备执行软件单元复制: 源对象类型={sourceUnit.GetType().Name}, 源节点={sourceUnit.Name}", "cContextMenu.ExecuteSoftwareUnitPaste");
+                
+                // 获取项目和软件对象
+                if (frmMainForm.project == null || frmMainForm.software == null)
+                {
+                    Logger.LogError("项目或软件对象为空，无法执行复制操作", "cContextMenu.ExecuteSoftwareUnitPaste");
+                    return false;
+                }
+                
+                // 获取PlcUnitProvider
+                PlcUnitProvider unitProvider = frmMainForm.software.GetService<PlcUnitProvider>();
+                if (unitProvider?.UnitGroup == null)
+                {
+                    Logger.LogError("无法获取PlcUnitProvider或UnitGroup", "cContextMenu.ExecuteSoftwareUnitPaste");
+                    return false;
+                }
+                
+                // 获取项目库
+                ProjectLibrary projectLibrary = frmMainForm.project.ProjectLibrary;
+                if (projectLibrary == null)
+                {
+                    Logger.LogError("无法获取项目库", "cContextMenu.ExecuteSoftwareUnitPaste");
+                    return false;
+                }
+                
+                // 步骤1: 将源软件单元复制到项目库作为主副本
+                MasterCopyComposition masterCopies = projectLibrary.MasterCopyFolder.MasterCopies;
+                IMasterCopySource unitAsMasterCopy = (IMasterCopySource)sourceUnit;
+                MasterCopy masterCopy = masterCopies.Create(unitAsMasterCopy);
+                Logger.LogInfo($"成功创建主副本: {masterCopy.Name}", "cContextMenu.ExecuteSoftwareUnitPaste");
+                
+                // 步骤2: 从主副本创建新的软件单元实例
+                PlcUnitComposition targetComposition = unitProvider.UnitGroup.Units;
+                PlcUnit newUnit = targetComposition.CreateFrom(masterCopy);
+                
+                Logger.LogInfo($"软件单元复制成功: {newUnit.Name}", "cContextMenu.ExecuteSoftwareUnitPaste");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "执行软件单元复制");
+                return false;
             }
         }
         
