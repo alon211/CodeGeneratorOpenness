@@ -12,6 +12,74 @@ namespace CodeGeneratorOpenness
         public frmStartup()
         {
             InitializeComponent();
+            this.Load += frmStartup_Load;
+        }
+
+        /// <summary>
+        /// 窗体加载事件
+        /// </summary>
+        private void frmStartup_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                Logger.LogInfo("启动画面加载，开始检查模板文件路径", "frmStartup.Load");
+                
+                // 检查模板文件路径 - 使用相对于bin\Debug目录的路径
+                string templatePath = "template\\Automation_Framework_PROJ_V1_2\\Automation_Framework_PROJ_V1_2.ap19";
+                CheckFilePathExists(templatePath);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "frmStartup.Load");
+            }
+        }
+
+        /// <summary>
+        /// 检查文件路径是否存在
+        /// </summary>
+        /// <param name="filePath">要检查的文件路径</param>
+        /// <returns>文件是否存在</returns>
+        private bool CheckFilePathExists(string filePath)
+        {
+            try
+            {
+                Logger.LogInfo($"开始检查文件路径: {filePath}", "CheckFilePathExists");
+                
+                // 将相对路径转换为绝对路径
+                string absolutePath;
+                if (System.IO.Path.IsPathRooted(filePath))
+                {
+                    absolutePath = filePath;
+                }
+                else
+                {
+                    absolutePath = System.IO.Path.Combine(Application.StartupPath, filePath);
+                }
+                
+                Logger.LogInfo($"转换后的绝对路径: {absolutePath}", "CheckFilePathExists");
+                
+                bool exists = System.IO.File.Exists(absolutePath);
+                
+                if (exists)
+                {
+                    Logger.LogInfo($"文件路径存在: {absolutePath}", "CheckFilePathExists");
+                }
+                else
+                {
+                    Logger.LogWarning($"文件路径不存在: {absolutePath}", "CheckFilePathExists");
+                    
+                    // 弹窗告知用户文件不存在，确定后退出程序
+                    MessageBox.Show($"模板文件不存在：\n{absolutePath}\n\n程序将退出。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                }
+                
+                return exists;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "CheckFilePathExists");
+                return false;
+            }
         }
 
         private void InitializeComponent()

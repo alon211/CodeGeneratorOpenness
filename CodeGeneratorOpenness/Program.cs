@@ -14,6 +14,7 @@ namespace CodeGeneratorOpenness
     static class Program
     {
         public const string PROJECT_TREENODE_JSON_PATH = "project\\treenode";  // 项目配置目录
+        public const string TEMPLATE_FILE_PATH= "CodeGeneratorOpenness\\bin\\Debug\\template\\Automation_Framework_PROJ_V1_2\\Automation_Framework_PROJ_V1_2.ap19";
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
