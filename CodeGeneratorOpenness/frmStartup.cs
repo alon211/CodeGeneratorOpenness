@@ -283,8 +283,12 @@ namespace CodeGeneratorOpenness
                 Logger.LogInfo($"模板路径: {templatePath}", "CreateNewProject");
                 Logger.LogInfo($"目标路径: {targetProjectDir}", "CreateNewProject");
                 
-                // 使用TIA Portal Openness API创建新项目
-                CreateProjectFromTemplate(templatePath, targetProjectDir, projectName);
+                // 使用等待对话框执行TIA Portal Openness API创建新项目
+                frmWaitingDialog.ShowAndExecute(
+                    () => CreateProjectFromTemplate(templatePath, targetProjectDir, projectName),
+                    $"正在创建项目: {projectName}",
+                    "请稍候，正在处理..."
+                );
                 
                 Logger.LogInfo($"新项目 '{projectName}' 创建成功", "CreateNewProject");
                 

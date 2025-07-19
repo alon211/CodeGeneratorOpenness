@@ -87,6 +87,12 @@
     <Compile Include="frmReadStructure.Designer.cs">
       <DependentUpon>frmReadStructure.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmWaitingDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWaitingDialog.Designer.cs">
+      <DependentUpon>frmWaitingDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="StepDataOne.cs" />
     <Compile Include="UNC.cs" />
     <EmbeddedResource Include="frmMainForm.resx">
