@@ -36,6 +36,7 @@ namespace CodeGeneratorOpenness
         public static PlcSoftware software = null;
 
         private cFunctionGroups groups = new cFunctionGroups();
+        private cContextMenu contextMenu = new cContextMenu();
 
         // first sequence test
         private StepDataOne step = new StepDataOne();
@@ -55,6 +56,10 @@ namespace CodeGeneratorOpenness
                 // 加载附加图标
                 LoadAdditionalIcons();
                 Logger.LogInfo("LoadAdditionalIcons完成", "frmMainForm");
+                
+                // 初始化右键菜单组件
+                contextMenu.Initialize(treeView1);
+                Logger.LogInfo("右键菜单组件初始化完成", "frmMainForm");
                 
                 // avoid firewall
                 // HLKM\SOFTWARE\Siemens\Automation\Openness\

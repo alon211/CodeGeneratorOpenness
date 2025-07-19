@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cContextMenu.cs" />
     <Compile Include="cDirectoryUtils.cs" />
     <Compile Include="cFirewall.cs" />
     <Compile Include="cFunctionGroups.cs" />
