@@ -64,4 +64,7 @@ using (OpenFileDialog openFileDialog = new OpenFileDialog())
 
 ```
 
+现在新增功能如下:
+启动画面点击新建按钮，输入项目名称确定后，调用代码里已有的逻辑openproject功能来实现打开
+
 

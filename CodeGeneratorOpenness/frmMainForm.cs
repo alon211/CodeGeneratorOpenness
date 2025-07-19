@@ -17,6 +17,7 @@ using Siemens.Engineering.HW.Features;
 using Siemens.Engineering.SW;
 using Siemens.Engineering.SW.Blocks;
 using Siemens.Engineering.SW.Types;
+using Siemens.Engineering.SW.ExternalSources;
 using Siemens.Engineering.Compiler;
 
 using System.IO;
@@ -1094,18 +1095,42 @@ namespace CodeGeneratorOpenness
 
                         if (block.IsConsistent)
                         {
-                            string fPath = Application.StartupPath + "\\Export\\" +
-                                block.ProgrammingLanguage.ToString() + "_" +
-                                block.Name + "_" +
-                                "V" + block.HeaderVersion.ToString() +
-                                ".xml";
-                            fPath = GetNextFileName(fPath);
+                            // 当编程语言为SCL时，导出纯文本格式
+                            if (block.ProgrammingLanguage.ToString() == "SCL")
+                            {
+                                string fPath = Application.StartupPath + "\\Export\\" +
+                                    block.ProgrammingLanguage.ToString() + "_" +
+                                    block.Name + "_" +
+                                    "V" + block.HeaderVersion.ToString() +
+                                    ".scl";
+                                fPath = GetNextFileName(fPath);
 
-                            FileInfo f = new FileInfo(fPath);
-                            block.Export(f, ExportOptions.None);
+                                FileInfo f = new FileInfo(fPath);
+                                
+                                // 使用PlcExternalSourceSystemGroup.GenerateSource导出纯文本SCL
+                                PlcExternalSourceSystemGroup externalSourceGroup = software.ExternalSourceGroup;
+                                var blocks = new List<PlcBlock>() { block };
+                                externalSourceGroup.GenerateSource(blocks, f, GenerateOptions.None);
 
-                            MessageOK("File " + Path.GetFileName(fPath) + " has beed exported",
-                                      "Export");
+                                MessageOK("File " + Path.GetFileName(fPath) + " has been exported as plain text SCL",
+                                          "Export");
+                            }
+                            else
+                            {
+                                // 其他编程语言继续使用XML格式导出
+                                string fPath = Application.StartupPath + "\\Export\\" +
+                                    block.ProgrammingLanguage.ToString() + "_" +
+                                    block.Name + "_" +
+                                    "V" + block.HeaderVersion.ToString() +
+                                    ".xml";
+                                fPath = GetNextFileName(fPath);
+
+                                FileInfo f = new FileInfo(fPath);
+                                block.Export(f, ExportOptions.None);
+
+                                MessageOK("File " + Path.GetFileName(fPath) + " has been exported",
+                                          "Export");
+                            }
                         }
                         else
                             MessageError("Block " + block.Name + " is not consistent. Please compile",
