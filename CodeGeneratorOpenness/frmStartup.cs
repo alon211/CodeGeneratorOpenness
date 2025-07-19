@@ -205,13 +205,158 @@ namespace CodeGeneratorOpenness
             {
                 Logger.LogInfo("用户点击新建项目按钮", "frmStartup.btnNewProject_Click");
                 
-                // 暂时不做任何处理，只记录日志
-                MessageBox.Show("新建项目功能暂未实现", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CreateNewProject();
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex, "frmStartup.btnNewProject_Click");
                 MessageBox.Show($"新建项目时发生错误: {ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// 创建新项目的核心逻辑
+        /// </summary>
+        private void CreateNewProject()
+        {
+            try
+            {
+                // 弹出对话框输入项目名称
+                string projectName = "";
+                DialogResult result = Input.InputBox("新建项目", "请输入项目名称:", ref projectName);
+                
+                if (result != DialogResult.OK || string.IsNullOrWhiteSpace(projectName))
+                {
+                    Logger.LogInfo("用户取消了新建项目或未输入项目名称", "CreateNewProject");
+                    return;
+                }
+                
+                // 验证项目名称（移除非法字符）
+                projectName = projectName.Trim();
+                char[] invalidChars = System.IO.Path.GetInvalidFileNameChars();
+                foreach (char c in invalidChars)
+                {
+                    projectName = projectName.Replace(c, '_');
+                }
+                
+                Logger.LogInfo($"用户输入的项目名称: {projectName}", "CreateNewProject");
+                
+                // 检查模板文件是否存在
+                string templatePath = System.IO.Path.Combine(Application.StartupPath, "template\\Automation_Framework_PROJ_V1_2\\Automation_Framework_PROJ_V1_2.ap19");
+                if (!System.IO.File.Exists(templatePath))
+                {
+                    Logger.LogError($"模板文件不存在: {templatePath}", "CreateNewProject");
+                    MessageBox.Show($"模板文件不存在：\n{templatePath}\n\n请确保模板文件存在后重试。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                
+                // 确保project目录存在
+                string projectDir = System.IO.Path.Combine(Application.StartupPath, "project");
+                if (!System.IO.Directory.Exists(projectDir))
+                {
+                    System.IO.Directory.CreateDirectory(projectDir);
+                    Logger.LogInfo($"创建project目录: {projectDir}", "CreateNewProject");
+                }
+                
+                // 检查目标项目是否已存在
+                string targetProjectDir = System.IO.Path.Combine(projectDir, projectName);
+                if (System.IO.Directory.Exists(targetProjectDir))
+                {
+                    DialogResult overwriteResult = MessageBox.Show(
+                        $"项目 '{projectName}' 已存在。是否覆盖？", 
+                        "项目已存在", 
+                        MessageBoxButtons.YesNo, 
+                        MessageBoxIcon.Question);
+                    
+                    if (overwriteResult != DialogResult.Yes)
+                    {
+                        Logger.LogInfo($"用户取消覆盖已存在的项目: {projectName}", "CreateNewProject");
+                        return;
+                    }
+                    
+                    // 删除已存在的项目目录
+                    System.IO.Directory.Delete(targetProjectDir, true);
+                    Logger.LogInfo($"删除已存在的项目目录: {targetProjectDir}", "CreateNewProject");
+                }
+                
+                Logger.LogInfo($"开始创建新项目: {projectName}", "CreateNewProject");
+                Logger.LogInfo($"模板路径: {templatePath}", "CreateNewProject");
+                Logger.LogInfo($"目标路径: {targetProjectDir}", "CreateNewProject");
+                
+                // 使用TIA Portal Openness API创建新项目
+                CreateProjectFromTemplate(templatePath, targetProjectDir, projectName);
+                
+                Logger.LogInfo($"新项目 '{projectName}' 创建成功", "CreateNewProject");
+                
+                // 询问用户是否打开新项目
+                DialogResult openResult = MessageBox.Show(
+                    $"项目 '{projectName}' 创建成功！\n\n是否现在打开该项目？", 
+                    "创建成功", 
+                    MessageBoxButtons.YesNo, 
+                    MessageBoxIcon.Information);
+                
+                if (openResult == DialogResult.Yes)
+                {
+                    Logger.LogInfo($"用户选择打开新创建的项目: {projectName}", "CreateNewProject");
+                    
+                    // 隐藏启动窗体并打开主窗体
+                    this.Hide();
+                    frmMainForm mainForm = new frmMainForm();
+                    mainForm.ShowDialog();
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "CreateNewProject");
+                MessageBox.Show($"创建新项目时发生错误: {ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        
+        /// <summary>
+        /// 从模板创建新项目
+        /// </summary>
+        /// <param name="templatePath">模板文件路径</param>
+        /// <param name="targetProjectDir">目标项目目录</param>
+        /// <param name="projectName">项目名称</param>
+        private void CreateProjectFromTemplate(string templatePath, string targetProjectDir, string projectName)
+        {
+            try
+            {
+                Logger.LogInfo("开始初始化TIA Portal", "CreateProjectFromTemplate");
+                
+                // 确保目标项目目录存在
+                if (!System.IO.Directory.Exists(targetProjectDir))
+                {
+                    System.IO.Directory.CreateDirectory(targetProjectDir);
+                    Logger.LogInfo($"创建目标项目目录: {targetProjectDir}", "CreateProjectFromTemplate");
+                }
+                
+                // 初始化TIA Portal
+                using (var tiaPortal = new Siemens.Engineering.TiaPortal(Siemens.Engineering.TiaPortalMode.WithoutUserInterface))
+                {
+                    Logger.LogInfo($"打开模板项目: {templatePath}", "CreateProjectFromTemplate");
+                    
+                    // 打开模板项目
+                    var templateProject = tiaPortal.Projects.Open(new System.IO.FileInfo(templatePath));
+                    
+                    Logger.LogInfo($"开始另存为新项目到: {targetProjectDir}", "CreateProjectFromTemplate");
+                    
+                    // 另存为新项目到目标目录
+                    templateProject.SaveAs(new System.IO.DirectoryInfo(targetProjectDir));
+                    
+                    // 关闭模板项目
+                    templateProject.Close();
+                    
+                    Logger.LogInfo("模板项目已关闭", "CreateProjectFromTemplate");
+                }
+                
+                Logger.LogInfo("TIA Portal已释放", "CreateProjectFromTemplate");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "CreateProjectFromTemplate");
+                throw new Exception($"从模板创建项目失败: {ex.Message}", ex);
             }
         }
 
