@@ -74,6 +74,9 @@
     <Compile Include="frmMainForm.Designer.cs">
       <DependentUpon>frmMainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmStartup.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Inputbox.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -79,7 +79,7 @@ namespace CodeGeneratorOpenness
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMainForm());
+            Application.Run(new frmStartup());
         }
 
         public static string Version = string.Empty;

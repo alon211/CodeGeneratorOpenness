@@ -13,3 +13,5 @@ test-playwright.js
 node_modules/
 package-lock.json
 package.json
+CodeGeneratorOpenness/template/
+CodeGeneratorOpenness/bin/
