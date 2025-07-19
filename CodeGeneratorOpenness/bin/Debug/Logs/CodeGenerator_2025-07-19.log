@@ -1497,3 +1497,114 @@
 [2025-07-19 14:41:59.185] [INFO] [frmMainForm_Closing]: 程序正在关闭
 [2025-07-19 14:41:59.185] [INFO] [frmMainForm_Closing]: 正在释放TIA Portal连接
 [2025-07-19 14:41:59.275] [INFO] [frmMainForm_Closing]: 程序关闭完成
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\config
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\config
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Log
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Log
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Result
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Result
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Reports
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Reports
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Data
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Data
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\UserLibrary
+[2025-07-19 14:56:12.623] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\UserLibrary
+[2025-07-19 14:56:12.623] [INFO] [Program.InitializeDirectories]: 目录结构初始化完成
+[2025-07-19 14:56:23.687] [INFO] [frmStartup.btnOpenProject_Click]: 用户点击打开项目按钮，准备跳转到主界面
+[2025-07-19 14:56:23.699] [INFO] [frmMainForm]: 开始初始化主窗体构造函数
+[2025-07-19 14:56:23.759] [INFO] [frmMainForm]: InitializeComponent完成
+[2025-07-19 14:56:23.803] [EXCEPTION] [主窗体构造函数初始化]: 异常类型: FileNotFoundException
+异常消息: Ressources\Document_16x.png
+堆栈跟踪:    在 System.Drawing.Image.FromFile(String filename, Boolean useEmbeddedColorManagement)
+   在 CodeGeneratorOpenness.frmMainForm.LoadIconsToImageList() 位置 E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\frmMainForm.Designer.cs:行号 785
+   在 CodeGeneratorOpenness.frmMainForm..ctor() 位置 E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\frmMainForm.cs:行号 51
+[2025-07-19 14:56:25.111] [INFO] [frmMainForm_Load]: 程序启动
+[2025-07-19 14:56:25.113] [INFO] [frmMainForm_Load]: 默认文件夹创建完成
+[2025-07-19 14:56:25.126] [INFO] [frmMainForm_Load]: 界面初始化完成
+[2025-07-19 14:56:42.970] [INFO] [IterateThroughDevices]: 开始遍历项目 Automation_Framework_PROJ_V1_2 的设备
+[2025-07-19 14:56:42.989] [INFO] [IterateThroughDevices]: 项目包含 2 个设备
+[2025-07-19 14:56:43.020] [INFO] [IterateThroughDevices]: 发现S7-1500设备: S7-1517TF
+[2025-07-19 14:56:43.026] [INFO] [IterateThroughDevices]: 发现CPU: DP.FRWA1.1.0.000CC1-KE01
+[2025-07-19 14:56:43.034] [INFO] [IterateThroughDevices]: 成功获取设备 DP.FRWA1.1.0.000CC1-KE01 的软件容器
+[2025-07-19 14:56:43.034] [INFO] [LoadTreeView]: 开始加载软件 DP.FRWA1.1.0.000CC1-KE01 到TreeView
+[2025-07-19 14:56:43.034] [INFO] [LoadPlcSoftwareStructures]: 开始自动加载PlcSoftware的所有结构组件
+[2025-07-19 14:56:43.034] [INFO] [LoadBlockGroup]: 开始加载程序块组
+[2025-07-19 14:56:43.217] [INFO] [LoadBlockGroup]: 程序块组加载完成，共1个块
+[2025-07-19 14:56:43.217] [INFO] [LoadTypeGroup]: 开始加载数据类型组
+[2025-07-19 14:56:43.235] [INFO] [LoadTypeGroup]: 数据类型组加载完成，共0个类型
+[2025-07-19 14:56:43.235] [INFO] [LoadTagTableGroup]: 开始加载标签表组
+[2025-07-19 14:56:43.297] [INFO] [LoadTagTableGroup]: 标签表组加载完成，共2个标签表
+[2025-07-19 14:56:43.297] [INFO] [LoadExternalSourceGroup]: 开始加载外部源文件组
+[2025-07-19 14:56:43.326] [INFO] [LoadExternalSourceGroup]: 外部源文件组加载完成，共0个源文件
+[2025-07-19 14:56:43.326] [INFO] [LoadPlcAlarmTextlistGroup]: 开始加载PLC报警文本列表组
+[2025-07-19 14:56:43.363] [INFO] [LoadPlcAlarmTextlistGroup]: PLC报警文本列表组加载完成，共34个文本列表（系统:34，用户:0）
+[2025-07-19 14:56:43.363] [INFO] [LoadTechnologicalObjectGroup]: 开始加载技术对象组
+[2025-07-19 14:56:43.478] [INFO] [LoadTechnologicalObjectGroup]: 技术对象组加载完成，共0个技术对象
+[2025-07-19 14:56:43.479] [INFO] [LoadWatchAndForceTableGroup]: 开始加载监视和强制表组
+[2025-07-19 14:56:43.501] [INFO] [LoadWatchAndForceTableGroup]: 监视和强制表组加载完成，共5个表（监视:4，强制:1）
+[2025-07-19 14:56:43.502] [INFO] [LoadSoftwareUnits]: 开始加载软件单元组
+[2025-07-19 14:56:44.115] [INFO] [AddSoftwareUnitComponents]: 软件单元 CentralFunctions 的子组件加载完成
+[2025-07-19 14:56:44.893] [INFO] [AddSoftwareUnitComponents]: 软件单元 ObjectsOfProjectLibraryUsed 的子组件加载完成
+[2025-07-19 14:56:44.956] [INFO] [AddSoftwareUnitComponents]: 软件单元 Global 的子组件加载完成
+[2025-07-19 14:56:45.041] [INFO] [AddSoftwareUnitComponents]: 软件单元 Motion 的子组件加载完成
+[2025-07-19 14:56:45.076] [INFO] [AddSoftwareUnitComponents]: 软件单元 UnEmn_Template_SCL 的子组件加载完成
+[2025-07-19 14:56:45.123] [INFO] [AddSoftwareUnitComponents]: 软件单元 Un_Unitn 的子组件加载完成
+[2025-07-19 14:56:45.164] [INFO] [AddSoftwareUnitComponents]: 软件单元 UnEm0_General_SCL 的子组件加载完成
+[2025-07-19 14:56:45.307] [INFO] [AddSoftwareUnitComponents]: 软件单元 Safety 的子组件加载完成
+[2025-07-19 14:56:45.328] [INFO] [LoadSoftwareUnits]: 软件单元组加载完成，共 8 个单元
+[2025-07-19 14:56:45.328] [INFO] [LoadPlcSoftwareStructures]: PlcSoftware结构组件加载完成
+[2025-07-19 14:56:45.328] [INFO] [LoadTreeView]: TreeView加载完成
+[2025-07-19 14:56:45.338] [INFO] [JsonExporter.ExportTreeViewToJson]: 开始导出TreeView到JSON: Automation_Framework_PROJ_V1_2
+[2025-07-19 14:56:45.338] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 14:56:45.338] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 14:56:45.338] [INFO] [JsonExporter.ConvertTreeViewToJson]: TreeView转换完成，共702个节点
+[2025-07-19 14:56:45.338] [INFO] [JsonExporter.SaveJsonToFile]: JSON文件保存成功: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode\Automation_Framework_PROJ_V1_2.json
+[2025-07-19 14:56:45.338] [INFO] [JsonExporter.SaveJsonToFile]: 文件大小: 431953 字节
+[2025-07-19 14:56:45.338] [INFO] [IterateThroughDevices]: 项目树JSON导出成功: Automation_Framework_PROJ_V1_2.json
+[2025-07-19 14:56:45.370] [INFO] [IterateThroughDevices]: 设备遍历操作完成
+[2025-07-19 14:56:50.948] [INFO] [SaveAsNewItem]: 开始另存为项目 Automation_Framework_PROJ_V1_2
+[2025-07-19 14:57:18.453] [INFO] [SaveAsNewItem]: 用户选择新项目路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2_Copy.ap19
+[2025-07-19 14:57:18.455] [INFO] [SaveAsNewItem]: 项目有未保存的更改，先保存当前项目
+[2025-07-19 14:57:18.690] [INFO] [SaveAsNewItem]: 开始另存为项目到: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2_Copy.ap19
+[2025-07-19 14:57:20.020] [EXCEPTION] [另存为项目]: 异常类型: EngineeringTargetInvocationException
+异常消息: Error when calling method 'SaveAs' of type 'Siemens.Engineering.Project'.
+
+Unable to perform Project SaveAs under the following path: 'E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template'
+
+The project could not be saved.
+由于 E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template 非空且当前项目不允许覆盖，因此该项目无法保存到所选文件夹中。
+堆栈跟踪:    在 Siemens.Engineering.Private.Session.Siemens.Engineering.Private.IInstanceSession.InvokeAction[TC](LifetimeContractHandle`1 lifetimeContractHandle, String name, IEnumerable`1 parameters, String fullName)
+   在 Siemens.Engineering.Private.InternalInstanceAccess`2.InvokeAction(String name, IEnumerable`1 parameters)
+   在 Siemens.Engineering.Project.SaveAs(DirectoryInfo targetFolderPath)
+   在 CodeGeneratorOpenness.frmMainForm.SaveAsNewItem() 位置 E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\frmMainForm.cs:行号 909
+[2025-07-19 14:57:35.980] [INFO] [SaveAsNewItem]: 开始另存为项目 Automation_Framework_PROJ_V1_2
+[2025-07-19 14:57:44.465] [INFO] [SaveAsNewItem]: 用户选择新项目路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2_Copy.ap19
+[2025-07-19 14:57:44.466] [INFO] [SaveAsNewItem]: 开始另存为项目到: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2_Copy.ap19
+[2025-07-19 14:57:44.667] [EXCEPTION] [另存为项目]: 异常类型: EngineeringTargetInvocationException
+异常消息: Error when calling method 'SaveAs' of type 'Siemens.Engineering.Project'.
+
+Unable to perform Project SaveAs under the following path: 'E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template'
+
+The project could not be saved.
+由于 E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template 非空且当前项目不允许覆盖，因此该项目无法保存到所选文件夹中。
+堆栈跟踪:    在 Siemens.Engineering.Private.Session.Siemens.Engineering.Private.IInstanceSession.InvokeAction[TC](LifetimeContractHandle`1 lifetimeContractHandle, String name, IEnumerable`1 parameters, String fullName)
+   在 Siemens.Engineering.Private.InternalInstanceAccess`2.InvokeAction(String name, IEnumerable`1 parameters)
+   在 Siemens.Engineering.Project.SaveAs(DirectoryInfo targetFolderPath)
+   在 CodeGeneratorOpenness.frmMainForm.SaveAsNewItem() 位置 E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\frmMainForm.cs:行号 909
+[2025-07-19 14:57:47.565] [INFO] [SaveAsNewItem]: 开始另存为项目 Automation_Framework_PROJ_V1_2
+[2025-07-19 14:58:02.366] [INFO] [SaveAsNewItem]: 用户选择新项目路径: E:\project\CodeGeneratorOpenness\project\Automation_Framework_PROJ_V1_2_Copy.ap19
+[2025-07-19 14:58:02.366] [INFO] [SaveAsNewItem]: 开始另存为项目到: E:\project\CodeGeneratorOpenness\project\Automation_Framework_PROJ_V1_2_Copy.ap19
+[2025-07-19 14:58:08.401] [INFO] [SaveAsNewItem]: 项目另存为成功: Automation_Framework_PROJ_V1_2_Copy
+[2025-07-19 14:58:16.386] [INFO] [SaveAsNewItem]: 用户选择打开新项目: Automation_Framework_PROJ_V1_2_Copy
+[2025-07-19 14:58:17.829] [ERROR] [SaveAsNewItem]: 新项目文件不存在: E:\project\CodeGeneratorOpenness\project\Automation_Framework_PROJ_V1_2_Copy\Automation_Framework_PROJ_V1_2_Copy.ap19
+[2025-07-19 14:58:19.681] [INFO] [frmMainForm_Closing]: 程序正在关闭
+[2025-07-19 14:58:19.682] [INFO] [frmMainForm_Closing]: 正在释放TIA Portal连接
+[2025-07-19 14:58:19.708] [INFO] [frmMainForm_Closing]: 程序关闭完成

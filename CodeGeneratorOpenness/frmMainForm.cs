@@ -858,6 +858,97 @@ namespace CodeGeneratorOpenness
             SaveProject();
         }
 
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveAsNewItem();
+        }
+
+        private void SaveAsNewItem()
+        {
+            if (project == null)
+            {
+                Logger.LogWarning("尝试另存为项目但项目对象为空", "SaveAsNewItem");
+                MessageOK("No project is currently open.", "Save As");
+                return;
+            }
+
+            try
+            {
+                Logger.LogInfo($"开始另存为项目 {project.Name}", "SaveAsNewItem");
+                
+                // 使用SaveFileDialog让用户选择新的项目路径和名称
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "TIA Portal Project (*.ap19)|*.ap19|All files (*.*)|*.*";
+                    saveFileDialog.FilterIndex = 1;
+                    saveFileDialog.Title = "Save Project As";
+                    saveFileDialog.FileName = project.Name + "_Copy";
+                    
+                    // 设置初始目录为当前项目目录的父目录
+                    if (!string.IsNullOrEmpty(project.Path?.FullName))
+                    {
+                        saveFileDialog.InitialDirectory = Path.GetDirectoryName(project.Path.FullName);
+                    }
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string newProjectPath = saveFileDialog.FileName;
+                        string newProjectName = Path.GetFileNameWithoutExtension(newProjectPath);
+                        
+                        Logger.LogInfo($"用户选择新项目路径: {newProjectPath}", "SaveAsNewItem");
+                        
+                        // 确保项目已保存
+                        if (project.IsModified)
+                        {
+                            Logger.LogInfo("项目有未保存的更改，先保存当前项目", "SaveAsNewItem");
+                            project.Save();
+                        }
+                        
+                        // 使用TIA Portal的SaveAs功能
+                        Logger.LogInfo($"开始另存为项目到: {newProjectPath}", "SaveAsNewItem");
+                        project.SaveAs(new DirectoryInfo(Path.GetDirectoryName(newProjectPath)));
+                        
+                        Logger.LogInfo($"项目另存为成功: {newProjectName}", "SaveAsNewItem");
+                        MessageOK($"Project has been saved as '{newProjectName}' successfully.", "Save As Completed");
+                        
+                        // 询问用户是否要打开新项目
+                        if (MessageYesNo($"Do you want to open the new project '{newProjectName}'?", "Open New Project") == DialogResult.Yes)
+                        {
+                            Logger.LogInfo($"用户选择打开新项目: {newProjectName}", "SaveAsNewItem");
+                            
+                            // 关闭当前项目
+                            project.Close();
+                            
+                            // 打开新项目
+                            string newProjectFile = Path.Combine(Path.GetDirectoryName(newProjectPath), newProjectName, newProjectName + ".ap19");
+                            if (File.Exists(newProjectFile))
+                            {
+                                project = tiaPortal.Projects.Open(new FileInfo(newProjectFile));
+                                Logger.LogInfo($"新项目 {newProjectName} 打开成功", "SaveAsNewItem");
+                                
+                                // 刷新界面
+                                IterateThroughDevices(project);
+                            }
+                            else
+                            {
+                                Logger.LogError($"新项目文件不存在: {newProjectFile}", "SaveAsNewItem");
+                                MessageError($"Could not find the new project file: {newProjectFile}", "Open Error");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Logger.LogInfo("用户取消了另存为操作", "SaveAsNewItem");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "另存为项目");
+                MessageError($"Failed to save project as new item: {ex.Message}", "Save As Error");
+            }
+        }
+
         private void compileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CompileProject();
