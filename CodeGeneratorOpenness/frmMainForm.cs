@@ -230,6 +230,25 @@ namespace CodeGeneratorOpenness
                                             software = softwareContainer.Software as PlcSoftware;
                                             Logger.LogInfo($"成功获取设备 {item.Name} 的软件容器", "IterateThroughDevices");
                                             groups.LoadTreeView(treeView1, software);
+                                            
+                                            // 项目树生成完毕后，导出JSON文件
+                                            try
+                                            {
+                                                string projectName = project?.Name ?? "UnknownProject";
+                                                bool exportResult = JsonExporter.ExportTreeViewToJson(treeView1, Program.PROJECT_TREENODE_JSON_PATH, projectName);
+                                                if (exportResult)
+                                                {
+                                                    Logger.LogInfo($"项目树JSON导出成功: {projectName}.json", "IterateThroughDevices");
+                                                }
+                                                else
+                                                {
+                                                    Logger.LogWarning($"项目树JSON导出失败: {projectName}.json", "IterateThroughDevices");
+                                                }
+                                            }
+                                            catch (Exception jsonEx)
+                                            {
+                                                Logger.LogException(jsonEx, "导出项目树JSON");
+                                            }
                                         }
                                         else
                                         {

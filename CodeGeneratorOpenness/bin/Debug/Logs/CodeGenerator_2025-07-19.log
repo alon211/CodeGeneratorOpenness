@@ -757,3 +757,227 @@
 [2025-07-19 07:03:55.729] [INFO] [frmMainForm_Load]: 界面初始化完成
 [2025-07-19 07:03:57.956] [INFO] [frmMainForm_Closing]: 程序正在关闭
 [2025-07-19 07:03:57.956] [INFO] [frmMainForm_Closing]: 程序关闭完成
+[2025-07-19 07:42:56.958] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project
+[2025-07-19 07:42:56.958] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\config
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\config
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录创建成功: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Log
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Log
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Result
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Result
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Reports
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Reports
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Data
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Data
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\UserLibrary
+[2025-07-19 07:42:56.963] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\UserLibrary
+[2025-07-19 07:42:56.963] [INFO] [Program.InitializeDirectories]: 目录结构初始化完成
+[2025-07-19 07:42:56.974] [INFO] [frmMainForm]: 开始初始化主窗体构造函数
+[2025-07-19 07:42:57.015] [INFO] [frmMainForm]: InitializeComponent完成
+[2025-07-19 07:42:57.020] [INFO] [frmMainForm]: LoadIconsToImageList完成
+[2025-07-19 07:42:57.020] [INFO] [frmMainForm]: SetImageKeyNames完成
+[2025-07-19 07:42:57.020] [INFO] [LoadAdditionalIcons]: 开始加载附加图标
+[2025-07-19 07:42:57.020] [INFO] [LoadAdditionalIcons]: 变量表图标加载成功
+[2025-07-19 07:42:57.020] [INFO] [LoadAdditionalIcons]: 软件单元图标加载成功
+[2025-07-19 07:42:57.020] [INFO] [LoadAdditionalIcons]: 附加图标加载完成，当前图标总数: 14
+[2025-07-19 07:42:57.020] [INFO] [frmMainForm]: LoadAdditionalIcons完成
+[2025-07-19 07:42:57.020] [INFO] [frmMainForm]: 开始防火墙设置
+[2025-07-19 07:42:57.031] [INFO] [frmMainForm]: 防火墙设置完成
+[2025-07-19 07:42:57.031] [INFO] [frmMainForm]: 主窗体构造函数初始化完成
+[2025-07-19 07:42:57.046] [INFO] [frmMainForm_Load]: 程序启动
+[2025-07-19 07:42:57.051] [INFO] [frmMainForm_Load]: 默认文件夹创建完成
+[2025-07-19 07:42:57.062] [INFO] [frmMainForm_Load]: 界面初始化完成
+[2025-07-19 07:42:59.298] [INFO] [frmMainForm_Closing]: 程序正在关闭
+[2025-07-19 07:42:59.298] [INFO] [frmMainForm_Closing]: 程序关闭完成
+[2025-07-19 07:53:34.033] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\config
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\config
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Log
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Log
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Result
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Result
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Reports
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Reports
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Data
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Data
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\UserLibrary
+[2025-07-19 07:53:34.034] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\UserLibrary
+[2025-07-19 07:53:34.034] [INFO] [Program.InitializeDirectories]: 目录结构初始化完成
+[2025-07-19 07:53:34.050] [INFO] [frmMainForm]: 开始初始化主窗体构造函数
+[2025-07-19 07:53:34.360] [INFO] [frmMainForm]: InitializeComponent完成
+[2025-07-19 07:53:34.383] [EXCEPTION] [主窗体构造函数初始化]: 异常类型: FileNotFoundException
+异常消息: Ressources\Document_16x.png
+堆栈跟踪:    在 System.Drawing.Image.FromFile(String filename, Boolean useEmbeddedColorManagement)
+   在 CodeGeneratorOpenness.frmMainForm.LoadIconsToImageList() 位置 E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\frmMainForm.Designer.cs:行号 776
+   在 CodeGeneratorOpenness.frmMainForm..ctor() 位置 E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\frmMainForm.cs:行号 50
+[2025-07-19 07:53:44.179] [INFO] [frmMainForm_Load]: 程序启动
+[2025-07-19 07:53:44.181] [INFO] [frmMainForm_Load]: 默认文件夹创建完成
+[2025-07-19 07:53:44.196] [INFO] [frmMainForm_Load]: 界面初始化完成
+[2025-07-19 07:53:47.672] [INFO] [frmMainForm_Closing]: 程序正在关闭
+[2025-07-19 07:53:47.672] [INFO] [frmMainForm_Closing]: 程序关闭完成
+[2025-07-19 07:54:23.228] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project
+[2025-07-19 07:54:23.228] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project
+[2025-07-19 07:54:23.228] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\config
+[2025-07-19 07:54:23.228] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\config
+[2025-07-19 07:54:23.228] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Log
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Log
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Result
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Result
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Reports
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Reports
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Data
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Data
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\UserLibrary
+[2025-07-19 07:54:23.233] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\UserLibrary
+[2025-07-19 07:54:23.233] [INFO] [Program.InitializeDirectories]: 目录结构初始化完成
+[2025-07-19 07:54:23.243] [INFO] [frmMainForm]: 开始初始化主窗体构造函数
+[2025-07-19 07:54:23.311] [INFO] [frmMainForm]: InitializeComponent完成
+[2025-07-19 07:54:23.313] [INFO] [frmMainForm]: LoadIconsToImageList完成
+[2025-07-19 07:54:23.314] [INFO] [frmMainForm]: SetImageKeyNames完成
+[2025-07-19 07:54:23.314] [INFO] [LoadAdditionalIcons]: 开始加载附加图标
+[2025-07-19 07:54:23.314] [INFO] [LoadAdditionalIcons]: 变量表图标加载成功
+[2025-07-19 07:54:23.314] [INFO] [LoadAdditionalIcons]: 软件单元图标加载成功
+[2025-07-19 07:54:23.314] [INFO] [LoadAdditionalIcons]: 附加图标加载完成，当前图标总数: 14
+[2025-07-19 07:54:23.314] [INFO] [frmMainForm]: LoadAdditionalIcons完成
+[2025-07-19 07:54:23.314] [INFO] [frmMainForm]: 开始防火墙设置
+[2025-07-19 07:54:23.320] [INFO] [frmMainForm]: 防火墙设置完成
+[2025-07-19 07:54:23.322] [INFO] [frmMainForm]: 主窗体构造函数初始化完成
+[2025-07-19 07:54:23.336] [INFO] [frmMainForm_Load]: 程序启动
+[2025-07-19 07:54:23.336] [INFO] [frmMainForm_Load]: 默认文件夹创建完成
+[2025-07-19 07:54:23.350] [INFO] [frmMainForm_Load]: 界面初始化完成
+[2025-07-19 07:54:48.227] [INFO] [IterateThroughDevices]: 开始遍历项目 template_109817223_Automation_Framework_PROJ_V1_2 的设备
+[2025-07-19 07:54:48.242] [INFO] [IterateThroughDevices]: 项目包含 2 个设备
+[2025-07-19 07:54:48.262] [INFO] [IterateThroughDevices]: 发现S7-1500设备: S7-1517TF
+[2025-07-19 07:54:48.268] [INFO] [IterateThroughDevices]: 发现CPU: DP.FRWA1.1.0.000CC1-KE01
+[2025-07-19 07:54:48.278] [INFO] [IterateThroughDevices]: 成功获取设备 DP.FRWA1.1.0.000CC1-KE01 的软件容器
+[2025-07-19 07:54:48.278] [INFO] [LoadTreeView]: 开始加载软件 DP.FRWA1.1.0.000CC1-KE01 到TreeView
+[2025-07-19 07:54:48.278] [INFO] [LoadPlcSoftwareStructures]: 开始自动加载PlcSoftware的所有结构组件
+[2025-07-19 07:54:48.278] [INFO] [LoadBlockGroup]: 开始加载程序块组
+[2025-07-19 07:54:48.302] [INFO] [LoadBlockGroup]: 程序块组加载完成，共1个块
+[2025-07-19 07:54:48.302] [INFO] [LoadTypeGroup]: 开始加载数据类型组
+[2025-07-19 07:54:48.316] [INFO] [LoadTypeGroup]: 数据类型组加载完成，共0个类型
+[2025-07-19 07:54:48.316] [INFO] [LoadTagTableGroup]: 开始加载标签表组
+[2025-07-19 07:54:48.325] [INFO] [LoadTagTableGroup]: 标签表组加载完成，共2个标签表
+[2025-07-19 07:54:48.325] [INFO] [LoadExternalSourceGroup]: 开始加载外部源文件组
+[2025-07-19 07:54:48.336] [INFO] [LoadExternalSourceGroup]: 外部源文件组加载完成，共0个源文件
+[2025-07-19 07:54:48.336] [INFO] [LoadPlcAlarmTextlistGroup]: 开始加载PLC报警文本列表组
+[2025-07-19 07:54:48.353] [INFO] [LoadPlcAlarmTextlistGroup]: PLC报警文本列表组加载完成，共34个文本列表（系统:34，用户:0）
+[2025-07-19 07:54:48.356] [INFO] [LoadTechnologicalObjectGroup]: 开始加载技术对象组
+[2025-07-19 07:54:48.387] [INFO] [LoadTechnologicalObjectGroup]: 技术对象组加载完成，共0个技术对象
+[2025-07-19 07:54:48.387] [INFO] [LoadWatchAndForceTableGroup]: 开始加载监视和强制表组
+[2025-07-19 07:54:48.408] [INFO] [LoadWatchAndForceTableGroup]: 监视和强制表组加载完成，共5个表（监视:4，强制:1）
+[2025-07-19 07:54:48.408] [INFO] [LoadSoftwareUnits]: 开始加载软件单元组
+[2025-07-19 07:54:48.797] [INFO] [AddSoftwareUnitComponents]: 软件单元 CentralFunctions 的子组件加载完成
+[2025-07-19 07:54:49.418] [INFO] [AddSoftwareUnitComponents]: 软件单元 ObjectsOfProjectLibraryUsed 的子组件加载完成
+[2025-07-19 07:54:49.444] [INFO] [AddSoftwareUnitComponents]: 软件单元 Global 的子组件加载完成
+[2025-07-19 07:54:49.477] [INFO] [AddSoftwareUnitComponents]: 软件单元 Motion 的子组件加载完成
+[2025-07-19 07:54:49.536] [INFO] [AddSoftwareUnitComponents]: 软件单元 UnEmn_Template_SCL 的子组件加载完成
+[2025-07-19 07:54:49.561] [INFO] [AddSoftwareUnitComponents]: 软件单元 Un_Unitn 的子组件加载完成
+[2025-07-19 07:54:49.593] [INFO] [AddSoftwareUnitComponents]: 软件单元 UnEm0_General_SCL 的子组件加载完成
+[2025-07-19 07:54:49.725] [INFO] [AddSoftwareUnitComponents]: 软件单元 Safety 的子组件加载完成
+[2025-07-19 07:54:49.730] [INFO] [LoadSoftwareUnits]: 软件单元组加载完成，共 8 个单元
+[2025-07-19 07:54:49.730] [INFO] [LoadPlcSoftwareStructures]: PlcSoftware结构组件加载完成
+[2025-07-19 07:54:49.730] [INFO] [LoadTreeView]: TreeView加载完成
+[2025-07-19 07:54:49.735] [INFO] [IterateThroughDevices]: 设备遍历操作完成
+[2025-07-19 08:08:05.033] [INFO] [frmMainForm_Closing]: 程序正在关闭
+[2025-07-19 08:08:05.033] [INFO] [frmMainForm_Closing]: 正在释放TIA Portal连接
+[2025-07-19 08:08:05.081] [INFO] [frmMainForm_Closing]: 程序关闭完成
+[2025-07-19 08:08:25.876] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project
+[2025-07-19 08:08:25.876] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project
+[2025-07-19 08:08:25.876] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\config
+[2025-07-19 08:08:25.876] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\config
+[2025-07-19 08:08:25.876] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 08:08:25.876] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 08:08:25.878] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template
+[2025-07-19 08:08:25.878] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template
+[2025-07-19 08:08:25.878] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output
+[2025-07-19 08:08:25.878] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output
+[2025-07-19 08:08:25.878] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Log
+[2025-07-19 08:08:25.878] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Log
+[2025-07-19 08:08:25.878] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Result
+[2025-07-19 08:08:25.878] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Result
+[2025-07-19 08:08:25.878] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Reports
+[2025-07-19 08:08:25.879] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Reports
+[2025-07-19 08:08:25.879] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Data
+[2025-07-19 08:08:25.879] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Data
+[2025-07-19 08:08:25.879] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\UserLibrary
+[2025-07-19 08:08:25.879] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\UserLibrary
+[2025-07-19 08:08:25.879] [INFO] [Program.InitializeDirectories]: 目录结构初始化完成
+[2025-07-19 08:08:25.889] [INFO] [frmMainForm]: 开始初始化主窗体构造函数
+[2025-07-19 08:08:25.957] [INFO] [frmMainForm]: InitializeComponent完成
+[2025-07-19 08:08:25.960] [INFO] [frmMainForm]: LoadIconsToImageList完成
+[2025-07-19 08:08:25.960] [INFO] [frmMainForm]: SetImageKeyNames完成
+[2025-07-19 08:08:25.962] [INFO] [LoadAdditionalIcons]: 开始加载附加图标
+[2025-07-19 08:08:25.962] [INFO] [LoadAdditionalIcons]: 变量表图标加载成功
+[2025-07-19 08:08:25.962] [INFO] [LoadAdditionalIcons]: 软件单元图标加载成功
+[2025-07-19 08:08:25.962] [INFO] [LoadAdditionalIcons]: 附加图标加载完成，当前图标总数: 14
+[2025-07-19 08:08:25.962] [INFO] [frmMainForm]: LoadAdditionalIcons完成
+[2025-07-19 08:08:25.962] [INFO] [frmMainForm]: 开始防火墙设置
+[2025-07-19 08:08:25.967] [INFO] [frmMainForm]: 防火墙设置完成
+[2025-07-19 08:08:25.967] [INFO] [frmMainForm]: 主窗体构造函数初始化完成
+[2025-07-19 08:08:25.985] [INFO] [frmMainForm_Load]: 程序启动
+[2025-07-19 08:08:25.985] [INFO] [frmMainForm_Load]: 默认文件夹创建完成
+[2025-07-19 08:08:25.995] [INFO] [frmMainForm_Load]: 界面初始化完成
+[2025-07-19 08:08:29.216] [INFO] [IterateThroughDevices]: 开始遍历项目 template_109817223_Automation_Framework_PROJ_V1_2 的设备
+[2025-07-19 08:08:29.230] [INFO] [IterateThroughDevices]: 项目包含 2 个设备
+[2025-07-19 08:08:29.245] [INFO] [IterateThroughDevices]: 发现S7-1500设备: S7-1517TF
+[2025-07-19 08:08:29.256] [INFO] [IterateThroughDevices]: 发现CPU: DP.FRWA1.1.0.000CC1-KE01
+[2025-07-19 08:08:29.261] [INFO] [IterateThroughDevices]: 成功获取设备 DP.FRWA1.1.0.000CC1-KE01 的软件容器
+[2025-07-19 08:08:29.266] [INFO] [LoadTreeView]: 开始加载软件 DP.FRWA1.1.0.000CC1-KE01 到TreeView
+[2025-07-19 08:08:29.266] [INFO] [LoadPlcSoftwareStructures]: 开始自动加载PlcSoftware的所有结构组件
+[2025-07-19 08:08:29.268] [INFO] [LoadBlockGroup]: 开始加载程序块组
+[2025-07-19 08:08:29.287] [INFO] [LoadBlockGroup]: 程序块组加载完成，共1个块
+[2025-07-19 08:08:29.287] [INFO] [LoadTypeGroup]: 开始加载数据类型组
+[2025-07-19 08:08:29.297] [INFO] [LoadTypeGroup]: 数据类型组加载完成，共0个类型
+[2025-07-19 08:08:29.297] [INFO] [LoadTagTableGroup]: 开始加载标签表组
+[2025-07-19 08:08:29.311] [INFO] [LoadTagTableGroup]: 标签表组加载完成，共2个标签表
+[2025-07-19 08:08:29.313] [INFO] [LoadExternalSourceGroup]: 开始加载外部源文件组
+[2025-07-19 08:08:29.323] [INFO] [LoadExternalSourceGroup]: 外部源文件组加载完成，共0个源文件
+[2025-07-19 08:08:29.323] [INFO] [LoadPlcAlarmTextlistGroup]: 开始加载PLC报警文本列表组
+[2025-07-19 08:08:29.338] [INFO] [LoadPlcAlarmTextlistGroup]: PLC报警文本列表组加载完成，共34个文本列表（系统:34，用户:0）
+[2025-07-19 08:08:29.338] [INFO] [LoadTechnologicalObjectGroup]: 开始加载技术对象组
+[2025-07-19 08:08:29.374] [INFO] [LoadTechnologicalObjectGroup]: 技术对象组加载完成，共0个技术对象
+[2025-07-19 08:08:29.374] [INFO] [LoadWatchAndForceTableGroup]: 开始加载监视和强制表组
+[2025-07-19 08:08:29.394] [INFO] [LoadWatchAndForceTableGroup]: 监视和强制表组加载完成，共5个表（监视:4，强制:1）
+[2025-07-19 08:08:29.394] [INFO] [LoadSoftwareUnits]: 开始加载软件单元组
+[2025-07-19 08:08:29.774] [INFO] [AddSoftwareUnitComponents]: 软件单元 CentralFunctions 的子组件加载完成
+[2025-07-19 08:08:30.399] [INFO] [AddSoftwareUnitComponents]: 软件单元 ObjectsOfProjectLibraryUsed 的子组件加载完成
+[2025-07-19 08:08:30.425] [INFO] [AddSoftwareUnitComponents]: 软件单元 Global 的子组件加载完成
+[2025-07-19 08:08:30.461] [INFO] [AddSoftwareUnitComponents]: 软件单元 Motion 的子组件加载完成
+[2025-07-19 08:08:30.512] [INFO] [AddSoftwareUnitComponents]: 软件单元 UnEmn_Template_SCL 的子组件加载完成
+[2025-07-19 08:08:30.538] [INFO] [AddSoftwareUnitComponents]: 软件单元 Un_Unitn 的子组件加载完成
+[2025-07-19 08:08:30.574] [INFO] [AddSoftwareUnitComponents]: 软件单元 UnEm0_General_SCL 的子组件加载完成
+[2025-07-19 08:08:30.704] [INFO] [AddSoftwareUnitComponents]: 软件单元 Safety 的子组件加载完成
+[2025-07-19 08:08:30.709] [INFO] [LoadSoftwareUnits]: 软件单元组加载完成，共 8 个单元
+[2025-07-19 08:08:30.709] [INFO] [LoadPlcSoftwareStructures]: PlcSoftware结构组件加载完成
+[2025-07-19 08:08:30.713] [INFO] [LoadTreeView]: TreeView加载完成
+[2025-07-19 08:08:30.730] [INFO] [JsonExporter.ExportTreeViewToJson]: 开始导出TreeView到JSON: template_109817223_Automation_Framework_PROJ_V1_2
+[2025-07-19 08:08:30.735] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 08:08:30.735] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 08:08:30.740] [INFO] [JsonExporter.ConvertTreeViewToJson]: TreeView转换完成，共699个节点
+[2025-07-19 08:08:30.745] [INFO] [JsonExporter.SaveJsonToFile]: JSON文件保存成功: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode\template_109817223_Automation_Framework_PROJ_V1_2.json
+[2025-07-19 08:08:30.745] [INFO] [JsonExporter.SaveJsonToFile]: 文件大小: 430656 字节
+[2025-07-19 08:08:30.745] [INFO] [IterateThroughDevices]: 项目树JSON导出成功: template_109817223_Automation_Framework_PROJ_V1_2.json
+[2025-07-19 08:08:30.751] [INFO] [IterateThroughDevices]: 设备遍历操作完成
+[2025-07-19 08:12:49.033] [INFO] [frmMainForm_Closing]: 程序正在关闭
+[2025-07-19 08:12:49.033] [INFO] [frmMainForm_Closing]: 正在释放TIA Portal连接
+[2025-07-19 08:12:49.072] [INFO] [frmMainForm_Closing]: 程序关闭完成

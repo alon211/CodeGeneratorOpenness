@@ -10,8 +10,10 @@ using Microsoft.Win32;
 
 namespace CodeGeneratorOpenness
 {
+    
     static class Program
     {
+        public const string PROJECT_TREENODE_JSON_PATH = "project\\treenode";  // 项目配置目录
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
@@ -94,6 +96,7 @@ namespace CodeGeneratorOpenness
                 DirectoryUtils.EnsureDirectoriesExist(
                     "project",           // 项目目录
                     "project\\config",    // 项目配置目录
+                     PROJECT_TREENODE_JSON_PATH,
                     "template",          // 模板目录
                     "Output",            // 输出目录
                     "Output\\Log",       // 日志目录

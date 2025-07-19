@@ -35,8 +35,12 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>codeGenerator.ico</ApplicationIcon>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
     <Reference Include="Siemens.Engineering, Version=19.0.0.0, Culture=neutral, PublicKeyToken=d29ec89bac048f84, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Siemens\Automation\Portal V19\PublicAPI\V19\Siemens.Engineering.dll</HintPath>
@@ -58,6 +62,7 @@
     <Compile Include="cFirewall.cs" />
     <Compile Include="cFunctionGroups.cs" />
     <Compile Include="cImportBlock.cs" />
+    <Compile Include="cJsonExporter.cs" />
     <Compile Include="cLogger.cs" />
     <Compile Include="cMulilingualText.cs" />
     <Compile Include="cTranlate.cs" />
