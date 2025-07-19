@@ -9,6 +9,7 @@ namespace CodeGeneratorOpenness
     /// </summary>
     public partial class frmStartup : Form
     {
+       
         public frmStartup()
         {
             InitializeComponent();
@@ -336,26 +337,31 @@ namespace CodeGeneratorOpenness
                     Logger.LogInfo($"创建目标项目目录: {targetProjectDir}", "CreateProjectFromTemplate");
                 }
                 
-                // 初始化TIA Portal
-                using (var tiaPortal = new Siemens.Engineering.TiaPortal(Siemens.Engineering.TiaPortalMode.WithoutUserInterface))
+                // 使用TiaPortalOpennessManager创建TIA Portal连接
+                var tiaPortal = TiaPortalOpennessManager.CreateTiaPortalConnection(Siemens.Engineering.TiaPortalMode.WithoutUserInterface);
+                
+                try
                 {
                     Logger.LogInfo($"打开模板项目: {templatePath}", "CreateProjectFromTemplate");
                     
-                    // 打开模板项目
-                    var templateProject = tiaPortal.Projects.Open(new System.IO.FileInfo(templatePath));
+                    // 使用TiaPortalOpennessManager打开模板项目
+                    var templateProject = TiaPortalOpennessManager.OpenProject(tiaPortal, templatePath);
                     
                     Logger.LogInfo($"开始另存为新项目到: {targetProjectDir}", "CreateProjectFromTemplate");
                     
-                    // 另存为新项目到目标目录
-                    templateProject.SaveAs(new System.IO.DirectoryInfo(targetProjectDir));
+                    // 使用TiaPortalOpennessManager另存为新项目
+                    TiaPortalOpennessManager.SaveProjectAs(templateProject, targetProjectDir);
                     
                     // 关闭模板项目
                     templateProject.Close();
                     
                     Logger.LogInfo("模板项目已关闭", "CreateProjectFromTemplate");
                 }
-                
-                Logger.LogInfo("TIA Portal已释放", "CreateProjectFromTemplate");
+                finally
+                {
+                    // 使用TiaPortalOpennessManager释放TIA Portal连接
+                    TiaPortalOpennessManager.DisposeTiaPortalConnection(tiaPortal);
+                }
             }
             catch (Exception ex)
             {

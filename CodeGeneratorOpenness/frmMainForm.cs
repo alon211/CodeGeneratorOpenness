@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Linq;
 
 using Siemens.Engineering;
 using Siemens.Engineering.HW;
@@ -30,7 +31,7 @@ namespace CodeGeneratorOpenness
 {
     public partial class frmMainForm : Form
     {
-        // just a little lazzy
+        // TIA Portal对象管理
         public static TiaPortal tiaPortal = null;
         public static Project project = null;
         public static PlcSoftware software = null;
@@ -171,7 +172,8 @@ namespace CodeGeneratorOpenness
             if (tiaPortal != null)
             {
                 Logger.LogInfo("正在释放TIA Portal连接", "frmMainForm_Closing");
-                tiaPortal.Dispose();
+                TiaPortalOpennessManager.DisposeTiaPortalConnection(tiaPortal);
+                tiaPortal = null;
             }
             
             Logger.LogInfo("程序关闭完成", "frmMainForm_Closing");
@@ -200,76 +202,49 @@ namespace CodeGeneratorOpenness
 
             try
             {
-                Logger.LogInfo($"项目包含 {project.Devices.Count} 个设备", "IterateThroughDevices");
                 listBox1.Items.Clear();
                 listBox2.Items.Clear();
-
                 Application.DoEvents();
-
                 groups.ClearTreeView(treeView1);
 
-                // search through devices
-                foreach (Device device in project.Devices)
+                // 使用TiaPortalOpennessManager获取S7-1500设备
+                List<Device> s71500Devices = TiaPortalOpennessManager.GetS71500Devices(project);
+                
+                foreach (Device device in s71500Devices)
                 {
-                    if (device.TypeIdentifier != null)
+                    listBox1.Items.Add(device.Name);
+                    
+                    // 获取设备中的CPU
+                    List<DeviceItem> cpus = TiaPortalOpennessManager.GetCpuDeviceItems(device);
+                    
+                    foreach (DeviceItem cpuItem in cpus)
                     {
-                        // we search only for PLCs
-                        if (device.TypeIdentifier == "System:Device.S71500")
+                        listBox2.Items.Add(cpuItem.Name);
+                        
+                        // 获取PLC软件
+                        PlcSoftware plcSoftware = TiaPortalOpennessManager.GetPlcSoftwareFromCpu(cpuItem);
+                        if (plcSoftware != null)
                         {
-                            Logger.LogInfo($"发现S7-1500设备: {device.Name}", "IterateThroughDevices");
-                            listBox1.Items.Add(device.Name);
-
-                            // let's get the CPU
-                            foreach (DeviceItem item in device.DeviceItems)
+                            software = plcSoftware;
+                            groups.LoadTreeView(treeView1, software);
+                            
+                            // 项目树生成完毕后，导出JSON文件
+                            try
                             {
-                                if (item.Classification.ToString() == "CPU")
+                                string projectName = project?.Name ?? "UnknownProject";
+                                bool exportResult = JsonExporter.ExportTreeViewToJson(treeView1, Program.PROJECT_TREENODE_JSON_PATH, projectName);
+                                if (exportResult)
                                 {
-                                    Logger.LogInfo($"发现CPU: {item.Name}", "IterateThroughDevices");
-                                    listBox2.Items.Add(item.Name);
-
-                                    try
-                                    {
-                                        // get the software container
-                                        SoftwareContainer softwareContainer = ((IEngineeringServiceProvider)item).GetService<SoftwareContainer>();
-                                        if (softwareContainer != null)
-                                        {
-                                            software = softwareContainer.Software as PlcSoftware;
-                                            Logger.LogInfo($"成功获取设备 {item.Name} 的软件容器", "IterateThroughDevices");
-                                            groups.LoadTreeView(treeView1, software);
-                                            
-                                            // 项目树生成完毕后，导出JSON文件
-                                            try
-                                            {
-                                                string projectName = project?.Name ?? "UnknownProject";
-                                                bool exportResult = JsonExporter.ExportTreeViewToJson(treeView1, Program.PROJECT_TREENODE_JSON_PATH, projectName);
-                                                if (exportResult)
-                                                {
-                                                    Logger.LogInfo($"项目树JSON导出成功: {projectName}.json", "IterateThroughDevices");
-                                                }
-                                                else
-                                                {
-                                                    Logger.LogWarning($"项目树JSON导出失败: {projectName}.json", "IterateThroughDevices");
-                                                }
-                                            }
-                                            catch (Exception jsonEx)
-                                            {
-                                                Logger.LogException(jsonEx, "导出项目树JSON");
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Logger.LogWarning($"设备 {item.Name} 的软件容器为空", "IterateThroughDevices");
-                                        }
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        Logger.LogException(ex, $"访问设备 {item.Name} 的软件容器");
-                                        MessageBox.Show(String.Format("访问设备 {0} 的软件容器时发生错误:\n{1}", item.Name, ex.Message), 
-                                                      "设备访问错误", 
-                                                      MessageBoxButtons.OK, 
-                                                      MessageBoxIcon.Warning);
-                                    }
+                                    Logger.LogInfo($"项目树JSON导出成功: {projectName}.json", "IterateThroughDevices");
                                 }
+                                else
+                                {
+                                    Logger.LogWarning($"项目树JSON导出失败: {projectName}.json", "IterateThroughDevices");
+                                }
+                            }
+                            catch (Exception jsonEx)
+                            {
+                                Logger.LogException(jsonEx, "导出项目树JSON");
                             }
                         }
                     }
@@ -300,25 +275,19 @@ namespace CodeGeneratorOpenness
             // language test for DE/EN
             if (project != null)
             {
-                LanguageSettings languageSettings = project.LanguageSettings;
-                LanguageComposition supportedLanguages = languageSettings.Languages;
-                LanguageAssociation activeLanguages = languageSettings.ActiveLanguages;
-
-                Language supportedGermanLanguage = supportedLanguages.Find(CultureInfo.GetCultureInfo("de-DE"));
-                Language supportedEnglishLanguage = supportedLanguages.Find(CultureInfo.GetCultureInfo("en-GB"));
-
-                // add german if needed
-                Language l = activeLanguages.Find(CultureInfo.GetCultureInfo("de-DE"));
-                if (l == null)
-                    activeLanguages.Add(supportedGermanLanguage);
-                // add english if needed
-                l = activeLanguages.Find(CultureInfo.GetCultureInfo("en-GB"));
-                if (l == null)
-                    activeLanguages.Add(supportedEnglishLanguage);
-
-                // set edit languages
-                languageSettings.EditingLanguage = supportedGermanLanguage;
-                languageSettings.ReferenceLanguage = supportedGermanLanguage;
+                CultureInfo germanCulture = CultureInfo.GetCultureInfo("de-DE");
+                CultureInfo englishCulture = CultureInfo.GetCultureInfo("en-GB");
+                
+                // 使用TiaPortalOpennessManager设置项目语言
+                bool result = TiaPortalOpennessManager.SetProjectLanguages(project, germanCulture, germanCulture);
+                if (result)
+                {
+                    Logger.LogInfo("项目语言设置成功", "btnLanguage_Click");
+                }
+                else
+                {
+                    Logger.LogWarning("项目语言设置失败", "btnLanguage_Click");
+                }
             }
         }
 
@@ -776,19 +745,19 @@ namespace CodeGeneratorOpenness
             // if no project is open
             if (project == null)
             {
-                // see if we have a open instance and use the first one
-                foreach (TiaPortalProcess tiaPortalProcess in TiaPortal.GetProcesses())
+                // 尝试连接到现有的TIA Portal进程
+                var processes = TiaPortalOpennessManager.GetTiaPortalProcesses().ToArray();
+                if (processes.Length > 0)
                 {
-                    TiaPortalProcess p = TiaPortal.GetProcess(tiaPortalProcess.Id);
-
-                    tiaPortal = p.Attach();
-                    break;
+                    tiaPortal = TiaPortalOpennessManager.AttachToTiaPortalProcess(processes[0].Id);
+                    Logger.LogInfo($"已连接到现有TIA Portal进程 ID: {processes[0].Id}", "openToolStripMenuItem_Click");
                 }
 
-                // we don't habe an instance then open a new instance
+                // 如果没有现有实例，则创建新实例
                 if (tiaPortal == null)
                 {
-                    tiaPortal = new TiaPortal(TiaPortalMode.WithUserInterface);
+                    tiaPortal = TiaPortalOpennessManager.CreateTiaPortalInstance();
+                    Logger.LogInfo("已创建新的TIA Portal实例", "openToolStripMenuItem_Click");
                 }
 
                 tiaPortal.Notification += TiaPortal_Notification;
@@ -911,34 +880,42 @@ namespace CodeGeneratorOpenness
                         
                         // 使用TIA Portal的SaveAs功能
                         Logger.LogInfo($"开始另存为项目到: {newProjectPath}", "SaveAsNewItem");
-                        project.SaveAs(new DirectoryInfo(Path.GetDirectoryName(newProjectPath)));
+                        bool saveAsResult = TiaPortalOpennessManager.SaveProjectAs(project, new DirectoryInfo(Path.GetDirectoryName(newProjectPath)));
                         
-                        Logger.LogInfo($"项目另存为成功: {newProjectName}", "SaveAsNewItem");
-                        MessageOK($"Project has been saved as '{newProjectName}' successfully.", "Save As Completed");
-                        
-                        // 询问用户是否要打开新项目
-                        if (MessageYesNo($"Do you want to open the new project '{newProjectName}'?", "Open New Project") == DialogResult.Yes)
+                        if (saveAsResult)
                         {
-                            Logger.LogInfo($"用户选择打开新项目: {newProjectName}", "SaveAsNewItem");
+                            Logger.LogInfo($"项目另存为成功: {newProjectName}", "SaveAsNewItem");
+                            MessageOK($"Project has been saved as '{newProjectName}' successfully.", "Save As Completed");
                             
-                            // 关闭当前项目
-                            project.Close();
-                            
-                            // 打开新项目
-                            string newProjectFile = Path.Combine(Path.GetDirectoryName(newProjectPath), newProjectName, newProjectName + ".ap19");
-                            if (File.Exists(newProjectFile))
+                            // 询问用户是否要打开新项目
+                            if (MessageYesNo($"Do you want to open the new project '{newProjectName}'?", "Open New Project") == DialogResult.Yes)
                             {
-                                project = tiaPortal.Projects.Open(new FileInfo(newProjectFile));
-                                Logger.LogInfo($"新项目 {newProjectName} 打开成功", "SaveAsNewItem");
+                                Logger.LogInfo($"用户选择打开新项目: {newProjectName}", "SaveAsNewItem");
                                 
-                                // 刷新界面
-                                IterateThroughDevices(project);
+                                // 关闭当前项目
+                                TiaPortalOpennessManager.CloseProject(project);
+                                
+                                // 打开新项目
+                                string newProjectFile = Path.Combine(Path.GetDirectoryName(newProjectPath), newProjectName, newProjectName + ".ap19");
+                                if (File.Exists(newProjectFile))
+                                {
+                                    project = TiaPortalOpennessManager.OpenProject(tiaPortal, new FileInfo(newProjectFile));
+                                    Logger.LogInfo($"新项目 {newProjectName} 打开成功", "SaveAsNewItem");
+                                    
+                                    // 刷新界面
+                                    IterateThroughDevices(project);
+                                }
+                                else
+                                {
+                                    Logger.LogError($"新项目文件不存在: {newProjectFile}", "SaveAsNewItem");
+                                    MessageError($"Could not find the new project file: {newProjectFile}", "Open Error");
+                                }
                             }
-                            else
-                            {
-                                Logger.LogError($"新项目文件不存在: {newProjectFile}", "SaveAsNewItem");
-                                MessageError($"Could not find the new project file: {newProjectFile}", "Open Error");
-                            }
+                        }
+                        else
+                        {
+                            Logger.LogError($"项目另存为失败", "SaveAsNewItem");
+                            MessageError("Failed to save project as new item", "Save As Error");
                         }
                     }
                     else
@@ -982,7 +959,8 @@ namespace CodeGeneratorOpenness
                 txtProject.Text = "Project: ";
                 txtSaved.Text = "...";
 
-                project.Close();
+                TiaPortalOpennessManager.CloseProject(project);
+                Logger.LogInfo("项目已关闭", "closeToolStripMenuItem_Click");
 
                 software = null;
                 project = null;
@@ -1117,10 +1095,16 @@ namespace CodeGeneratorOpenness
 
                             // the API can not overwrite
                             filePath = GetNextFileName(saveFileDialog.FileName);
-                            project.ExportProjectTexts(new FileInfo(filePath), new CultureInfo("de-DE"), new CultureInfo("en-GB"));
-
-                            MessageOK("File " + Path.GetFileName(filePath) + " has been exported",
-                                      "Export language file");
+                            bool result = TiaPortalOpennessManager.ExportProjectTexts(project, filePath, new CultureInfo("de-DE"), new CultureInfo("en-GB"));
+                            if (result)
+                            {
+                                MessageOK("File " + Path.GetFileName(filePath) + " has been exported",
+                                          "Export language file");
+                            }
+                            else
+                            {
+                                MessageError("Failed to export project texts", "Export Error");
+                            }
                         }
                     }
                 }
@@ -1151,10 +1135,16 @@ namespace CodeGeneratorOpenness
 
                         if (openFileDialog.ShowDialog() == DialogResult.OK)
                         {
-                            project.ImportProjectTexts(new FileInfo(openFileDialog.FileName), true);
-
-                            MessageOK("File " + Path.GetFileName(openFileDialog.FileName) + " has been imported",
-                                      "Import language file");
+                            bool result = TiaPortalOpennessManager.ImportProjectTexts(project, openFileDialog.FileName, new CultureInfo("de-DE"), new CultureInfo("en-GB"));
+                            if (result)
+                            {
+                                MessageOK("File " + Path.GetFileName(openFileDialog.FileName) + " has been imported",
+                                          "Import language file");
+                            }
+                            else
+                            {
+                                MessageError("Failed to import project texts", "Import Error");
+                            }
                         }
                     }
                 }
@@ -1317,11 +1307,17 @@ namespace CodeGeneratorOpenness
                                 if (!exists)
                                 {
                                     // import the file
-                                    software.TypeGroup.Types.Import(f, ImportOptions.None);
-                                    MessageOK("Data type " + Path.GetFileName(fPath) + " has been imported",
-                                              "Import language file");
-
-                                    IterateThroughDevices(project);
+                                    bool result = TiaPortalOpennessManager.ImportDataType(software.TypeGroup, f, ImportOptions.None);
+                                    if (result)
+                                    {
+                                        MessageOK("Data type " + Path.GetFileName(fPath) + " has been imported",
+                                                  "Import language file");
+                                        IterateThroughDevices(project);
+                                    }
+                                    else
+                                    {
+                                        MessageError("Failed to import data type", "Import Error");
+                                    }
                                 }
                                 else
                                 {
@@ -1329,11 +1325,17 @@ namespace CodeGeneratorOpenness
                                     if (MessageYesNo("Data type " + name + " exists already. Overwrite ?", "Overwrite") == DialogResult.OK)
                                     {
                                         // overwrite data type
-                                        software.TypeGroup.Types.Import(f, ImportOptions.Override);
-                                        MessageOK("Data type " + Path.GetFileName(fPath) + " has been imported",
-                                      "Import language file");
-
-                                        IterateThroughDevices(project);
+                                        bool result = TiaPortalOpennessManager.ImportDataType(software.TypeGroup, f, ImportOptions.Override);
+                                        if (result)
+                                        {
+                                            MessageOK("Data type " + Path.GetFileName(fPath) + " has been imported",
+                                                      "Import language file");
+                                            IterateThroughDevices(project);
+                                        }
+                                        else
+                                        {
+                                            MessageError("Failed to import data type", "Import Error");
+                                        }
                                     }
                                 }
                             }

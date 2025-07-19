@@ -67,6 +67,7 @@
     <Compile Include="cJsonExporter.cs" />
     <Compile Include="cLogger.cs" />
     <Compile Include="cMulilingualText.cs" />
+    <Compile Include="cTiaPortalOpennessManager.cs" />
     <Compile Include="cTranlate.cs" />
     <Compile Include="cXmlFile.cs" />
     <Compile Include="cXmlFunctions.cs" />
