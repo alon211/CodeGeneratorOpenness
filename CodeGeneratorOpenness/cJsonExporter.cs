@@ -214,27 +214,45 @@ namespace CodeGeneratorOpenness
                         var software = tag as Siemens.Engineering.SW.PlcSoftware;
                         if (software != null)
                         {
-                            tagInfo["name"] = software.Name;
+                            tagInfo["name"] = TiaPortalOpennessManager.GetPlcSoftwareName(software);
                             tagInfo["description"] = "PLC Software Object";
                         }
                         break;
                         
                     case "PlcBlock":
-                        // 处理PLC块信息
-                        tagInfo["blockInfo"] = "PLC Block Object";
+                        var block = tag as Siemens.Engineering.SW.Blocks.PlcBlock;
+                        if (block != null)
+                        {
+                            tagInfo["name"] = TiaPortalOpennessManager.GetPlcBlockName(block);
+                            tagInfo["blockInfo"] = "PLC Block Object";
+                        }
                         break;
                         
                     case "PlcType":
-                        // 处理PLC类型信息
-                        tagInfo["typeInfo"] = "PLC Type Object";
+                        var type = tag as Siemens.Engineering.SW.Types.PlcType;
+                        if (type != null)
+                        {
+                            tagInfo["name"] = TiaPortalOpennessManager.GetPlcTypeName(type);
+                            tagInfo["typeInfo"] = "PLC Type Object";
+                        }
                         break;
                         
                     case "PlcTagTable":
-                        // 处理标签表信息
-                        tagInfo["tagTableInfo"] = "PLC Tag Table Object";
+                        var tagTable = tag as Siemens.Engineering.SW.Tags.PlcTagTable;
+                        if (tagTable != null)
+                        {
+                            tagInfo["name"] = TiaPortalOpennessManager.GetPlcTagTableName(tagTable);
+                            tagInfo["tagTableInfo"] = "PLC Tag Table Object";
+                        }
                         break;
                         
                     default:
+                        // 对于其他类型，尝试使用通用方法获取名称
+                        string objectName = TiaPortalOpennessManager.GetObjectName(tag);
+                        if (!string.IsNullOrEmpty(objectName))
+                        {
+                            tagInfo["name"] = objectName;
+                        }
                         tagInfo["description"] = "Unknown Object Type";
                         break;
                 }

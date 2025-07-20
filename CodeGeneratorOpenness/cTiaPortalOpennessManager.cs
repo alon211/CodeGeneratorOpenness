@@ -1873,6 +1873,148 @@ namespace CodeGeneratorOpenness
         
         #endregion
         
+        #region 通用工具方法
+        
+        /// <summary>
+        /// 获取TIA Portal对象的名称
+        /// </summary>
+        /// <param name="obj">TIA Portal对象</param>
+        /// <returns>对象名称，如果获取失败返回空字符串</returns>
+        public static string GetObjectName(object obj)
+        {
+            try
+            {
+                if (obj == null)
+                {
+                    Logger.LogWarning("对象为空，无法获取名称", "TiaPortalOpennessManager.GetObjectName");
+                    return string.Empty;
+                }
+                
+                // 使用反射获取Name属性
+                var nameProperty = obj.GetType().GetProperty("Name");
+                if (nameProperty != null && nameProperty.CanRead)
+                {
+                    var name = nameProperty.GetValue(obj)?.ToString() ?? string.Empty;
+                    Logger.LogInfo($"获取对象名称成功: {name} (类型: {obj.GetType().Name})", "TiaPortalOpennessManager.GetObjectName");
+                    return name;
+                }
+                
+                Logger.LogWarning($"对象类型 {obj.GetType().Name} 不包含Name属性", "TiaPortalOpennessManager.GetObjectName");
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "获取对象名称");
+                return string.Empty;
+            }
+        }
+        
+        /// <summary>
+        /// 获取PlcSoftware对象的名称
+        /// </summary>
+        /// <param name="software">PlcSoftware对象</param>
+        /// <returns>软件名称</returns>
+        public static string GetPlcSoftwareName(PlcSoftware software)
+        {
+            try
+            {
+                if (software == null)
+                {
+                    Logger.LogError("PlcSoftware对象为空", "TiaPortalOpennessManager.GetPlcSoftwareName");
+                    return string.Empty;
+                }
+                
+                string name = software.Name;
+                Logger.LogInfo($"获取PlcSoftware名称: {name}", "TiaPortalOpennessManager.GetPlcSoftwareName");
+                return name;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "获取PlcSoftware名称");
+                return string.Empty;
+            }
+        }
+        
+        /// <summary>
+        /// 获取PlcBlock对象的名称
+        /// </summary>
+        /// <param name="block">PlcBlock对象</param>
+        /// <returns>程序块名称</returns>
+        public static string GetPlcBlockName(PlcBlock block)
+        {
+            try
+            {
+                if (block == null)
+                {
+                    Logger.LogError("PlcBlock对象为空", "TiaPortalOpennessManager.GetPlcBlockName");
+                    return string.Empty;
+                }
+                
+                string name = block.Name;
+                Logger.LogInfo($"获取PlcBlock名称: {name}", "TiaPortalOpennessManager.GetPlcBlockName");
+                return name;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "获取PlcBlock名称");
+                return string.Empty;
+            }
+        }
+        
+        /// <summary>
+        /// 获取PlcType对象的名称
+        /// </summary>
+        /// <param name="type">PlcType对象</param>
+        /// <returns>数据类型名称</returns>
+        public static string GetPlcTypeName(PlcType type)
+        {
+            try
+            {
+                if (type == null)
+                {
+                    Logger.LogError("PlcType对象为空", "TiaPortalOpennessManager.GetPlcTypeName");
+                    return string.Empty;
+                }
+                
+                string name = type.Name;
+                Logger.LogInfo($"获取PlcType名称: {name}", "TiaPortalOpennessManager.GetPlcTypeName");
+                return name;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "获取PlcType名称");
+                return string.Empty;
+            }
+        }
+        
+        /// <summary>
+        /// 获取PlcTagTable对象的名称
+        /// </summary>
+        /// <param name="tagTable">PlcTagTable对象</param>
+        /// <returns>标签表名称</returns>
+        public static string GetPlcTagTableName(PlcTagTable tagTable)
+        {
+            try
+            {
+                if (tagTable == null)
+                {
+                    Logger.LogError("PlcTagTable对象为空", "TiaPortalOpennessManager.GetPlcTagTableName");
+                    return string.Empty;
+                }
+                
+                string name = tagTable.Name;
+                Logger.LogInfo($"获取PlcTagTable名称: {name}", "TiaPortalOpennessManager.GetPlcTagTableName");
+                return name;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "获取PlcTagTable名称");
+                return string.Empty;
+            }
+        }
+        
+        #endregion
+        
         #region 嵌套类定义
         
         /// <summary>
