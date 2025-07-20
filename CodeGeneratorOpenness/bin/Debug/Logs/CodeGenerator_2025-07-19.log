@@ -1708,3 +1708,130 @@ The project could not be saved.
 [2025-07-19 20:00:17.501] [INFO] [TiaPortalOpennessManager.DisposeTiaPortalConnection]: 正在释放TIA Portal连接
 [2025-07-19 20:00:17.576] [INFO] [TiaPortalOpennessManager.DisposeTiaPortalConnection]: TIA Portal连接释放成功
 [2025-07-19 20:00:17.576] [INFO] [frmMainForm_Closing]: 程序关闭完成
+[2025-07-19 20:06:44.045] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project
+[2025-07-19 20:06:44.045] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project
+[2025-07-19 20:06:44.045] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\config
+[2025-07-19 20:06:44.045] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\config
+[2025-07-19 20:06:44.045] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 20:06:44.045] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 20:06:44.045] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template
+[2025-07-19 20:06:44.045] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template
+[2025-07-19 20:06:44.055] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output
+[2025-07-19 20:06:44.055] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output
+[2025-07-19 20:06:44.055] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Log
+[2025-07-19 20:06:44.055] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Log
+[2025-07-19 20:06:44.055] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Result
+[2025-07-19 20:06:44.055] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Result
+[2025-07-19 20:06:44.055] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Reports
+[2025-07-19 20:06:44.055] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Reports
+[2025-07-19 20:06:44.055] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Data
+[2025-07-19 20:06:44.055] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Data
+[2025-07-19 20:06:44.055] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\UserLibrary
+[2025-07-19 20:06:44.055] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\UserLibrary
+[2025-07-19 20:06:44.055] [INFO] [Program.InitializeDirectories]: 目录结构初始化完成
+[2025-07-19 20:06:44.102] [INFO] [frmStartup.Load]: 启动画面加载，开始检查模板文件路径
+[2025-07-19 20:06:44.102] [INFO] [CheckFilePathExists]: 开始检查文件路径: template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19
+[2025-07-19 20:06:44.102] [INFO] [CheckFilePathExists]: 转换后的绝对路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19
+[2025-07-19 20:06:44.102] [INFO] [CheckFilePathExists]: 文件路径存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19
+[2025-07-19 20:06:45.122] [INFO] [frmStartup.btnNewProject_Click]: 用户点击新建项目按钮
+[2025-07-19 20:06:49.605] [INFO] [CreateNewProject]: 用户输入的项目名称: P2
+[2025-07-19 20:06:49.605] [INFO] [CreateNewProject]: 开始创建新项目: P2
+[2025-07-19 20:06:49.605] [INFO] [CreateNewProject]: 模板路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19
+[2025-07-19 20:06:49.605] [INFO] [CreateNewProject]: 目标路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\P2
+[2025-07-19 20:06:49.605] [INFO] [CreateProjectFromTemplate]: 开始初始化TIA Portal
+[2025-07-19 20:06:49.605] [INFO] [CreateProjectFromTemplate]: 创建目标项目目录: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\P2
+[2025-07-19 20:06:49.605] [INFO] [TiaPortalOpennessManager.CreateTiaPortalConnection]: 正在创建TIA Portal连接，模式: WithoutUserInterface
+[2025-07-19 20:07:00.886] [INFO] [TiaPortalOpennessManager.CreateTiaPortalConnection]: TIA Portal连接创建成功
+[2025-07-19 20:07:00.886] [INFO] [CreateProjectFromTemplate]: 打开模板项目: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19
+[2025-07-19 20:07:00.886] [INFO] [TiaPortalOpennessManager.OpenProject]: 正在打开项目: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19
+[2025-07-19 20:07:01.889] [EXCEPTION] [打开项目]: 异常类型: EngineeringTargetInvocationException
+异常消息: Error when calling method 'Open' of type 'Siemens.Engineering.ProjectComposition'.
+
+Unable to open the project under path 'E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19'.
+
+An error occurred while opening the project
+无法访问项目/库 E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19。它已在计算机 DESKTOP-MOJ267K 上被用户 zhang 打开。注意：如果未正确关闭应用程序，则打开的项目和库只能在经过 2 分钟延时后再次打开。
+堆栈跟踪:    在 Siemens.Engineering.Private.Session.Siemens.Engineering.Private.IInstanceSession.InvokeFunc[T,TC](LifetimeContractHandle`1 lifetimeContractHandle, String name, IEnumerable`1 parameters, String fullName)
+   在 Siemens.Engineering.Private.InternalInstanceAccess`2.InvokeFunc[T](String name, IEnumerable`1 parameters)
+   在 Siemens.Engineering.ProjectComposition.Open(FileInfo path)
+   在 CodeGeneratorOpenness.TiaPortalOpennessManager.OpenProject(TiaPortal tiaPortal, String projectPath) 位置 E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\cTiaPortalOpennessManager.cs:行号 107
+[2025-07-19 20:07:01.889] [INFO] [TiaPortalOpennessManager.DisposeTiaPortalConnection]: 正在释放TIA Portal连接
+[2025-07-19 20:07:01.905] [INFO] [TiaPortalOpennessManager.DisposeTiaPortalConnection]: TIA Portal连接释放成功
+[2025-07-19 20:07:01.905] [EXCEPTION] [CreateProjectFromTemplate]: 异常类型: EngineeringTargetInvocationException
+异常消息: Error when calling method 'Open' of type 'Siemens.Engineering.ProjectComposition'.
+
+Unable to open the project under path 'E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19'.
+
+An error occurred while opening the project
+无法访问项目/库 E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19。它已在计算机 DESKTOP-MOJ267K 上被用户 zhang 打开。注意：如果未正确关闭应用程序，则打开的项目和库只能在经过 2 分钟延时后再次打开。
+堆栈跟踪:    在 Siemens.Engineering.Private.Session.Siemens.Engineering.Private.IInstanceSession.InvokeFunc[T,TC](LifetimeContractHandle`1 lifetimeContractHandle, String name, IEnumerable`1 parameters, String fullName)
+   在 Siemens.Engineering.Private.InternalInstanceAccess`2.InvokeFunc[T](String name, IEnumerable`1 parameters)
+   在 Siemens.Engineering.ProjectComposition.Open(FileInfo path)
+   在 CodeGeneratorOpenness.TiaPortalOpennessManager.OpenProject(TiaPortal tiaPortal, String projectPath) 位置 E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\cTiaPortalOpennessManager.cs:行号 107
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\config
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\config
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\treenode
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Log
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Log
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Result
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Result
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Reports
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Output\Reports
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Data
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\Data
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 检查目录路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\UserLibrary
+[2025-07-19 20:07:20.716] [INFO] [DirectoryUtils.EnsureDirectoryExists]: 目录已存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\UserLibrary
+[2025-07-19 20:07:20.716] [INFO] [Program.InitializeDirectories]: 目录结构初始化完成
+[2025-07-19 20:07:20.749] [INFO] [frmStartup.Load]: 启动画面加载，开始检查模板文件路径
+[2025-07-19 20:07:20.749] [INFO] [CheckFilePathExists]: 开始检查文件路径: template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19
+[2025-07-19 20:07:20.749] [INFO] [CheckFilePathExists]: 转换后的绝对路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19
+[2025-07-19 20:07:20.749] [INFO] [CheckFilePathExists]: 文件路径存在: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19
+[2025-07-19 20:07:23.003] [INFO] [frmStartup.btnNewProject_Click]: 用户点击新建项目按钮
+[2025-07-19 20:07:26.839] [INFO] [CreateNewProject]: 用户输入的项目名称: P2
+[2025-07-19 20:07:29.156] [INFO] [CreateNewProject]: 删除已存在的项目目录: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\P2
+[2025-07-19 20:07:29.156] [INFO] [CreateNewProject]: 开始创建新项目: P2
+[2025-07-19 20:07:29.157] [INFO] [CreateNewProject]: 模板路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19
+[2025-07-19 20:07:29.157] [INFO] [CreateNewProject]: 目标路径: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\P2
+[2025-07-19 20:07:29.167] [INFO] [CreateProjectFromTemplate]: 开始初始化TIA Portal
+[2025-07-19 20:07:29.168] [INFO] [CreateProjectFromTemplate]: 创建目标项目目录: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\P2
+[2025-07-19 20:07:29.168] [INFO] [TiaPortalOpennessManager.CreateTiaPortalConnection]: 正在创建TIA Portal连接，模式: WithoutUserInterface
+[2025-07-19 20:07:34.036] [INFO] [TiaPortalOpennessManager.CreateTiaPortalConnection]: TIA Portal连接创建成功
+[2025-07-19 20:07:34.036] [INFO] [CreateProjectFromTemplate]: 打开模板项目: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19
+[2025-07-19 20:07:34.036] [INFO] [TiaPortalOpennessManager.OpenProject]: 正在打开项目: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\template\Automation_Framework_PROJ_V1_2\Automation_Framework_PROJ_V1_2.ap19
+[2025-07-19 20:07:46.602] [INFO] [TiaPortalOpennessManager.OpenProject]: 项目打开成功: Automation_Framework_PROJ_V1_2
+[2025-07-19 20:07:46.602] [INFO] [CreateProjectFromTemplate]: 开始另存为新项目到: E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\P2
+[2025-07-19 20:07:46.602] [INFO] [TiaPortalOpennessManager.SaveProjectAs]: 正在另存为项目: Automation_Framework_PROJ_V1_2 到 E:\project\CodeGeneratorOpenness\CodeGeneratorOpenness\bin\Debug\project\P2
+[2025-07-19 20:07:54.687] [INFO] [TiaPortalOpennessManager.SaveProjectAs]: 项目另存为成功: P2
+[2025-07-19 20:07:55.479] [INFO] [CreateProjectFromTemplate]: 模板项目已关闭
+[2025-07-19 20:07:55.479] [INFO] [TiaPortalOpennessManager.DisposeTiaPortalConnection]: 正在释放TIA Portal连接
+[2025-07-19 20:07:55.492] [INFO] [TiaPortalOpennessManager.DisposeTiaPortalConnection]: TIA Portal连接释放成功
+[2025-07-19 20:07:55.507] [INFO] [CreateNewProject]: 新项目 'P2' 创建成功
+[2025-07-19 20:08:00.125] [INFO] [CreateNewProject]: 用户选择打开新创建的项目: P2
+[2025-07-19 20:08:00.141] [INFO] [cContextMenu.InitializeContextMenu]: 开始初始化通用右键菜单
+[2025-07-19 20:08:00.154] [INFO] [cContextMenu.InitializeContextMenu]: 通用右键菜单初始化完成
+[2025-07-19 20:08:00.154] [INFO] [frmMainForm]: 开始初始化主窗体构造函数
+[2025-07-19 20:08:00.211] [INFO] [frmMainForm]: InitializeComponent完成
+[2025-07-19 20:08:00.214] [INFO] [frmMainForm]: LoadIconsToImageList完成
+[2025-07-19 20:08:00.214] [INFO] [frmMainForm]: SetImageKeyNames完成
+[2025-07-19 20:08:00.215] [INFO] [LoadAdditionalIcons]: 开始加载附加图标
+[2025-07-19 20:08:00.216] [INFO] [LoadAdditionalIcons]: 变量表图标加载成功
+[2025-07-19 20:08:00.216] [INFO] [LoadAdditionalIcons]: 软件单元图标加载成功
+[2025-07-19 20:08:00.216] [INFO] [LoadAdditionalIcons]: 附加图标加载完成，当前图标总数: 14
+[2025-07-19 20:08:00.216] [INFO] [frmMainForm]: LoadAdditionalIcons完成
+[2025-07-19 20:08:00.217] [INFO] [cContextMenu.Initialize]: 右键菜单已绑定到TreeView
+[2025-07-19 20:08:00.217] [INFO] [frmMainForm]: 右键菜单组件初始化完成
+[2025-07-19 20:08:00.218] [INFO] [frmMainForm]: 开始防火墙设置
+[2025-07-19 20:08:00.224] [INFO] [frmMainForm]: 防火墙设置完成
+[2025-07-19 20:08:00.224] [INFO] [frmMainForm]: 主窗体构造函数初始化完成
+[2025-07-19 20:08:00.249] [INFO] [frmMainForm_Load]: 程序启动
+[2025-07-19 20:08:00.249] [INFO] [frmMainForm_Load]: 默认文件夹创建完成
+[2025-07-19 20:08:00.266] [INFO] [frmMainForm_Load]: 界面初始化完成
+[2025-07-19 20:08:02.278] [INFO] [frmMainForm_Closing]: 程序正在关闭
+[2025-07-19 20:08:02.278] [INFO] [frmMainForm_Closing]: 程序关闭完成

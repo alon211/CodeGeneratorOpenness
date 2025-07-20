@@ -336,6 +336,157 @@ namespace CodeGeneratorOpenness
         
         #endregion
         
+        #region 服务提供者管理
+        
+        /// <summary>
+        /// 获取PLC软件的PlcUnitProvider服务
+        /// </summary>
+        /// <param name="plcSoftware">PLC软件实例</param>
+        /// <returns>PlcUnitProvider实例</returns>
+        public static PlcUnitProvider GetPlcUnitProvider(PlcSoftware plcSoftware)
+        {
+            try
+            {
+                if (plcSoftware == null)
+                {
+                    Logger.LogError("PLC软件实例为空", "TiaPortalOpennessManager.GetPlcUnitProvider");
+                    return null;
+                }
+                
+                Logger.LogInfo($"正在获取PLC软件 {plcSoftware.Name} 的PlcUnitProvider服务", "TiaPortalOpennessManager.GetPlcUnitProvider");
+                
+                PlcUnitProvider unitProvider = plcSoftware.GetService<PlcUnitProvider>();
+                if (unitProvider != null)
+                {
+                    Logger.LogInfo("成功获取PlcUnitProvider服务", "TiaPortalOpennessManager.GetPlcUnitProvider");
+                }
+                else
+                {
+                    Logger.LogWarning("PlcUnitProvider服务为空", "TiaPortalOpennessManager.GetPlcUnitProvider");
+                }
+                
+                return unitProvider;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "获取PlcUnitProvider服务");
+                return null;
+            }
+        }
+        
+        /// <summary>
+        /// 获取项目库
+        /// </summary>
+        /// <param name="project">项目实例</param>
+        /// <returns>项目库实例</returns>
+        public static ProjectLibrary GetProjectLibrary(Project project)
+        {
+            try
+            {
+                if (project == null)
+                {
+                    Logger.LogError("项目实例为空", "TiaPortalOpennessManager.GetProjectLibrary");
+                    return null;
+                }
+                
+                Logger.LogInfo($"正在获取项目 {project.Name} 的项目库", "TiaPortalOpennessManager.GetProjectLibrary");
+                
+                ProjectLibrary projectLibrary = project.ProjectLibrary;
+                
+                if (projectLibrary != null)
+                {
+                    Logger.LogInfo("成功获取项目库", "TiaPortalOpennessManager.GetProjectLibrary");
+                }
+                else
+                {
+                    Logger.LogWarning("项目库为空", "TiaPortalOpennessManager.GetProjectLibrary");
+                }
+                
+                return projectLibrary;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "获取项目库");
+                return null;
+            }
+        }
+        
+        /// <summary>
+        /// 获取软件单元组合
+        /// </summary>
+        /// <param name="unitProvider">单元提供者</param>
+        /// <returns>软件单元组合</returns>
+        public static PlcUnitComposition GetPlcUnitComposition(PlcUnitProvider unitProvider)
+        {
+            try
+            {
+                if (unitProvider == null)
+                {
+                    Logger.LogError("单元提供者为空", "TiaPortalOpennessManager.GetPlcUnitComposition");
+                    return null;
+                }
+                
+                Logger.LogInfo("正在获取软件单元组合", "TiaPortalOpennessManager.GetPlcUnitComposition");
+                
+                PlcUnitComposition unitComposition = unitProvider.UnitGroup?.Units;
+                
+                if (unitComposition != null)
+                {
+                    Logger.LogInfo("成功获取软件单元组合", "TiaPortalOpennessManager.GetPlcUnitComposition");
+                }
+                else
+                {
+                    Logger.LogWarning("软件单元组合为空", "TiaPortalOpennessManager.GetPlcUnitComposition");
+                }
+                
+                return unitComposition;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "获取软件单元组合");
+                return null;
+            }
+        }
+        
+        /// <summary>
+        /// 获取软件单元系统组
+        /// </summary>
+        /// <param name="unitProvider">单元提供者</param>
+        /// <returns>软件单元系统组</returns>
+        public static PlcUnitSystemGroup GetPlcUnitSystemGroup(PlcUnitProvider unitProvider)
+        {
+            try
+            {
+                if (unitProvider == null)
+                {
+                    Logger.LogError("单元提供者为空", "TiaPortalOpennessManager.GetPlcUnitSystemGroup");
+                    return null;
+                }
+                
+                Logger.LogInfo("正在获取软件单元系统组", "TiaPortalOpennessManager.GetPlcUnitSystemGroup");
+                
+                PlcUnitSystemGroup unitSystemGroup = unitProvider.UnitGroup;
+                
+                if (unitSystemGroup != null)
+                {
+                    Logger.LogInfo("成功获取软件单元系统组", "TiaPortalOpennessManager.GetPlcUnitSystemGroup");
+                }
+                else
+                {
+                    Logger.LogWarning("软件单元系统组为空", "TiaPortalOpennessManager.GetPlcUnitSystemGroup");
+                }
+                
+                return unitSystemGroup;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "获取软件单元系统组");
+                return null;
+            }
+        }
+        
+        #endregion
+        
         #region 语言设置管理
         
         /// <summary>

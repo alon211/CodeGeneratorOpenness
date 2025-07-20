@@ -798,11 +798,11 @@ namespace CodeGeneratorOpenness
             {
                 Logger.LogInfo("开始加载软件单元组", "LoadSoftwareUnits");
 
-                // 通过GetService获取PlcUnitProvider
-                PlcUnitProvider unitProvider = software.GetService<PlcUnitProvider>();
+                // 使用TiaPortalOpennessManager封装方法获取PlcUnitProvider
+                PlcUnitProvider unitProvider = TiaPortalOpennessManager.GetPlcUnitProvider(software);
                 if (unitProvider != null)
                 {
-                    PlcUnitSystemGroup unitSystemGroup = unitProvider.UnitGroup;
+                    PlcUnitSystemGroup unitSystemGroup = TiaPortalOpennessManager.GetPlcUnitSystemGroup(unitProvider);
                     if (unitSystemGroup != null)
                     {
                         TreeNode unitsNode = new TreeNode($"Software Units ({GetUnitCount(unitSystemGroup)})");

@@ -383,31 +383,32 @@ namespace CodeGeneratorOpenness
                     return false;
                 }
                 
-                // 获取PlcUnitProvider
-                PlcUnitProvider unitProvider = frmMainForm.software.GetService<PlcUnitProvider>();
-                if (unitProvider?.UnitGroup == null)
+                // 使用TiaPortalOpennessManager封装的方法获取PlcUnitProvider
+                PlcUnitProvider unitProvider = TiaPortalOpennessManager.GetPlcUnitProvider(frmMainForm.software);
+                if (unitProvider == null)
                 {
-                    Logger.LogError("无法获取PlcUnitProvider或UnitGroup", "cContextMenu.ExecuteSoftwareUnitPaste");
+                    Logger.LogError("无法获取PlcUnitProvider", "cContextMenu.ExecuteSoftwareUnitPaste");
                     return false;
                 }
                 
-                // 获取项目库
-                ProjectLibrary projectLibrary = frmMainForm.project.ProjectLibrary;
+                // 使用TiaPortalOpennessManager封装的方法获取项目库
+                ProjectLibrary projectLibrary = TiaPortalOpennessManager.GetProjectLibrary(frmMainForm.project);
                 if (projectLibrary == null)
                 {
                     Logger.LogError("无法获取项目库", "cContextMenu.ExecuteSoftwareUnitPaste");
                     return false;
                 }
                 
-                // 步骤1: 将源软件单元复制到项目库作为主副本
-                MasterCopyComposition masterCopies = projectLibrary.MasterCopyFolder.MasterCopies;
-                IMasterCopySource unitAsMasterCopy = (IMasterCopySource)sourceUnit;
-                MasterCopy masterCopy = masterCopies.Create(unitAsMasterCopy);
-                Logger.LogInfo($"成功创建主副本: {masterCopy.Name}", "cContextMenu.ExecuteSoftwareUnitPaste");
+                // 使用TiaPortalOpennessManager封装的方法获取软件单元组合
+                PlcUnitComposition targetComposition = TiaPortalOpennessManager.GetPlcUnitComposition(unitProvider);
+                if (targetComposition == null)
+                {
+                    Logger.LogError("无法获取软件单元组合", "cContextMenu.ExecuteSoftwareUnitPaste");
+                    return false;
+                }
                 
-                // 步骤2: 从主副本创建新的软件单元实例
-                PlcUnitComposition targetComposition = unitProvider.UnitGroup.Units;
-                PlcUnit newUnit = targetComposition.CreateFrom(masterCopy);
+                // 使用TiaPortalOpennessManager封装的方法执行软件单元复制
+                PlcUnit newUnit = TiaPortalOpennessManager.CreateSoftwareUnitFromMasterCopy(sourceUnit, targetComposition, projectLibrary);
                 
                 Logger.LogInfo($"软件单元复制成功: {newUnit.Name}", "cContextMenu.ExecuteSoftwareUnitPaste");
                 return true;
