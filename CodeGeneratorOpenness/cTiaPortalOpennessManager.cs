@@ -27,6 +27,7 @@ using Siemens.Engineering.SW.Units;
 using Siemens.Engineering.Library;
 using Siemens.Engineering.Library.MasterCopies;
 using Siemens.Engineering.Compiler;
+using Siemens.Engineering.SW.Blocks.Interface;
 
 namespace CodeGeneratorOpenness
 {
@@ -58,6 +59,8 @@ namespace CodeGeneratorOpenness
                 throw;
             }
         }
+        
+
         
         /// <summary>
         /// 安全释放TIA Portal连接
@@ -827,7 +830,8 @@ namespace CodeGeneratorOpenness
                     Logger.LogError("程序块实例为空", "TiaPortalOpennessManager.ExportBlock");
                     return false;
                 }
-                
+                // 转为 sourceCode 对象
+                var sourceCode = block.GetSource() as ISourceCode;
                 if (string.IsNullOrWhiteSpace(exportPath))
                 {
                     Logger.LogError("导出路径不能为空", "TiaPortalOpennessManager.ExportBlock");
@@ -884,7 +888,7 @@ namespace CodeGeneratorOpenness
                 
                 if (importOptions == null)
                     importOptions = ImportOptions.Override;
-                
+                Logger.LogInfo($"程序块导入路径: {importPath}", "TiaPortalOpennessManager.ImportBlock");
                 blockGroup.Blocks.Import(new FileInfo(importPath), importOptions);
                 
                 Logger.LogInfo($"程序块导入成功从: {importPath}", "TiaPortalOpennessManager.ImportBlock");
@@ -897,6 +901,164 @@ namespace CodeGeneratorOpenness
             }
         }
         
+        public static bool ImportOrUpdateBlockFromSource(PlcBlockGroup blockGroup, string sourcePath)
+{
+    try
+    {
+        if (blockGroup == null)
+        {
+            Logger.LogError("程序块组实例为空", "TiaPortalOpennessManager.ImportOrUpdateBlockFromSource");
+            return false;
+        }
+
+        var sourceFile = new FileInfo(sourcePath);
+        if (!sourceFile.Exists)
+        {
+            Logger.LogError($"源文件不存在: {sourcePath}", "TiaPortalOpennessManager.ImportOrUpdateBlockFromSource");
+            return false;
+        }
+
+        // 从SCL文件内容中解析块名称
+        string blockName = GetBlockNameFromSclFile(sourcePath);
+        if (string.IsNullOrEmpty(blockName))
+        {
+            Logger.LogError($"无法从SCL文件中解析块名称: {sourcePath}", "TiaPortalOpennessManager.ImportOrUpdateBlockFromSource");
+            return false;
+        }
+
+        Logger.LogInfo($"准备从源文件创建或更新程序块 '{blockName}' 从: {sourcePath}", "TiaPortalOpennessManager.ImportOrUpdateBlockFromSource");
+
+        // 获取PlcSoftware实例
+        PlcSoftware plcSoftware = GetPlcSoftwareFromBlockGroup(blockGroup);
+        if (plcSoftware == null)
+        {
+            Logger.LogError("无法获取PlcSoftware实例", "TiaPortalOpennessManager.ImportOrUpdateBlockFromSource");
+            return false;
+        }
+
+        // 1. 检查块是否已存在
+        PlcBlock existingBlock = blockGroup.Blocks.FirstOrDefault(b => b.Name == blockName);
+
+        // 2. 如果存在，则删除它
+        if (existingBlock != null)
+        {
+            Logger.LogInfo($"块 '{blockName}' 已存在，正在删除旧版本...", "TiaPortalOpennessManager.ImportOrUpdateBlockFromSource");
+            existingBlock.Delete();
+            Logger.LogInfo($"旧版本块 '{blockName}' 删除成功。", "TiaPortalOpennessManager.ImportOrUpdateBlockFromSource");
+        }
+
+        // 3. 使用GenerateBlocksFromSource方法从SCL文件生成块
+        Logger.LogInfo($"正在使用GenerateBlocksFromSource从源文件 '{sourcePath}' 生成新块 '{blockName}'...", "TiaPortalOpennessManager.ImportOrUpdateBlockFromSource");
+        
+        // 首先创建外部源文件
+        PlcExternalSource externalSource = plcSoftware.ExternalSourceGroup.ExternalSources.CreateFromFile(blockName, sourcePath);
+        
+        // 从外部源生成块
+        IList<IEngineeringObject> generatedObjects = externalSource.GenerateBlocksFromSource(GenerateBlockOption.None);
+        
+        // 检查生成的对象
+        bool blockGenerated = false;
+        foreach (var obj in generatedObjects)
+        {
+            if (obj is PlcBlock generatedBlock)
+            {
+                Logger.LogInfo($"成功生成块: {generatedBlock.Name}", "TiaPortalOpennessManager.ImportOrUpdateBlockFromSource");
+                blockGenerated = true;
+                
+                // 注意：生成的块默认在ExternalSource下，需要移动到指定的BlockGroup
+                // 这里可能需要额外的移动逻辑，但通常GenerateBlocksFromSource会自动处理
+            }
+        }
+        
+        // 删除临时的外部源文件
+        externalSource.Delete();
+        
+        if (!blockGenerated)
+        {
+            Logger.LogError($"未能生成任何块从源文件: {sourcePath}", "TiaPortalOpennessManager.ImportOrUpdateBlockFromSource");
+            return false;
+        }
+
+        Logger.LogInfo($"程序块 '{blockName}' 创建/更新成功。", "TiaPortalOpennessManager.ImportOrUpdateBlockFromSource");
+        return true;
+    }
+    catch (Exception ex)
+    {
+        // GenerateBlocksFromSource 可能会因为编译错误而失败，这里的异常捕获很重要
+        Logger.LogException(ex, "从源文件创建/更新程序块");
+        return false;
+    }
+}
+        /// <summary>
+        /// 从PlcBlockGroup获取PlcSoftware实例
+        /// </summary>
+        /// <param name="blockGroup">程序块组</param>
+        /// <returns>PlcSoftware实例</returns>
+        private static PlcSoftware GetPlcSoftwareFromBlockGroup(PlcBlockGroup blockGroup)
+        {
+            try
+            {
+                // 通过反射或者已知的层次结构获取PlcSoftware
+                // 这里假设blockGroup有Parent属性指向PlcSoftware
+                var parent = blockGroup.Parent;
+                while (parent != null && !(parent is PlcSoftware))
+                {
+                    parent = parent.Parent;
+                }
+                return parent as PlcSoftware;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "从PlcBlockGroup获取PlcSoftware实例");
+                return null;
+            }
+        }
+        
+        /// <summary>
+        /// 从SCL文件中获取块名称
+        /// </summary>
+        /// <param name="sclFilePath">SCL文件路径</param>
+        /// <returns>块名称，如果解析失败返回null</returns>
+        public static string GetBlockNameFromSclFile(string sclFilePath)
+        {
+            try
+            {
+                if (!File.Exists(sclFilePath))
+                {
+                    Logger.LogError($"SCL文件不存在: {sclFilePath}", "TiaPortalOpennessManager.GetBlockNameFromSclFile");
+                    return null;
+                }
+
+                string[] lines = File.ReadAllLines(sclFilePath);
+                if (lines.Length < 2)
+                {
+                    Logger.LogError($"SCL文件格式不正确，行数少于2行: {sclFilePath}", "TiaPortalOpennessManager.GetBlockNameFromSclFile");
+                    return null;
+                }
+
+                // 获取第二行内容
+                string secondLine = lines[1].Trim();
+                Logger.LogInfo($"SCL文件第二行内容: {secondLine}", "TiaPortalOpennessManager.GetBlockNameFromSclFile");
+
+                // 使用空格分割，获取第二个部分（第一个空格后面的字符串）
+                string[] parts = secondLine.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length < 2)
+                {
+                    Logger.LogError($"SCL文件第二行格式不正确，无法解析块名称: {secondLine}", "TiaPortalOpennessManager.GetBlockNameFromSclFile");
+                    return null;
+                }
+
+                string blockName = parts[1];
+                Logger.LogInfo($"从SCL文件解析出的块名称: {blockName}", "TiaPortalOpennessManager.GetBlockNameFromSclFile");
+                return blockName;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, "从SCL文件获取块名称");
+                return null;
+            }
+        }
+
         #endregion
         
         #region 设备和项目操作
@@ -1428,6 +1590,12 @@ namespace CodeGeneratorOpenness
                 return false;
             }
         }
+        
+
+        
+
+        
+
         
         /// <summary>
         /// 处理块导入冲突（重命名或覆盖）

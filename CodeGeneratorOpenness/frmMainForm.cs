@@ -986,7 +986,7 @@ namespace CodeGeneratorOpenness
 
                         using (OpenFileDialog openFileDialog = new OpenFileDialog())
                         {
-                            openFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
+                            openFileDialog.Filter = "PLC Block files (*.xml;*.scl)|*.xml;*.scl|XML files (*.xml)|*.xml|SCL files (*.scl)|*.scl|All files (*.*)|*.*";
                             openFileDialog.FilterIndex = 1;
                             openFileDialog.InitialDirectory = importPath;
 
@@ -996,20 +996,32 @@ namespace CodeGeneratorOpenness
                                 Properties.Settings.Default.Save();
 
                                 PlcBlockGroup group = (PlcBlockGroup)sel;
-                                cImportBlock f = new cImportBlock(openFileDialog.FileName);
-                                if (f.BlockName != string.Empty)
+                                string fileExtension = Path.GetExtension(openFileDialog.FileName).ToLower();
+                                
+                                if (fileExtension == ".scl")
                                 {
-                                    // check if the data type exists
-                                    if (!groups.NameExists(f.BlockName, software))
+                                    // SCL文件导入逻辑
+                                    string blockName = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
+                                    
+                                    // check if the block exists
+                                    if (!groups.NameExists(blockName, software))
                                     {
-                                        // import the file
-                                        group.Blocks.Import(f.XmlFileInfo, ImportOptions.None);
-                                        IterateThroughDevices(project);
+                                        // import the SCL file
+                                        bool result = TiaPortalOpennessManager.ImportOrUpdateBlockFromSource(group, openFileDialog.FileName);
+                                        if (result)
+                                        {
+                                            IterateThroughDevices(project);
+                                        }
+                                        else
+                                        {
+                                            
+                                            MessageError("Failed to import SCL block", "Import Error");
+                                        }
                                     }
                                     else
                                     {
                                         // overwrite? yes = overwrite / no = new name / cancel = just cancel
-                                        res = MessageBox.Show("Data block " + f.BlockName + " exists already. Overwrite(Yes) or Rename(No) ?",
+                                        res = MessageBox.Show("Block " + blockName + " exists already. Overwrite(Yes) or Rename(No) ?",
                                                               "Overwrite / Rename",
                                                               MessageBoxButtons.YesNoCancel,
                                                               MessageBoxIcon.Question);
@@ -1017,36 +1029,91 @@ namespace CodeGeneratorOpenness
                                         if (res == DialogResult.Yes)
                                         {
                                             // overwrite plc block
-                                            group.Blocks.Import(f.XmlFileInfo, ImportOptions.Override);
-                                            IterateThroughDevices(project);
+                                            bool result = TiaPortalOpennessManager.ImportOrUpdateBlockFromSource(group, openFileDialog.FileName);
+                                            if (result)
+                                            {
+                                                IterateThroughDevices(project);
+                                            }
+                                            else
+                                            {
+                                                MessageError("Failed to overwrite SCL block", "Import Error");
+                                            }
                                         }
                                         else if (res == DialogResult.No)
                                         {
-                                            // with a different name we need to save a copy 
-                                            res = DialogResult.OK;
-                                            string newName = f.BlockName;
-
-                                            while (groups.NameExists(newName, software) && res == DialogResult.OK)
-                                            {
-                                                res = Input.InputBox("New block name", "Enter a new block name", ref newName);
-                                            }
-                                            // we don't cancel, so import with new name
-                                            if (res == DialogResult.OK)
-                                            {
-                                                f.BlockName = newName;
-                                                f.SaveXml(Application.StartupPath + "\\Temp\\temp.xml");
-
-                                                group.Blocks.Import(f.XmlFileInfo, ImportOptions.None);
-                                                IterateThroughDevices(project);
-                                            }
+                                            MessageOK("SCL block renaming is not supported yet. Please rename the file manually.", "Rename Not Supported");
                                         }
                                     }
-
                                 }
                                 else
                                 {
-                                    MessageOK("The file " + Path.GetFileName(openFileDialog.FileName) + " is not PLC block",
-                                              "Not a PLC block file");
+                                    // XML文件导入逻辑（原有逻辑）
+                                    cImportBlock f = new cImportBlock(openFileDialog.FileName);
+                                    
+                                    if (f.BlockName != string.Empty)
+                                    {
+                                        // check if the data type exists
+                                        if (!groups.NameExists(f.BlockName, software))
+                                        {
+                                            // import the file
+                                            bool result = TiaPortalOpennessManager.ImportBlock(group, f.XmlFileInfo.FullName, ImportOptions.None);
+                                            if (result)
+                                            {
+                                                IterateThroughDevices(project);
+                                            }
+                                            else
+                                            {
+                                                MessageError("Failed to import block", "Import Error");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // overwrite? yes = overwrite / no = new name / cancel = just cancel
+                                            res = MessageBox.Show("Data block " + f.BlockName + " exists already. Overwrite(Yes) or Rename(No) ?",
+                                                                  "Overwrite / Rename",
+                                                                  MessageBoxButtons.YesNoCancel,
+                                                                  MessageBoxIcon.Question);
+
+                                            if (res == DialogResult.Yes)
+                                            {
+                                                // overwrite plc block
+                                                bool result = TiaPortalOpennessManager.ImportBlock(group, f.XmlFileInfo.FullName, ImportOptions.Override);
+                                                if (result)
+                                                {
+                                                    IterateThroughDevices(project);
+                                                }
+                                                else
+                                                {
+                                                    MessageError("Failed to overwrite block", "Import Error");
+                                                }
+                                            }
+                                            else if (res == DialogResult.No)
+                                            {
+                                                // with a different name we need to save a copy 
+                                                res = DialogResult.OK;
+                                                string newName = f.BlockName;
+
+                                                while (groups.NameExists(newName, software) && res == DialogResult.OK)
+                                                {
+                                                    res = Input.InputBox("New block name", "Enter a new block name", ref newName);
+                                                }
+                                                // we don't cancel, so import with new name
+                                                if (res == DialogResult.OK)
+                                                {
+                                                    f.BlockName = newName;
+                                                    f.SaveXml(Application.StartupPath + "\\Temp\\temp.xml");
+
+                                                    group.Blocks.Import(f.XmlFileInfo, ImportOptions.None);
+                                                    IterateThroughDevices(project);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageOK("The file " + Path.GetFileName(openFileDialog.FileName) + " is not PLC block",
+                                                  "Not a PLC block file");
+                                    }
                                 }
                             }
                         }
@@ -1181,42 +1248,40 @@ namespace CodeGeneratorOpenness
 
                         if (block.IsConsistent)
                         {
+                            // 其他编程语言继续使用XML格式导出
+                            string fPath = Application.StartupPath + "\\Export\\" +
+                                block.ProgrammingLanguage.ToString() + "_" +
+                                block.Name + "_" +
+                                "V" + block.HeaderVersion.ToString() +
+                                ".scl";
+                            fPath = GetNextFileName(fPath);
+
+                            FileInfo f = new FileInfo(fPath);
+                            block.Export(f, ExportOptions.None);
+
+                            MessageOK("File " + Path.GetFileName(fPath) + " has been exported",
+                                        "Export");
                             // 当编程语言为SCL时，导出纯文本格式
-                            if (block.ProgrammingLanguage.ToString() == "SCL")
-                            {
-                                string fPath = Application.StartupPath + "\\Export\\" +
-                                    block.ProgrammingLanguage.ToString() + "_" +
-                                    block.Name + "_" +
-                                    "V" + block.HeaderVersion.ToString() +
-                                    ".scl";
-                                fPath = GetNextFileName(fPath);
+                            // if (block.ProgrammingLanguage.ToString() == "SCL")
+                            // {
+                            //     fPath = Application.StartupPath + "\\Export\\" +
+                            //         block.ProgrammingLanguage.ToString() + "_" +
+                            //         block.Name + "_" +
+                            //         "V" + block.HeaderVersion.ToString() +
+                            //         ".scl";
+                            //     fPath = GetNextFileName(fPath);
 
-                                FileInfo f = new FileInfo(fPath);
+                            //     f = new FileInfo(fPath);
                                 
-                                // 使用PlcExternalSourceSystemGroup.GenerateSource导出纯文本SCL
-                                PlcExternalSourceSystemGroup externalSourceGroup = software.ExternalSourceGroup;
-                                var blocks = new List<PlcBlock>() { block };
-                                externalSourceGroup.GenerateSource(blocks, f, GenerateOptions.None);
+                            //     // 使用PlcExternalSourceSystemGroup.GenerateSource导出纯文本SCL
+                            //     PlcExternalSourceSystemGroup externalSourceGroup = software.ExternalSourceGroup;
+                            //     var blocks = new List<PlcBlock>() { block };
+                            //     externalSourceGroup.GenerateSource(blocks, f, GenerateOptions.None);
 
-                                MessageOK("File " + Path.GetFileName(fPath) + " has been exported as plain text SCL",
-                                          "Export");
-                            }
-                            else
-                            {
-                                // 其他编程语言继续使用XML格式导出
-                                string fPath = Application.StartupPath + "\\Export\\" +
-                                    block.ProgrammingLanguage.ToString() + "_" +
-                                    block.Name + "_" +
-                                    "V" + block.HeaderVersion.ToString() +
-                                    ".xml";
-                                fPath = GetNextFileName(fPath);
-
-                                FileInfo f = new FileInfo(fPath);
-                                block.Export(f, ExportOptions.None);
-
-                                MessageOK("File " + Path.GetFileName(fPath) + " has been exported",
-                                          "Export");
-                            }
+                            //     MessageOK("File " + Path.GetFileName(fPath) + " has been exported as plain text SCL",
+                            //               "Export");
+                            // }
+                            
                         }
                         else
                             MessageError("Block " + block.Name + " is not consistent. Please compile",
