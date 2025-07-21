@@ -1,5 +1,5 @@
 ## agent
-1. I created a fun Agent called「西门子代码专家」 with Trae. Click https://s.trae.ai/a/cd8fe3 to duplicate it and try it out together!
+1. 我用Trae 做了一个有意思的Agent 「西门子代码专家」。 点击 https://s.trae.ai/a/72a7f9 立即复刻，一起来玩吧！
 
 ## MCP
 {
